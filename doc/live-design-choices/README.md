@@ -9,6 +9,7 @@ user tried and rejected.
 
 | File | Covers |
 |---|---|
+| [downloads-page.md](downloads-page.md) | Why the page is the README and not a website, and why it shows no version numbers |
 
 ## Writing a new one
 

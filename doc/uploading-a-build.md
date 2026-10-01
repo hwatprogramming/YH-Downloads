@@ -9,7 +9,8 @@ You don't need this repo cloned to upload. Every command below takes
 ## Rules
 
 - **This repo is public.** Anything uploaded can be downloaded by anyone straight away.
-  Ask before you upload, every time.
+  Ask before you upload, every time. One yes covers the upload and the downloads page
+  commit that goes with it, so don't ask twice.
 - **Built files only.** APK, exe, zip of a built app. Never source code, keystores,
   signing keys, `.env` files or anything with a password or token in it.
 - **Upload to Releases, never commit a build into the repo.** Git keeps every old
@@ -51,9 +52,33 @@ https://github.com/hwatprogramming/YH-Downloads/releases/download/<tag>/<file na
    ```
    gh release create yt-music "path/to/yt-music.apk" --repo hwatprogramming/YH-Downloads --title "YT Music v1.0" --notes "v1.0, 2026-10-01. First upload."
    ```
-5. Add the app to the list in this repo's `README.md`: name, one line on what it does,
-   and the download link. Make the file if it isn't there yet. This is the one step
-   that needs this repo cloned. It sits next to the app repos, at `../YH-Downloads`.
+5. Add the app to the downloads page, then commit and push it. See the next section.
+
+## Adding a new app to the downloads page
+
+The downloads page is this repo's `README.md`. It's a table with one row per app.
+This is the one step that needs this repo cloned. It sits next to the app repos, at
+`../YH-Downloads`. If the folder isn't there, clone it there first.
+
+1. Get the latest copy:
+   ```
+   git -C ../YH-Downloads pull
+   ```
+2. Add one row to the table in `README.md`. Name, one plain line on what it does, and
+   the download link:
+   ```
+   | YT Music | Downloads music from YouTube to your phone | [yt-music.apk](https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music/yt-music.apk) |
+   ```
+3. If the line `Nothing uploaded yet.` is still under the table, remove it.
+4. Commit and push:
+   ```
+   git -C ../YH-Downloads add README.md
+   git -C ../YH-Downloads commit -m "docs: add YT Music to the downloads page"
+   git -C ../YH-Downloads push
+   ```
+
+Don't put the version number in the row. The row only changes when an app is added,
+renamed or removed, so an update never needs a commit here.
 
 ## Updating an app that's already here
 
@@ -66,6 +91,9 @@ https://github.com/hwatprogramming/YH-Downloads/releases/download/<tag>/<file na
    ```
    gh release edit yt-music --repo hwatprogramming/YH-Downloads --title "YT Music v1.1" --notes "v1.1, 2026-10-08. Playlists."
    ```
+
+The downloads page doesn't change on an update, cause the link stays the same.
+Nothing to commit or push.
 
 ## Check it worked
 
