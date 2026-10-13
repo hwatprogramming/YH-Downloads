@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YH Downloads, the category standard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF; --ink:#111827; --body:#374151; --quiet:#4B5563; --line:#E5E7EB; --gold:#EDBB4E; --app-ink:#16202C}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh; background:var(--bg); color:var(--ink);
+  font-family:'Hanken Grotesk',sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--app-ink)}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+.nav{height:72px; padding:0 72px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line)}
+.nav a{font-weight:800; font-size:19px; text-decoration:none; letter-spacing:-.01em}
+.nav span{font-size:15px; color:var(--quiet)}
+
+.hero{max-width:1200px; margin:0 auto; padding:64px 72px 0; display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:96px; align-items:center}
+.hero svg.icon{display:block; border-radius:18px; box-shadow:0 8px 20px rgba(17,24,39,.14)}
+h1{margin:26px 0 0; font-weight:800; font-size:64px; line-height:1.04; letter-spacing:-.03em; text-wrap:balance}
+.hook{margin:20px 0 0; font-size:21px; line-height:1.5; color:var(--body); max-width:28em}
+.get{margin-top:34px; display:flex; align-items:center; gap:20px; flex-wrap:wrap}
+.btn{
+  display:inline-flex; align-items:center; gap:12px; height:58px; padding:0 26px; border-radius:12px; text-decoration:none;
+  background:var(--ink); color:#fff; font-weight:700; font-size:18px;
+  transition:background-color .2s cubic-bezier(.16,1,.3,1);
+}
+.btn:hover{background:#1F2937}
+.btn svg{color:var(--gold)}
+.file{margin:0; font-size:15px; line-height:1.4; color:var(--quiet)}
+
+.phone{margin:0; height:560px; overflow:hidden; padding:10px 10px 0; border-radius:40px 40px 0 0; background:var(--ink); box-shadow:0 24px 48px rgba(17,24,39,.18)}
+.phone img{display:block; width:100%; height:auto; border-radius:30px 30px 0 0}
+
+.features{max-width:1200px; margin:0 auto; padding:40px 72px 72px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:48px; border-top:1px solid var(--line)}
+.features h2{margin:0; font-size:18px; font-weight:700; letter-spacing:-.01em}
+.features p{margin:6px 0 0; font-size:16px; color:var(--body)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a href="#top">YH Downloads</a>
+  <span>Apps I've built, ready to download.</span>
+</header>
+
+<main id="top">
+  <section class="hero" id="music-downloader">
+    <div>
+      <svg class="icon" viewBox="18 18 72 72" width="76" height="76" role="img" aria-label="Music Downloader's app icon">
+        <rect x="18" y="18" width="72" height="72" fill="#EDBB4E"/>
+        <path fill="#16202C" d="M50.5,24h7v42h-7z"/>
+        <path fill="#16202C" d="M36.75,35a2.25,2.25 0,0 1,2.25 2.25v3.5a2.25,2.25 0,0 1,-4.5 0v-3.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+        <path fill="#16202C" d="M44.25,29a2.25,2.25 0,0 1,2.25 2.25v10.5a2.25,2.25 0,0 1,-4.5 0v-10.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+        <path fill="#16202C" d="M63.75,27a2.25,2.25 0,0 1,2.25 2.25v12.5a2.25,2.25 0,0 1,-4.5 0v-12.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+        <path fill="#16202C" d="M71.25,33a2.25,2.25 0,0 1,2.25 2.25v5.5a2.25,2.25 0,0 1,-4.5 0v-5.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+        <path fill="none" stroke="#16202C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M38,52L54,68L70,52"/>
+        <path fill="#16202C" d="M40.75,77h26.5a2.75,2.75 0,0 1,0 5.5h-26.5a2.75,2.75 0,0 1,0 -5.5z"/>
+      </svg>
+      <h1>Music Downloader</h1>
+      <p class="hook">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+      <div class="get">
+        <a class="btn" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/music-downloader/music-downloader.apk">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+          <span>Download for Android</span>
+        </a>
+        <p class="file">music-downloader.apk<br>Android 10 and up</p>
+      </div>
+    </div>
+    <figure class="phone">
+      <img src="assets/md-screen.png" width="1200" height="2450" alt="The app's Download screen: a link box, a Download button, and songs downloading below">
+    </figure>
+  </section>
+
+  <section class="features" aria-label="What it does">
+    <div><h2>Songs and playlists</h2><p>Paste one song's link or a whole playlist's.</p></div>
+    <div><h2>Properly tagged</h2><p>Title, artist, album and cover art filled in.</p></div>
+    <div><h2>Share from YT Music</h2><p>Send a link to the app straight from the share menu.</p></div>
+  </section>
+</main>
+
+</body>
+</html>

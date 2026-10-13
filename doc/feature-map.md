@@ -6,7 +6,18 @@ then gets built.
 
 A map, not a plan. No order, no dates, no status. Keep it to one page.
 
-[One `##` heading per screen, with its features listed under it. None yet.]
+[One `##` heading per screen, with its features listed under it.]
+
+## Downloads page
+
+One long page. It's `README.md` today and is moving to a website.
+
+- The page's name and one line on what the page is.
+- One section per app, in that app's own theme. A section has:
+  - the app's name
+  - what the app does
+  - its download link, with the file name and what it runs on
+  - a picture of the app
 
 ## Not placed yet
 
