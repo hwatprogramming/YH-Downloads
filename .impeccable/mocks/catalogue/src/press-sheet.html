@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YH Downloads, Press sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Familjen+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* The site's own look: one uncut press sheet printed in white ink on black stock, lying
+   on a black cutting mat. Colour only comes from the apps, each printed in its own two inks. */
+:root{--mat:#0F1110; --matline:#212624; --sheet:#1C1C1F; --reg:#F1F0EA; --m:10px}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh; color:var(--reg); font-family:'Familjen Grotesk',sans-serif; font-size:17px; line-height:1.45; -webkit-font-smoothing:antialiased;
+  background:
+    linear-gradient(var(--matline) 1px, transparent 1px) 0 0/24px 24px,
+    linear-gradient(90deg, var(--matline) 1px, transparent 1px) 0 0/24px 24px,
+    var(--mat);
+}
+::selection{background:var(--reg); color:var(--sheet)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--reg); outline-offset:4px}
+
+.grain{
+  position:fixed; inset:0; z-index:20; pointer-events:none; mix-blend-mode:screen; opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.93  0 0 0 0 0.9  0 0 0 0 0.86  0 0 0 .2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.sheet{
+  position:relative; max-width:1240px; margin:8px; padding:30px 10px 22px; background:var(--sheet);
+  box-shadow:0 0 0 1px rgba(255,255,255,.07), 0 30px 50px -24px rgba(0,0,0,.9); transform:rotate(-.4deg);
+}
+.reg{position:absolute; width:22px; height:22px; color:var(--reg)}
+.reg.t{top:6px; left:50%; margin-left:-11px}
+.reg.b{bottom:6px; left:50%; margin-left:-11px}
+.reg.l,.reg.r{display:none}
+
+/* The sheet's head: the site's header. The colour bar along it is the catalogue. */
+.head{padding:0 4px 18px}
+.head h1{margin:0; font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:48px; line-height:.95; letter-spacing:-.01em}
+.head p{margin:10px 0 0; max-width:36ch; font-size:17px; font-weight:600}
+
+.bar{display:flex; gap:10px; margin:18px -10px 0; padding:0 10px 6px; overflow-x:auto; scrollbar-width:thin}
+.bar a{
+  flex:none; display:flex; align-items:center; gap:10px; min-height:48px; padding:6px 12px 6px 6px;
+  border:2px solid var(--reg); text-decoration:none; font-weight:700; font-size:15px; background:var(--sheet);
+}
+.patch{display:flex; flex:none; outline:1px solid rgba(241,240,234,.4)}
+.patch i{display:block; width:18px; height:30px}
+.patch i:first-child{background:var(--dark)}
+.patch i:last-child{background:var(--light)}
+.steps{flex:none; display:flex; align-items:stretch; border:2px solid var(--reg)}
+.steps i{display:block; width:16px; background:var(--reg)}
+.steps i:nth-child(1){opacity:1}.steps i:nth-child(2){opacity:.75}.steps i:nth-child(3){opacity:.5}.steps i:nth-child(4){opacity:.25}.steps i:nth-child(5){opacity:.06}
+@media (hover:hover){.bar a:hover{background:var(--reg); color:var(--sheet)}}
+
+/* Imposition: each app sits in a slot with crop marks at its corners. */
+.imposition{display:grid; grid-template-columns:minmax(0,1fr)}
+.slot{
+  padding:var(--m);
+  background:
+    linear-gradient(var(--reg),var(--reg)) left 0 top var(--m)/calc(var(--m) - 4px) 1px no-repeat,
+    linear-gradient(var(--reg),var(--reg)) left var(--m) top 0/1px calc(var(--m) - 4px) no-repeat,
+    linear-gradient(var(--reg),var(--reg)) right 0 top var(--m)/calc(var(--m) - 4px) 1px no-repeat,
+    linear-gradient(var(--reg),var(--reg)) right var(--m) top 0/1px calc(var(--m) - 4px) no-repeat,
+    linear-gradient(var(--reg),var(--reg)) left 0 bottom var(--m)/calc(var(--m) - 4px) 1px no-repeat,
+    linear-gradient(var(--reg),var(--reg)) left var(--m) bottom 0/1px calc(var(--m) - 4px) no-repeat,
+    linear-gradient(var(--reg),var(--reg)) right 0 bottom var(--m)/calc(var(--m) - 4px) 1px no-repeat,
+    linear-gradient(var(--reg),var(--reg)) right var(--m) bottom 0/1px calc(var(--m) - 4px) no-repeat;
+}
+
+/* One app's print: its dark ink as the ground, its light ink as a second plate set a
+   hair out of register. Hovering knocks it further out. */
+.panel{position:relative; isolation:isolate; height:100%; padding:20px 16px 22px; color:var(--light); scroll-margin-top:24px}
+.panel::before,.panel::after{content:""; position:absolute; inset:0; z-index:-1}
+.panel::before{background:var(--light); transform:translate(5px,4px); transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.panel::after{background:var(--dark)}
+@media (hover:hover){.panel:hover::before{transform:translate(10px,8px)}}
+.panel:focus-within::before{transform:translate(10px,8px)}
+
+.title{display:flex; align-items:center; gap:14px}
+.icon{flex:none; width:56px; height:56px; border-radius:14px; overflow:hidden; display:grid; place-items:center}
+.icon img{display:block; width:100%; height:100%}
+.icon.letter{background:var(--light); color:var(--dark); font-family:'Bagel Fat One',sans-serif; font-size:30px}
+.panel h2{margin:0; font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:32px; line-height:1; text-wrap:balance}
+.line{margin:16px 0 0; font-size:18px; font-weight:500; line-height:1.4; max-width:40ch}
+.meta{margin:8px 0 0; font-size:15px; font-weight:700; opacity:.85}
+.acts{display:flex; flex-wrap:wrap; align-items:center; gap:14px 20px; margin-top:22px}
+.dl{
+  display:inline-flex; align-items:center; gap:10px; min-height:54px; padding:0 20px; background:var(--light); color:var(--dark);
+  text-decoration:none; font-family:'Bagel Fat One',sans-serif; font-size:18px; white-space:nowrap; transform:rotate(-1deg);
+}
+.dl svg{width:22px; height:22px; flex:none}
+.open{font-weight:700; font-size:16px; text-underline-offset:4px; text-decoration-thickness:2px}
+.ph{margin:14px 0 0; font-size:14px; font-weight:600; opacity:.8}
+
+.shot{position:relative; margin:24px 0 0; width:86%; transform:rotate(2deg)}
+.shot::before{content:""; position:absolute; left:-10px; top:10px; width:100%; height:100%; background:var(--light)}
+.shot img{position:relative; display:block; width:100%; height:auto; filter:grayscale(1) contrast(1.3) brightness(1.15)}
+
+.foot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px; padding:14px 4px 12px; font-size:13px; font-weight:700; letter-spacing:.03em}
+
+@media (min-width:760px){
+  :root{--m:22px}
+  .sheet{margin:40px auto; padding:48px 40px 36px; width:calc(100% - 80px)}
+  .reg.l,.reg.r{display:block; top:50%; margin-top:-11px}
+  .reg.l{left:10px}.reg.r{right:10px}
+  .head{display:grid; grid-template-columns:auto minmax(0,1fr); align-items:end; column-gap:32px; padding:0 22px 22px}
+  .head h1{font-size:76px}
+  .head p{margin:0 0 6px}
+  .bar{grid-column:1 / -1; margin:24px 0 0; padding:0 0 6px}
+  .imposition{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slot.lead{grid-column:1 / -1}
+  .lead .panel{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); column-gap:36px; align-items:center; padding:36px 36px 40px}
+  .lead .shot{margin:0; width:100%}
+  .lead h2{font-size:52px}
+  .panel{padding:28px 28px 30px}
+  .dl{font-size:20px; padding:0 20px}
+  .icon{width:64px; height:64px; border-radius:16px}
+  .foot{padding:18px 22px 6px}
+}
+@media (prefers-reduced-motion:reduce){.panel::before{transition:none}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="sheet">
+  <svg class="reg t" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 0v24M0 12h24" stroke="currentColor" stroke-width="1.3"/></svg>
+  <svg class="reg b" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 0v24M0 12h24" stroke="currentColor" stroke-width="1.3"/></svg>
+  <svg class="reg l" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 0v24M0 12h24" stroke="currentColor" stroke-width="1.3"/></svg>
+  <svg class="reg r" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 0v24M0 12h24" stroke="currentColor" stroke-width="1.3"/></svg>
+
+  <header class="head">
+    <h1>YH Downloads</h1>
+    <p>Apps I've built, ready to download. Each one is printed in its own inks.</p>
+    <nav class="bar" aria-label="Apps">
+      <a href="#yt-music-downloader" style="--dark:#16202C; --light:#EDBB4E"><span class="patch" aria-hidden="true"><i></i><i></i></span>YT Music Downloader</a>
+      <a href="#example-app" style="--dark:#006A70; --light:#FFD0C6"><span class="patch" aria-hidden="true"><i></i><i></i></span>Example app</a>
+      <a href="#another-example" style="--dark:#765BA7; --light:#FFE800"><span class="patch" aria-hidden="true"><i></i><i></i></span>Another example</a>
+      <span class="steps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    </nav>
+  </header>
+
+  <main class="imposition">
+    <div class="slot lead">
+      <article class="panel" id="yt-music-downloader" style="--dark:#16202C; --light:#EDBB4E">
+        <div>
+          <div class="title">
+            <span class="icon"><img src="assets/ytmd-icon.svg" alt=""></span>
+            <h2>YT Music Downloader</h2>
+          </div>
+          <p class="line">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+          <p class="meta">Android 10 and up · yt-music-downloader.apk</p>
+          <div class="acts">
+            <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+            <a class="open" href="../../decision/src/challenger-risograph.html">Setup, how to use it, FAQ</a>
+          </div>
+        </div>
+        <figure class="shot" style="margin-bottom:0">
+          <img src="../../decision/src/assets/md-history.png" width="1200" height="1060" alt="The app's History tab, listing five downloads">
+        </figure>
+      </article>
+    </div>
+
+    <div class="slot">
+      <article class="panel" id="example-app" style="--dark:#006A70; --light:#FFD0C6">
+        <div class="title">
+          <span class="icon letter" aria-hidden="true">E</span>
+          <h2>Example app</h2>
+        </div>
+        <p class="line">Placeholder. Shows how a Windows app sits on the sheet.</p>
+        <p class="meta">Windows 10 and up · example-app.exe</p>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Windows</a>
+          <a class="open" href="#">Setup, how to use it, FAQ</a>
+        </div>
+        <p class="ph">A made-up app, here so you can see more than one.</p>
+      </article>
+    </div>
+
+    <div class="slot">
+      <article class="panel" id="another-example" style="--dark:#765BA7; --light:#FFE800">
+        <div class="title">
+          <span class="icon letter" aria-hidden="true">A</span>
+          <h2>Another example</h2>
+        </div>
+        <p class="line">Placeholder. A third app, to show the sheet filling up.</p>
+        <p class="meta">Android 10 and up · another-example.apk</p>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <a class="open" href="#">Setup, how to use it, FAQ</a>
+        </div>
+        <p class="ph">A made-up app, here so you can see more than one.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="foot"><span>YH Downloads</span><span>Each panel opens its app's own page</span></footer>
+</div>
+</body>
+</html>

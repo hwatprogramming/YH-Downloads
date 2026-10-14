@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YH Downloads, Quiet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/* One look for every app, kept soft: muted warm greys, no boxes and no lines, just
+   space between apps, and tinted buttons instead of bright filled ones. An app's own
+   colours only show in its icon. */
+:root{--ground:#181716; --text:#E9E5DF; --muted:#A39D95; --tone:#2A2825; --tone-hover:#34312D}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{min-height:100vh; background:var(--ground); color:var(--text); font-family:'Onest',sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--text); color:var(--ground)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--text); outline-offset:3px; border-radius:8px}
+
+.page{max-width:960px; margin:0 auto; padding:48px 20px 80px}
+
+.mast h1{margin:0; font-weight:650; font-size:min(12.6vw, 96px); line-height:1.02; letter-spacing:-.035em}
+.mast p{margin:18px 0 0; max-width:34ch; font-size:19px; line-height:1.5; color:var(--muted)}
+
+.list{display:flex; flex-direction:column; gap:52px; margin:64px 0 0; padding:0; list-style:none}
+.item{display:grid; grid-template-columns:64px minmax(0,1fr); column-gap:18px}
+.icon{width:64px; height:64px; border-radius:18px; overflow:hidden; display:grid; place-items:center}
+.icon img{display:block; width:100%; height:100%}
+.icon.letter{background:var(--app); color:#fff; font-weight:700; font-size:28px}
+.name{margin:2px 0 0; font-weight:650; font-size:23px; line-height:1.2; letter-spacing:-.02em}
+.name a{text-decoration:none}
+.line{margin:6px 0 0; max-width:48ch; color:var(--muted); font-size:16.5px}
+.meta{margin:10px 0 0; font-size:14.5px; color:var(--muted)}
+.ph{margin:6px 0 0; font-size:14px; color:var(--muted)}
+
+.acts{grid-column:2; display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:20px}
+.dl{
+  display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 20px; border-radius:14px;
+  background:var(--tone); color:var(--text); text-decoration:none; font-weight:600; font-size:16px;
+  transition:background-color .2s;
+}
+.dl svg{width:18px; height:18px; flex:none; transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.more{font-size:15px; font-weight:500; color:var(--muted); text-underline-offset:4px; text-decoration-color:#4A4641}
+@media (hover:hover){
+  .dl:hover{background:var(--tone-hover)}
+  .dl:hover svg{transform:translateY(2px)}
+  .more:hover{color:var(--text)}
+  .name a:hover{text-decoration:underline; text-underline-offset:4px; text-decoration-color:#5A5550}
+}
+.foot{margin:72px 0 0; color:var(--muted); font-size:14px}
+
+@media (min-width:760px){
+  .page{padding:96px 40px 120px}
+  .mast p{font-size:21px}
+  .list{margin-top:88px; gap:60px}
+  .item{grid-template-columns:80px minmax(0,1fr) auto; column-gap:28px; align-items:center}
+  .icon{width:80px; height:80px; border-radius:22px}
+  .icon.letter{font-size:34px}
+  .name{font-size:27px}
+  .acts{grid-column:auto; flex-direction:column; align-items:flex-end; margin-top:0}
+}
+@media (prefers-reduced-motion:reduce){.dl,.dl svg{transition:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="mast">
+    <h1>YH Downloads</h1>
+    <p>Apps I've built, ready to download. Each one has its own page with setup steps and answers.</p>
+  </header>
+
+  <main>
+    <ul class="list" aria-label="Apps">
+      <li class="item">
+        <span class="icon"><img src="assets/ytmd-icon.svg" alt=""></span>
+        <div>
+          <h2 class="name"><a href="../../decision/src/challenger-risograph.html">YT Music Downloader</a></h2>
+          <p class="line">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+          <p class="meta">Android 10 and up · yt-music-downloader.apk</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <a class="more" href="../../decision/src/challenger-risograph.html">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+
+      <li class="item" style="--app:#006A70">
+        <span class="icon letter" aria-hidden="true">E</span>
+        <div>
+          <h2 class="name"><a href="#">Example app</a></h2>
+          <p class="line">Placeholder. Shows how a Windows app sits in the list.</p>
+          <p class="meta">Windows 10 and up · example-app.exe</p>
+          <p class="ph">A made-up app, here so you can see more than one.</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Windows</a>
+          <a class="more" href="#">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+
+      <li class="item" style="--app:#765BA7">
+        <span class="icon letter" aria-hidden="true">A</span>
+        <div>
+          <h2 class="name"><a href="#">Another example</a></h2>
+          <p class="line">Placeholder. A third app, to show the list filling up.</p>
+          <p class="meta">Android 10 and up · another-example.apk</p>
+          <p class="ph">A made-up app, here so you can see more than one.</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <a class="more" href="#">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+    </ul>
+    <p class="foot">Built files only. Each app's code stays private.</p>
+  </main>
+</div>
+</body>
+</html>

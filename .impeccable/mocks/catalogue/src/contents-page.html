@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YH Downloads, Contents page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Familjen+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* The site's own inks: fluorescent pink and white on black stock, like a zine's
+   contents page. Each app's row carries that app's two inks on its button and swatch. */
+:root{--stock:#131215; --ink:#F4F1F6; --muted:#A09CA8; --pink:#FF48B0}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  min-height:100vh; background:var(--stock); color:var(--ink);
+  font-family:'Familjen Grotesk',sans-serif; font-size:17px; line-height:1.45; -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--pink); color:var(--stock)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink); outline-offset:4px}
+
+.grain{
+  position:fixed; inset:0; z-index:20; pointer-events:none; mix-blend-mode:screen; opacity:.35;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.93  0 0 0 0 0.9  0 0 0 0 0.86  0 0 0 .2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.page{max-width:1440px; margin:0 auto; padding:28px 18px 64px}
+
+/* The masthead: the site's header. Black, with the pink plate printed a hair off. */
+.mast h1{
+  margin:0; font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:min(16vw, 150px); line-height:.86; letter-spacing:-.015em;
+  text-shadow:-.05em .045em 0 var(--pink);
+}
+.mast h1 span{display:block}
+.mast p{margin:22px 0 0; max-width:30ch; font-size:19px; font-weight:600; line-height:1.38}
+.mast .count{display:inline-block; margin-top:16px; padding:4px 10px; background:var(--pink); font-size:15px; font-weight:700}
+
+.contents{margin-top:40px}
+.contents h2{
+  margin:0; padding-bottom:10px; border-bottom:6px solid var(--pink);
+  font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:28px; line-height:1;
+}
+.entries{margin:0; padding:0; list-style:none}
+.entry{
+  display:grid; grid-template-columns:56px minmax(0,1fr); column-gap:16px; padding:22px 0 24px;
+  border-bottom:3px solid var(--ink); transition:background-color .25s;
+}
+@media (hover:hover){.entry:hover{background:color-mix(in srgb, var(--light) 16%, transparent)}}
+.icon{width:56px; height:56px; border-radius:14px; overflow:hidden; display:grid; place-items:center}
+.icon img{display:block; width:100%; height:100%}
+.icon.letter{background:var(--dark); color:var(--light); font-family:'Bagel Fat One',sans-serif; font-size:30px}
+.entry h3{margin:2px 0 0; font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:30px; line-height:1.02; text-wrap:balance}
+.entry h3 a{text-decoration:none}
+.entry h3 a:hover{text-decoration:underline; text-decoration-color:var(--pink); text-decoration-thickness:4px; text-underline-offset:5px}
+.line{margin:8px 0 0; font-size:17px; font-weight:500; max-width:46ch}
+.meta{display:flex; align-items:center; gap:10px; margin:8px 0 0; font-size:15px; font-weight:700}
+.swatch{display:flex; flex:none}
+.swatch i{display:block; width:12px; height:18px}
+.swatch i:first-child{background:var(--dark)}
+.swatch i:last-child{background:var(--light)}
+.ph{margin:10px 0 0; font-size:14px; font-weight:600; color:var(--muted)}
+
+.acts{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:14px 20px; margin-top:18px}
+/* Each app's download button is printed in that app's own inks. */
+.dl{
+  position:relative; isolation:isolate; display:inline-flex; align-items:center; gap:10px; min-height:54px; padding:0 20px;
+  color:var(--dark); text-decoration:none; font-family:'Bagel Fat One',sans-serif; font-size:20px;
+}
+.dl::before,.dl::after{content:""; position:absolute; inset:0; z-index:-1}
+.dl::before{background:var(--ink); transform:translate(5px,4px); transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.dl::after{background:var(--light)}
+.dl svg{width:22px; height:22px; flex:none}
+.dl:active::before{transform:translate(2px,2px)}
+@media (hover:hover){.dl:hover::before{transform:translate(9px,7px)}}
+.open{font-weight:700; font-size:16px; text-underline-offset:4px; text-decoration-thickness:2px; text-decoration-color:var(--pink)}
+
+.foot{margin:28px 0 0; font-size:15px; font-weight:600}
+
+@media (min-width:760px){
+  .page{padding:48px 40px 96px}
+  .entry{grid-template-columns:72px minmax(0,1fr) auto; column-gap:24px; align-items:center; padding:28px 12px}
+  .icon{width:72px; height:72px; border-radius:18px}
+  .icon.letter{font-size:38px}
+  .entry h3{font-size:38px}
+  .acts{grid-column:auto; flex-direction:column; align-items:flex-end; margin-top:0}
+}
+/* Desktop: the masthead runs across the top on one line, the contents under it. */
+@media (min-width:1100px){
+  .page{padding:56px 56px 120px}
+  .mast h1{font-size:min(9.4vw, 180px)}
+  .mast h1 span{display:inline}
+  .mast h1 span + span::before{content:" "}
+  .mast p{margin-top:24px; max-width:44ch; font-size:21px}
+  .contents{max-width:1180px; margin-top:56px}
+}
+@media (prefers-reduced-motion:reduce){.entry,.dl::before{transition:none}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="mast">
+    <h1><span>YH</span><span>Downloads</span></h1>
+    <p>Apps I've built, ready to download. Each app has its own page in its own colours.</p>
+  </header>
+
+  <main class="contents">
+    <h2>Contents</h2>
+    <ul class="entries">
+      <li class="entry" style="--dark:#16202C; --light:#EDBB4E">
+        <span class="icon"><img src="assets/ytmd-icon.svg" alt=""></span>
+        <div>
+          <h3><a href="../../decision/src/challenger-risograph.html">YT Music Downloader</a></h3>
+          <p class="line">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+          <p class="meta"><span class="swatch" aria-hidden="true"><i></i><i></i></span>Android 10 and up · yt-music-downloader.apk</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <a class="open" href="../../decision/src/challenger-risograph.html">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+
+      <li class="entry" style="--dark:#006A70; --light:#FFD0C6">
+        <span class="icon letter" aria-hidden="true">E</span>
+        <div>
+          <h3><a href="#">Example app</a></h3>
+          <p class="line">Placeholder. Shows how a Windows app sits in the list.</p>
+          <p class="meta"><span class="swatch" aria-hidden="true"><i></i><i></i></span>Windows 10 and up · example-app.exe</p>
+          <p class="ph">A made-up app, here so you can see more than one.</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Windows</a>
+          <a class="open" href="#">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+
+      <li class="entry" style="--dark:#765BA7; --light:#FFE800">
+        <span class="icon letter" aria-hidden="true">A</span>
+        <div>
+          <h3><a href="#">Another example</a></h3>
+          <p class="line">Placeholder. A third app, to show the list filling up.</p>
+          <p class="meta"><span class="swatch" aria-hidden="true"><i></i><i></i></span>Android 10 and up · another-example.apk</p>
+          <p class="ph">A made-up app, here so you can see more than one.</p>
+        </div>
+        <div class="acts">
+          <a class="dl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <a class="open" href="#">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+    </ul>
+    <p class="foot">Built files only. Each app's code stays private.</p>
+  </main>
+</div>
+</body>
+</html>

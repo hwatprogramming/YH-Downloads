@@ -3,96 +3,240 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YH Downloads, Two-Ink Riso</title>
+<title>YT Music Downloader · YH Downloads</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Familjen+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Familjen+Grotesk:wght@400..700&family=Figtree:wght@400..800&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#F1ECE0; --gold:#EDBB4E; --navy:#16202C}
+:root{--paper:#F1ECE0; --gold:#EDBB4E; --navy:#16202C; --ground:#0F151D; --light:#F3E3B5}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
-  min-height:100vh; background:var(--paper); color:var(--navy);
+  min-height:100vh; background:var(--ground); color:var(--light);
   font-family:'Familjen Grotesk',sans-serif; font-size:17px; line-height:1.45; -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
-::selection{background:var(--navy);color:var(--gold)}
+::selection{background:var(--gold);color:var(--navy)}
 a{color:inherit}
-a:focus-visible{outline:3px solid var(--navy);outline-offset:5px}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:5px}
 
-/* Paper tooth over everything, like a real print. */
+/* Paper tooth over everything, like a print on dark stock. */
 .grain{
-  position:fixed; inset:0; z-index:9; pointer-events:none; mix-blend-mode:multiply; opacity:.55;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.12  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  position:fixed; inset:0; z-index:9; pointer-events:none; mix-blend-mode:screen; opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.89  0 0 0 0 0.71  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-.strip{
-  height:64px; padding:0 56px; display:flex; align-items:center; gap:20px;
-  border-bottom:3px solid var(--navy);
-}
-.strip .brand{font-family:'Bagel Fat One',sans-serif; font-size:25px; line-height:1; text-decoration:none}
-.strip .tag{font-size:16px}
-.strip nav{margin-left:auto; display:flex; gap:18px; font-weight:700; font-size:16px}
-.strip nav a{text-decoration:none; padding:3px 10px; background:var(--gold); box-shadow:4px 3px 0 0 transparent, inset 0 0 0 2px var(--navy)}
+/* Phone first. 760px and up puts the picture beside the text, 900px and up puts the
+   parts in two columns, and 1100px and up is the desktop sheet with everything placed. */
 
-/* Each app is one printed sheet in its own two inks. This one: gold and navy. */
-.sheet{position:relative; height:836px; overflow:hidden}
-.sun{
-  position:absolute; right:-70px; top:56px; width:600px; height:600px; border-radius:50%;
-  background:var(--gold); mix-blend-mode:multiply;
+/* The site's header, in the catalogue's look rather than this app's: warm charcoal,
+   Figtree, the champagne title, and every app as a chip in that app's own colours.
+   It sits above the paper grain, so the riso texture stays on the app's part, and it
+   sticks to the top of the screen while you scroll. */
+.site{
+  position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; column-gap:20px; row-gap:10px;
+  padding:14px 16px 12px; background:#1B1917; color:#EEE7DD; font-family:'Figtree',sans-serif;
+  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9);
 }
-.dots{
-  position:absolute; left:610px; top:452px; width:330px; height:250px; transform:rotate(-10deg);
-  background:radial-gradient(circle, var(--navy) 1.7px, transparent 2.1px) 0 0/10px 10px; mix-blend-mode:multiply; opacity:.85;
+.site .home{flex:none; white-space:nowrap; font-weight:750; font-size:21px; line-height:1; letter-spacing:-.025em; color:#E6C88E; text-decoration:none}
+.site nav{flex-basis:100%; min-width:0; display:flex; gap:8px; margin:0 -16px; padding:0 16px 2px; overflow-x:auto; scrollbar-width:none}
+.site nav::-webkit-scrollbar{display:none}
+/* Below desktop the chips scroll sideways; the fade says there's more. */
+.site nav{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
+.chip{
+  flex:none; display:inline-flex; align-items:center; gap:9px; min-height:44px; padding:0 15px 0 6px; border-radius:999px;
+  background:var(--card); color:var(--btn); font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none;
 }
-h1{position:absolute; left:52px; top:14px; margin:0; font-family:'Bagel Fat One',sans-serif; font-weight:400; text-transform:none}
-h1 span{position:relative; display:block; line-height:.8; mix-blend-mode:multiply; white-space:nowrap}
-h1 span::after{content:attr(data-t); position:absolute; left:0; top:0; pointer-events:none}
-.w1{font-size:300px; color:var(--gold); letter-spacing:-.01em}
-.w1::after{color:transparent; -webkit-text-stroke:4px var(--navy); transform:translate(9px,7px)}
-.w2{font-size:166px; color:var(--navy); margin:-44px 0 0 8px}
-.w2::after{color:var(--gold); transform:translate(-8px,7px); z-index:-1; mix-blend-mode:multiply}
+.chip .ic{width:32px; height:32px; border-radius:10px; overflow:hidden; display:grid; place-items:center; background:var(--btn); color:var(--btn-text); font-weight:800; font-size:15px}
+.chip .ic img{display:block; width:100%; height:100%}
+.chip[aria-current]{background:var(--btn); color:var(--btn-text)}
+.chip.all{padding:0 16px; background:transparent; color:#EEE7DD; box-shadow:inset 0 0 0 1.5px #4A443D}
+.site :focus-visible{outline:2px solid #E6C88E; outline-offset:3px}
+@media (hover:hover){
+  .chip:not([aria-current]):hover{filter:brightness(1.18)}
+  .site .home:hover{text-decoration:underline; text-underline-offset:4px}
+}
 
-.hook{position:absolute; left:60px; top:404px; margin:0; width:540px; font-size:24px; line-height:1.38; font-weight:500}
-.facts{position:absolute; left:60px; top:524px; margin:0; padding:0; list-style:none; font-size:17px; font-weight:600; display:flex; flex-direction:column; gap:3px}
+/* Each app is one printed sheet in its own two inks. This one: gold and cream on dark navy stock. */
+.sheet{position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr); padding:28px 20px 64px}
+.sun{position:absolute; right:-24vw; bottom:110px; width:84vw; height:84vw; border-radius:50%; background:var(--gold)}
+.dots{display:none}
+
+.name{position:relative; margin:0 0 26px; font-family:'Bagel Fat One',sans-serif; font-weight:400}
+.name span{position:relative; display:block; line-height:.8; mix-blend-mode:screen; white-space:nowrap}
+.name span::after{content:attr(data-t); position:absolute; left:0; top:0; pointer-events:none}
+.w1{font-size:min(21vw, 230px); color:var(--gold); letter-spacing:-.01em}
+.w1::after{color:transparent; -webkit-text-stroke:max(1.5px, .0174em) var(--light); transform:translate(.04em,.03em)}
+.w2{font-size:min(15.1vw, 166px); color:var(--light); margin:-.205em 0 0 .048em}
+.w2::after{color:var(--gold); transform:translate(-.048em,.042em); z-index:-1}
+
+.hook{position:relative; margin:0 0 20px; max-width:34ch; font-size:19px; line-height:1.38; font-weight:500}
+.facts{position:relative; margin:0 0 32px; padding:0; list-style:none; font-size:16px; font-weight:600; display:flex; flex-direction:column; gap:3px}
 .facts li::before{content:"+ "; font-family:'Bagel Fat One',sans-serif}
 
 /* The button is a slab of cut paper, with the second ink printed a hair off. */
 .cut{
-  position:absolute; left:60px; top:636px; width:440px; height:88px; isolation:isolate; transform:rotate(-1.5deg);
-  display:flex; align-items:center; justify-content:center; gap:14px; text-decoration:none;
-  font-family:'Bagel Fat One',sans-serif; font-size:30px; color:var(--paper);
+  position:relative; width:100%; max-width:440px; height:72px; isolation:isolate; transform:rotate(-1.5deg);
+  display:flex; align-items:center; justify-content:center; gap:12px; text-decoration:none;
+  font-family:'Bagel Fat One',sans-serif; font-size:clamp(22px, 6.4vw, 30px); color:var(--navy);
 }
+.cut svg{width:1em; height:1em}
 .cut::before,.cut::after{content:""; position:absolute; inset:0; z-index:-1; clip-path:polygon(0 7%,100% 0,98.6% 100%,1.2% 93%)}
-.cut::before{background:var(--gold); transform:translate(10px,9px); mix-blend-mode:multiply; transition:transform .25s cubic-bezier(.16,1,.3,1)}
-.cut::after{background:var(--navy)}
-.cut:hover::before{transform:translate(15px,13px)}
-.file{position:absolute; left:64px; top:744px; margin:0; font-size:16px; font-weight:700}
+.cut::before{background:var(--light); transform:translate(10px,9px); transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.cut::after{background:var(--gold)}
+.cut:active::before{transform:translate(4px,4px)}
+@media (hover:hover){.cut:hover::before{transform:translate(15px,13px)}}
+.file{position:relative; margin:18px 0 0 4px; font-size:15px; font-weight:700}
 
-.print{position:absolute; right:74px; top:372px; width:384px; margin:0; transform:rotate(2.5deg)}
-.print::before{content:""; position:absolute; left:-14px; top:14px; width:100%; height:calc(100% - 34px); background:var(--gold); mix-blend-mode:multiply}
+.print{position:relative; width:88%; max-width:420px; margin:80px 0 0 auto; transform:rotate(2.5deg)}
+.print::before{content:""; position:absolute; left:-14px; top:14px; width:100%; height:calc(100% - 34px); background:var(--gold)}
+/* Below desktop the halftone patch travels with the picture, peeking out at its top left. */
+.print::after{content:""; position:absolute; left:-58px; top:-40px; width:170px; height:150px; z-index:-1; transform:rotate(-12deg); opacity:.8; background:radial-gradient(circle, var(--gold) 1.7px, transparent 2.1px) 0 0/10px 10px}
 .plate{position:relative; background:var(--navy); overflow:hidden}
 .plate img{display:block; width:100%; height:auto; mix-blend-mode:screen; filter:grayscale(1) contrast(1.35) brightness(1.2)}
 .plate::after{content:""; position:absolute; inset:0; background:radial-gradient(circle, rgba(241,236,224,.2) 1px, transparent 1.4px) 0 0/5px 5px; pointer-events:none}
 .print figcaption{position:relative; margin-top:10px; font-size:15px; font-weight:700; line-height:1.3}
 
-@media (prefers-reduced-motion:reduce){.cut::before{transition:none}}
+/* Every app's section repeats the parts below in its own two inks:
+   --ink is the dark one, --tint the light one. */
+#yt-music-downloader{--ink:var(--navy); --tint:var(--gold)}
+
+.more{display:grid; grid-template-columns:minmax(0,1fr); row-gap:72px; padding:40px 20px 96px; color:var(--light)}
+.more h2{
+  margin:0 0 26px; font-family:'Bagel Fat One',sans-serif; font-weight:400; font-size:40px; line-height:1;
+  letter-spacing:-.01em; text-shadow:-4px 3px 0 var(--tint); text-wrap:balance;
+}
+.for,.not{align-self:start}
+
+/* Steps. Each number is printed twice, gold fill and cream outline, a hair off. */
+.steps{margin:0; padding:0; list-style:none; counter-reset:step; display:flex; flex-direction:column; gap:22px}
+.steps li{position:relative; counter-increment:step; padding-left:60px; min-height:44px; max-width:calc(60px + 42ch); font-size:17px; font-weight:500; line-height:1.45}
+.steps li::before,.steps li::after{content:counter(step); position:absolute; left:0; top:-8px; font-family:'Bagel Fat One',sans-serif; font-size:44px; line-height:1}
+.steps li::before{color:var(--tint)}
+.steps li::after{color:transparent; -webkit-text-stroke:2px var(--light); transform:translate(4px,3px)}
+.more b{font-weight:700}
+.or{margin:24px 0 0 60px; font-size:16px; font-weight:600}
+
+.yes,.no{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:16px; font-size:17px; font-weight:500; line-height:1.45}
+.yes li,.no li{position:relative; padding-left:44px; max-width:calc(44px + 46ch)}
+.yes li::before{content:""; position:absolute; left:0; top:0; width:28px; height:28px; border-radius:50%; background:var(--tint)}
+.yes li::after{content:""; position:absolute; left:5px; top:3px; width:24px; height:24px; background:var(--ink); -webkit-mask:var(--tick) center/contain no-repeat; mask:var(--tick) center/contain no-repeat}
+.no li::before{content:""; position:absolute; left:2px; top:3px; width:22px; height:22px; background:var(--ink); -webkit-mask:var(--cross) center/contain no-repeat; mask:var(--cross) center/contain no-repeat}
+:root{
+  --tick:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7'/></svg>");
+  --cross:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.6' stroke-linecap='round'><path d='M6 6l12 12M18 6L6 18'/></svg>");
+}
+
+/* What it isn't: a slab of the light ink, with the cream printed a hair off. */
+.not{position:relative; isolation:isolate; padding:32px 24px 36px; color:var(--ink); transform:rotate(-1deg)}
+.not::before,.not::after{content:""; position:absolute; inset:0; z-index:-1}
+.not::before{background:var(--light); transform:translate(-8px,8px)}
+.not::after{background:var(--tint)}
+.not h2{text-shadow:-4px 3px 0 var(--light)}
+.not ::selection{background:var(--ink); color:var(--tint)}
+
+.qs{border-bottom:3px solid var(--light)}
+.qs details{border-top:3px solid var(--light)}
+.qs summary{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; font-size:18px; font-weight:700; line-height:1.3; cursor:pointer; list-style:none}
+.qs summary::-webkit-details-marker{display:none}
+.qs summary::after{
+  content:""; flex:none; width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(var(--ink),var(--ink)) center/16px 3px no-repeat, linear-gradient(var(--ink),var(--ink)) center/3px 16px no-repeat, var(--tint);
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.qs details[open] summary::after{transform:rotate(45deg)}
+@media (hover:hover){.qs summary:hover span{text-decoration:underline 3px var(--tint); text-underline-offset:6px}}
+.qs summary:focus-visible{outline:3px solid var(--tint); outline-offset:4px}
+.qs p{margin:-4px 0 22px; max-width:62ch; font-size:17px; line-height:1.5}
+
+/* Tablet: the picture moves up beside the text. */
+@media (min-width:760px){
+  .site{flex-wrap:nowrap; height:72px; padding:0 32px}
+  .site nav{flex:0 1 auto; margin:0 0 0 auto; padding:0}
+  .chip{min-height:40px}
+  .chip .ic{width:28px; height:28px; border-radius:8px}
+  .sheet{grid-template-columns:minmax(0,1fr) minmax(0,340px); column-gap:40px; padding:40px 32px 64px}
+  .name{grid-column:1 / -1}
+  .hook,.facts,.cut,.file{grid-column:1}
+  .print{grid-column:2; grid-row:2 / span 4; align-self:start; width:100%; margin:12px 0 0}
+  .sun{right:-120px; bottom:auto; top:120px; width:440px; height:440px}
+  .more{padding:56px 32px 120px; row-gap:96px}
+  .more h2{font-size:48px}
+}
+
+/* Wide tablet: the parts go two by two. */
+@media (min-width:900px){
+  .more{grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:40px}
+  .setup,.for{grid-column:1 / span 6}
+  .use,.not{grid-column:7 / span 6}
+  .faq{grid-column:1 / -1}
+  .for{padding-top:32px}
+}
+
+/* Desktop: one printed sheet with everything placed by hand. */
+@media (min-width:1100px){
+  .site{padding:0 56px}
+  .site .home{font-size:24px}
+  .site nav{-webkit-mask-image:none; mask-image:none}
+
+  .sheet{display:block; height:836px; padding:0}
+  .sun{right:-70px; top:56px; width:600px; height:600px}
+  .dots{display:block; position:absolute; left:610px; top:452px; width:330px; height:250px; transform:rotate(-10deg); opacity:.8; background:radial-gradient(circle, var(--gold) 1.7px, transparent 2.1px) 0 0/10px 10px}
+  .name{position:absolute; left:52px; top:14px; margin:0}
+  .hook{position:absolute; left:60px; top:358px; margin:0; width:540px; max-width:none; font-size:24px}
+  .facts{position:absolute; left:60px; top:478px; margin:0; font-size:17px}
+  .cut{position:absolute; left:60px; top:590px; width:440px; height:88px; font-size:30px; gap:14px}
+  .file{position:absolute; left:64px; top:698px; margin:0; font-size:16px}
+  .print{position:absolute; right:74px; top:372px; width:384px; margin:0}
+  .print::after{content:none}
+
+  .more{column-gap:40px; row-gap:128px; padding:56px 56px 160px}
+  .more h2{margin-bottom:34px; font-size:56px; text-shadow:-5px 4px 0 var(--tint)}
+  .setup{grid-column:1 / span 5}
+  .use{grid-column:7 / span 6}
+  .for{grid-column:1 / span 5; padding-top:44px}
+  .not{grid-column:7 / span 6; padding:46px 52px 52px}
+  .not::before{transform:translate(-12px,12px)}
+  .not h2{text-shadow:-5px 4px 0 var(--light)}
+  .faq{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:40px}
+  .faq h2{grid-column:1 / span 4}
+  .faq .qs{grid-column:5 / span 8}
+  .steps{gap:26px}
+  .steps li{padding-left:84px; min-height:58px; max-width:calc(84px + 42ch); font-size:19px}
+  .steps li::before,.steps li::after{top:-12px; font-size:60px}
+  .steps li::after{-webkit-text-stroke-width:2.5px; transform:translate(5px,4px)}
+  .or{margin:30px 0 0 84px; font-size:17px}
+  .yes,.no{gap:18px; font-size:19px}
+  .yes li,.no li{padding-left:48px; max-width:calc(48px + 46ch)}
+  .yes li::before{top:1px}
+  .yes li::after{top:4px}
+  .no li::before{top:4px}
+  .qs summary{gap:24px; padding:22px 0; font-size:21px}
+  .qs p{margin:-6px 0 28px; font-size:18px}
+}
+
+@media (prefers-reduced-motion:reduce){.cut::before,.qs summary::after{transition:none}}
 </style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
 
-<header class="strip">
-  <a class="brand" href="#top">YH Downloads</a>
-  <span class="tag">Apps I've built, ready to download.</span>
-  <nav aria-label="Apps"><a href="#music-downloader" aria-current="true">Music Downloader</a></nav>
+<header class="site">
+  <a class="home" href="../../catalogue/src/soft-warm.html">YH Downloads</a>
+  <nav aria-label="Apps">
+    <a class="chip all" href="../../catalogue/src/soft-warm.html">All apps</a>
+    <a class="chip" href="#top" aria-current="page" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C"><span class="ic"><img src="../../catalogue/src/assets/ytmd-icon.svg" alt=""></span>YT Music Downloader</a>
+    <a class="chip" href="#" style="--card:#0F3A3C; --btn:#FFD0C6; --btn-text:#0B3133"><span class="ic" aria-hidden="true">E</span>Example app</a>
+    <a class="chip" href="#" style="--card:#2A2140; --btn:#FFE800; --btn-text:#2A2140"><span class="ic" aria-hidden="true">A</span>Another example</a>
+  </nav>
 </header>
 
 <main id="top">
-  <section class="sheet" id="music-downloader">
+  <section class="app" id="yt-music-downloader">
+   <div class="sheet">
     <div class="sun" aria-hidden="true"></div>
     <div class="dots" aria-hidden="true"></div>
 
-    <h1 aria-label="Music Downloader"><span class="w1" data-t="Music" aria-hidden="true">Music</span><span class="w2" data-t="Downloader" aria-hidden="true">Downloader</span></h1>
+    <h1 class="name" aria-label="YT Music Downloader"><span class="w1" data-t="YT Music" aria-hidden="true">YT Music</span><span class="w2" data-t="Downloader" aria-hidden="true">Downloader</span></h1>
 
     <p class="hook">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
     <ul class="facts">
@@ -101,11 +245,11 @@ h1 span::after{content:attr(data-t); position:absolute; left:0; top:0; pointer-e
       <li>Failed downloads retry on their own</li>
     </ul>
 
-    <a class="cut" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/music-downloader/music-downloader.apk">
+    <a class="cut" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
       <span>Download for Android</span>
     </a>
-    <p class="file">music-downloader.apk · Android 10 and up</p>
+    <p class="file">yt-music-downloader.apk · Android 10 and up</p>
 
     <figure class="print">
       <div class="plate">
@@ -113,6 +257,66 @@ h1 span::after{content:attr(data-t); position:absolute; left:0; top:0; pointer-e
       </div>
       <figcaption>The app's History tab, printed in navy.</figcaption>
     </figure>
+   </div>
+
+    <!-- Every app's section has these parts. Leave out Setup when an app needs none, and the FAQ when there's nothing to ask. -->
+    <div class="more">
+      <div class="setup">
+        <h2>Setup</h2>
+        <ol class="steps">
+          <li>Tap <b>Download for Android</b> and open the file once it's downloaded.</li>
+          <li>Your phone asks if your browser can install apps. Allow it, then tap <b>Install</b>.</li>
+          <li>Open the app once while you're online. It fetches yt-dlp, the tool that does the downloading.</li>
+          <li>If it asks to send notifications, allow it. That's where downloads show how they're going.</li>
+        </ol>
+      </div>
+
+      <div class="use">
+        <h2>How to use it</h2>
+        <ol class="steps">
+          <li>In YT Music, open a song, album or playlist and tap <b>Share</b>, then <b>Share with other apps</b>.</li>
+          <li>Pick <b>YT Music Downloader</b>.</li>
+          <li>That's it. It downloads in the background, and a notification shows each song as it finishes.</li>
+          <li>The songs land in your phone's Music folder, ready in your music app.</li>
+        </ol>
+        <p class="or">Or open the app, paste a YouTube link and tap <b>Download</b>.</p>
+      </div>
+
+      <div class="for">
+        <h2>What it's used for</h2>
+        <ul class="yes">
+          <li>Keeping songs from YouTube Music on your phone, to play offline.</li>
+          <li>Whole playlists and albums, not just single songs. Big ones too.</li>
+          <li>Songs that show up properly in your music app, with title, artist, album, year and cover art.</li>
+          <li>Topping up a playlist. Share it again and only the songs you don't have yet download.</li>
+        </ul>
+      </div>
+
+      <div class="not">
+        <h2>What it isn't</h2>
+        <ul class="no">
+          <li><b>A music player.</b> It saves the songs, and your music app plays them.</li>
+          <li><b>A video downloader.</b> You only get the audio.</li>
+          <li><b>A sync tool.</b> Take a song out of a playlist on YouTube and it stays on your phone.</li>
+          <li><b>From YouTube or Google.</b> It's an app I built, and it's not on the Play Store.</li>
+          <li><b>For iPhone.</b> Android 10 and up only, on 64-bit phones.</li>
+        </ul>
+      </div>
+
+      <div class="faq">
+        <h2>FAQ</h2>
+        <div class="qs">
+          <details open><summary><span>Why does my phone warn me when I install it?</span></summary><p>It's not from the Play Store, and Android warns about every app that isn't. Allowing it lets your browser install apps, and you can switch that off again afterwards.</p></details>
+          <details><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
+          <details><summary><span>What can it get to on my phone?</span></summary><p>The internet and your notifications. It doesn't ask for your files, cause Android puts each song in the Music folder for it.</p></details>
+          <details><summary><span>What quality are the songs?</span></summary><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></details>
+          <details><summary><span>Downloads stopped working. What do I do?</span></summary><p>Tap <b>Update yt-dlp</b> in the app. YouTube changes things now and then, and yt-dlp catches up with an update. If downloads keep failing and a newer one is out, the app tells you.</p></details>
+          <details><summary><span>What if I share a song I already have?</span></summary><p>It asks if you want it again or want to skip it. A playlist just skips the songs you already have.</p></details>
+          <details><summary><span>Do plain YouTube links work?</span></summary><p>Yes, but YT Music links come out cleaner. A YouTube video's title often has extras like "(Official Video)", and they end up in the song's name.</p></details>
+          <details><summary><span>How do I get the newest version?</span></summary><p>Tap <b>Download for Android</b> again. The button always gets the newest version.</p></details>
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 

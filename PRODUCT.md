@@ -8,10 +8,11 @@ web
 
 ## Stack
 
-delegated: plain static HTML and CSS, one page, no build step. GitHub Pages serves the
-files from this repo as they are. I said "you pick" on 2026-10-13. Claude picked this
-cause every app's section has its own theme, which a shared template would fight, and
-cause I can preview the page by opening the file.
+delegated: plain static HTML and CSS, no build step. A catalogue page plus one page
+per app, since 2026-10-14. GitHub Pages serves the files from this repo as they are. I
+said "you pick" on 2026-10-13. Claude picked this cause every app's page has its own
+theme, which a shared template would fight, and cause I can preview a page by opening
+the file.
 
 ## Users
 
@@ -23,15 +24,18 @@ Three kinds of visitor, all confirmed 2026-10-13:
 
 ## Product Purpose
 
-One long page of the apps I've built, each ready to download. Every app has its own
-section with what the app does, its download links and a picture of it.
+A catalogue of the apps I've built, each ready to download. The catalogue page shows
+every app with its name, one line and a download button. Each app also has its own
+page with what it does, its download links, a picture of it, and how to set it up and
+use it. [Was "one long page" till 2026-10-14. Why it changed is in
+`doc/live-design-choices/downloads-page.md`.]
 
-Done means the page is live and the first app is on it.
+Done means the site is live and the first app is on it.
 
 ## Positioning
 
-- Each section takes its theme from the app it's for, so the page changes look as you
-  scroll from one app to the next.
+- Each app's page takes its theme from the app it's for. The catalogue and the header
+  have the site's own theme, so they read as separate from any one app.
 - Built files only. Each app's source code stays in its own private repo.
 - A download link never changes. An update replaces the file behind the same link.
 
@@ -49,29 +53,43 @@ Done means the page is live and the first app is on it.
 
 ## Capabilities and Constraints
 
-- A section has the app's name, what it does, its download links and a picture of the app.
-- First app: Music Downloader. Android APK, Android 10 and up, arm64 phones only.
+- An app's page has the app's name, what it does, its download links and a picture of
+  the app.
+- Under that, every app's page has the same parts: Setup, How to use it, What it's used
+  for, What it isn't, and an FAQ. Setup and the FAQ are left out when an app has none.
+  My ask, 2026-10-14.
+- First app: YT Music Downloader. Android APK, Android 10 and up, arm64 phones only.
 - No release is uploaded yet, so no download link works yet.
 - **Undecided:** whether the page shows version numbers. The README page left them out
   so an update needs no commit. Not confirmed for the website.
-- **Undecided:** which picture of Music Downloader goes on the page.
+- **Undecided:** which picture of YT Music Downloader goes on the page.
 
 ## Brand Commitments
 
 - The page is called "YH Downloads".
 - Each section gets its own theme, based on the project it's built on. My words,
-  2026-10-13.
-- Music Downloader's icon is a dark download arrow with sound bars beside it, on a gold
-  tile. Gold `#EDBB4E`, dark `#16202C`. The app is named "Music Downloader" on the phone.
+  2026-10-13. [Sections became app pages 2026-10-14.]
+- The header and the catalogue get a theme of their own, different from every app's,
+  so the site doesn't read as one app's landing page. My ask, 2026-10-14. It's dark,
+  my preference the same day. Professional and only slightly stylised: warm charcoal,
+  Figtree, and a champagne-gold title (`#E6C88E`), close to YT Music Downloader's gold
+  but not the same. No pink and no Bagel Fat One there. Each app's card and button on
+  the catalogue wear that app's own colours.
+- YT Music Downloader's icon is a dark download arrow with sound bars beside it, on a
+  gold tile. Gold `#EDBB4E`, dark `#16202C`. The app is named "YT Music Downloader" on
+  the phone since 2026-10-14. It was "Music Downloader" before that.
 
 ## Evidence on Hand
 
-- Music Downloader's icon as a vector:
+- YT Music Downloader's icon as a vector:
   `../Mobile-Youtube-Music-Downloader/app/src/main/res/drawable/ic_launcher_foreground.xml`.
-- Screenshots of Music Downloader on the phone:
+- Screenshots of the app on the phone, from when it was still called Music Downloader:
   `../Mobile-Youtube-Music-Downloader/doc/reference/app-before-redesign/`. Song names in
   them are made up. They show the phone's status bar with the carrier name.
-- Why I built Music Downloader, in my words:
+- The facts in its section's Setup, How to use it, What it isn't and FAQ come from the
+  app repo's `doc/design-brief.md`, `doc/live-design-choices/` and
+  `doc/reference/target-device.md`, checked 2026-10-14.
+- Why I built YT Music Downloader, in my words:
   `../Mobile-Youtube-Music-Downloader/doc/repo-journal.md`.
 - Nothing else. No user counts, reviews or ratings exist, so none go on the page.
 

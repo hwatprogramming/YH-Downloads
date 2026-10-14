@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YH Downloads, Manifest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* One look for every app: a spec sheet. Graphite, hairlines, columns that line up, and
+   file names in a code face because they are exact names. An app's own colours only
+   show in its icon. */
+:root{--ground:#0F1012; --text:#E7E7E3; --muted:#8F8F8A; --rule:#26272B; --row:#15161A}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{min-height:100vh; background:var(--ground); color:var(--text); font-family:'Schibsted Grotesk',sans-serif; font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased}
+::selection{background:var(--text); color:var(--ground)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--text); outline-offset:3px}
+code{font-family:'JetBrains Mono',monospace; font-size:.86em}
+
+.page{max-width:1240px; margin:0 auto; padding:40px 18px 72px}
+
+.mast h1{margin:0; font-weight:850; font-size:min(15vw, 128px); line-height:.9; letter-spacing:-.04em}
+.mast h1 span{display:block}
+.mast p{margin:20px 0 0; max-width:38ch; font-size:19px; line-height:1.4}
+.mast .sum{margin-top:10px; font-size:15px; color:var(--muted)}
+
+.table{margin-top:44px; border-top:2px solid var(--text)}
+.row{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px 16px; padding:22px 0 24px; border-bottom:1px solid var(--rule)}
+.row.head{display:none}
+
+.app{grid-column:1 / -1; display:grid; grid-template-columns:48px minmax(0,1fr); column-gap:14px; align-items:center}
+.icon{width:48px; height:48px; border-radius:11px; overflow:hidden; display:grid; place-items:center; grid-row:span 2}
+.icon img{display:block; width:100%; height:100%}
+.icon.letter{background:var(--app); color:#fff; font-weight:850; font-size:22px}
+.name{margin:0; font-weight:750; font-size:21px; line-height:1.15; letter-spacing:-.015em}
+.name a{text-decoration:none}
+.more{justify-self:start; margin-top:3px; font-size:14px; font-weight:500; color:var(--muted); text-underline-offset:3px}
+
+.what{grid-column:1 / -1; margin:0; font-size:16px}
+.ph{display:block; margin-top:6px; font-size:14px; color:var(--muted)}
+.cell .label{display:block; font-size:12.5px; font-weight:600; color:var(--muted)}
+.runs,.file{font-size:15px}
+.file code{overflow-wrap:anywhere}
+
+.get{grid-column:1 / -1}
+.dl{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:46px; padding:0 18px; border-radius:6px;
+  background:var(--text); color:var(--ground); text-decoration:none; font-weight:700; font-size:15px; white-space:nowrap;
+  transition:background-color .2s;
+}
+.dl svg{width:17px; height:17px; flex:none; transition:transform .25s cubic-bezier(.16,1,.3,1)}
+@media (hover:hover){
+  .dl:hover{background:#fff}
+  .dl:hover svg{transform:translateY(2px)}
+  .more:hover{color:var(--text)}
+  .name a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px}
+}
+
+.foot{margin:24px 0 0; color:var(--muted); font-size:14px}
+
+@media (min-width:760px){
+  .page{padding:64px 40px 112px}
+  .mast h1{font-size:min(12vw, 128px)}
+  .mast h1 span{display:inline}
+  .mast h1 span + span::before{content:" "}
+  .mast p{font-size:21px}
+}
+
+/* Wide enough for real columns: a header row, and every app on one line. */
+@media (min-width:960px){
+  .table{margin-top:64px}
+  .row,.row.head{
+    display:grid; grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(0,1.15fr) minmax(0,1.3fr) 140px;
+    column-gap:28px; align-items:center; padding:22px 12px;
+  }
+  .row.head{padding:12px 12px; font-size:13px; font-weight:600; color:var(--muted)}
+  .app,.what,.get{grid-column:auto}
+  .app{grid-template-columns:44px minmax(0,1fr)}
+  .icon{width:44px; height:44px; border-radius:10px}
+  .icon.letter{font-size:20px}
+  .name{font-size:19px}
+  .what{font-size:15.5px; color:#C9C9C4}
+  .cell .label{display:none}
+  .get{justify-self:end}
+  .row:not(.head){transition:background-color .2s}
+  .row:not(.head):hover{background:var(--row)}
+}
+@media (prefers-reduced-motion:reduce){.dl,.dl svg,.row{transition:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="mast">
+    <h1><span>YH</span><span>Downloads</span></h1>
+    <p>Apps I've built, ready to download. Each one has its own page with setup steps and answers.</p>
+    <p class="sum">3 apps · Android and Windows</p>
+  </header>
+
+  <main>
+    <div class="table" role="table" aria-label="Apps">
+      <div class="row head" role="row">
+        <span role="columnheader">App</span><span role="columnheader">What it does</span><span role="columnheader">Runs on</span><span role="columnheader">File</span><span role="columnheader"><span style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)">Download</span></span>
+      </div>
+
+      <div class="row" role="row">
+        <div class="app" role="cell">
+          <span class="icon"><img src="assets/ytmd-icon.svg" alt=""></span>
+          <h2 class="name"><a href="../../decision/src/challenger-risograph.html">YT Music Downloader</a></h2>
+          <a class="more" href="../../decision/src/challenger-risograph.html">Setup, how to use it, FAQ</a>
+        </div>
+        <p class="what" role="cell">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+        <div class="cell runs" role="cell"><span class="label">Runs on</span>Android 10 and up</div>
+        <div class="cell file" role="cell"><span class="label">File</span><code>yt-music-downloader.apk</code></div>
+        <div class="get" role="cell"><a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk" aria-label="Download YT Music Downloader for Android"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a></div>
+      </div>
+
+      <div class="row" role="row" style="--app:#006A70">
+        <div class="app" role="cell">
+          <span class="icon letter" aria-hidden="true">E</span>
+          <h2 class="name"><a href="#">Example app</a></h2>
+          <a class="more" href="#">Setup, how to use it, FAQ</a>
+        </div>
+        <p class="what" role="cell">Placeholder. Shows how a Windows app sits in the list.<span class="ph">A made-up app, here so you can see more than one.</span></p>
+        <div class="cell runs" role="cell"><span class="label">Runs on</span>Windows 10 and up</div>
+        <div class="cell file" role="cell"><span class="label">File</span><code>example-app.exe</code></div>
+        <div class="get" role="cell"><a class="dl" href="#" aria-label="Download Example app for Windows"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a></div>
+      </div>
+
+      <div class="row" role="row" style="--app:#765BA7">
+        <div class="app" role="cell">
+          <span class="icon letter" aria-hidden="true">A</span>
+          <h2 class="name"><a href="#">Another example</a></h2>
+          <a class="more" href="#">Setup, how to use it, FAQ</a>
+        </div>
+        <p class="what" role="cell">Placeholder. A third app, to show the list filling up.<span class="ph">A made-up app, here so you can see more than one.</span></p>
+        <div class="cell runs" role="cell"><span class="label">Runs on</span>Android 10 and up</div>
+        <div class="cell file" role="cell"><span class="label">File</span><code>another-example.apk</code></div>
+        <div class="get" role="cell"><a class="dl" href="#" aria-label="Download Another example for Android"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download</a></div>
+      </div>
+    </div>
+    <p class="foot">Built files only. Each app's code stays private.</p>
+  </main>
+</div>
+</body>
+</html>
