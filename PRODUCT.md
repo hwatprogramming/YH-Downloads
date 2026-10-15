@@ -95,6 +95,10 @@ Done means the site is live and the first app is on it.
   Like Teen Spirit are real downloads and are blanked there. Older shots, from when it
   was still called Music Downloader, are in the app repo's
   `doc/reference/app-before-redesign/`.
+- My own phone screenshots from 16 Oct: sharing and pasting in YT Music, the
+  big-playlist notification, and installing 1.0 off the live site (Play Protect,
+  Install, App installed). Cropped copies are in `yt-music-downloader/assets/`, with
+  the status bar, album covers, other apps' icons and the link's share code left out.
 - The facts in its section's Setup, How to use it, What it isn't and FAQ come from the
   app repo's `doc/design-brief.md`, `doc/live-design-choices/` and
   `doc/reference/target-device.md`, checked 2026-10-14. They were brought up to 1.0

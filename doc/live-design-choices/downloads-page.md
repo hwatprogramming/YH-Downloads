@@ -225,8 +225,15 @@ beside `src/`.
 - **The real screen for a step, beside the steps**, my ask to fill the space with
   proper content. The step whose picture shows has a gold ring. On phones the picture
   sits under the steps.
-  - **Setup:** the phone's "Allow YT Music Downloader to send you notifications?"
-    prompt, for step 4.
+  - **Setup follows the real install**, from my screenshots installing 1.0 off the
+    live site, 16 Oct. Six steps, each with its screen: the file in Downloads, Open
+    with Package installer, Play Protect's "App blocked to protect your device" with
+    More details then Install anyway, Install, App installed, then the notifications
+    prompt. The FAQ's "Why does my phone warn me" answer names Play Protect now too.
+    - Cropped like the others. Open with keeps only Package installer, not the other
+      apps' icons. The Downloads list drops the "(1)" copy from downloading twice.
+    - Before that, Setup had four steps and only the notifications prompt as a
+      picture.
   - **How to use it has the app's two ways in as tabs**, my ask: Share from YT Music,
     and Paste a link. A tab swaps the first two steps (share and pick the app, or copy
     the link and paste it in the app). The rest is the same both ways: "Big playlist?

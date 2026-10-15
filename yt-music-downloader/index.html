@@ -316,14 +316,21 @@ b{font-weight:500; color:var(--ink)}
       <h2>Setup</h2>
       <div class="pair">
         <ol class="steps">
-          <li><span><span class="t">Download it</span><span class="s">Then open the file.</span></span></li>
-          <li><span><span class="t">Allow the install</span><span class="s">Your phone asks first. Then tap <b>Install</b>.</span></span></li>
-          <li><span><span class="t">Open it once, online</span><span class="s">It gets the download engine (yt-dlp).</span></span></li>
-          <li class="on" data-shot="allow" data-cap="Step 4: tap Allow."><span><span class="t">Allow notifications</span><span class="s">Progress shows there.</span></span></li>
+          <li class="on" data-shot="downloaded" data-cap="The file in your phone's downloads." tabindex="0"><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader.apk</b>.</span></span></li>
+          <li data-shot="openwith" data-cap="If your phone asks what to open it with, pick Package installer." tabindex="0"><span><span class="t">Open it with Package installer</span><span class="s">If your phone asks what to use.</span></span></li>
+          <li data-shot="protect" data-cap="Play Protect hasn't seen my apps before, cause they're not on the Play Store, so it warns." tabindex="0"><span><span class="t">Get past Play Protect</span><span class="s"><b>More details</b>, then <b>Install anyway</b>.</span></span></li>
+          <li data-shot="install" data-cap="Tap Install." tabindex="0"><span><span class="t">Install it</span><span class="s">If asked, allow your browser. Then <b>Install</b>.</span></span></li>
+          <li data-shot="installed" data-cap="Tap Open. The first time, it gets the download engine." tabindex="0"><span><span class="t">Open it once, online</span><span class="s">It gets the download engine (yt-dlp).</span></span></li>
+          <li data-shot="allow" data-cap="Tap Allow." tabindex="0"><span><span class="t">Allow notifications</span><span class="s">Progress shows there.</span></span></li>
         </ol>
-        <figure class="cut">
-          <img class="on" data-shot="allow" src="assets/notifications-prompt.png" width="945" height="670" alt="The phone asking: Allow YT Music Downloader to send you notifications? with Allow and Don't allow">
-          <figcaption>Step 4: tap Allow.</figcaption>
+        <figure class="cut" aria-live="polite">
+          <img class="on" data-shot="downloaded" src="assets/setup-downloaded.png" width="890" height="220" alt="The phone's downloads, with yt-music-downloader.apk, 67.29 MB">
+          <img data-shot="openwith" src="assets/setup-open-with.png" width="272" height="206" alt="Package installer, offered when the phone asks what to open the file with">
+          <img data-shot="protect" src="assets/setup-play-protect.png" width="864" height="1259" alt="Google Play Protect: App blocked to protect your device. YT Music Downloader. Play Protect hasn't seen an app from this developer before. Install anyway, and OK">
+          <img data-shot="install" src="assets/setup-install.png" width="850" height="426" alt="YT Music Downloader: Do you want to install this app? Cancel, Install">
+          <img data-shot="installed" src="assets/setup-installed.png" width="850" height="426" alt="YT Music Downloader: App installed. Done, Open">
+          <img data-shot="allow" src="assets/notifications-prompt.png" width="945" height="670" alt="The phone asking: Allow YT Music Downloader to send you notifications? with Allow and Don't allow">
+          <figcaption>The file in your phone's downloads.</figcaption>
         </figure>
       </div>
     </section>
@@ -389,7 +396,7 @@ b{font-weight:500; color:var(--ink)}
     <section class="faq" id="faq">
       <h2>FAQ</h2>
       <div class="qs">
-        <details name="faq" open><summary><span>Why does my phone warn me when I install it?</span></summary><p>It's not from the Play Store, and Android warns about every app that isn't. Allowing it lets your browser install apps, and you can switch that off again afterwards.</p></details>
+        <details name="faq" open><summary><span>Why does my phone warn me when I install it?</span></summary><p>It's not from the Play Store, so Google Play Protect hasn't seen it before and says it may be unsafe. Tap <b>More details</b>, then <b>Install anyway</b>. If your phone asks to let your browser install apps, allow it. You can switch that off again afterwards.</p></details>
         <details name="faq"><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
         <details name="faq"><summary><span>What links work?</span></summary><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube.</p></details>
         <details name="faq"><summary><span>What can it get to on my phone?</span></summary><p>The internet and your notifications. It doesn't ask for your files, cause Android puts each song in the Music folder for it.</p></details>
