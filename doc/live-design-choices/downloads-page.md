@@ -198,6 +198,8 @@ beside `src/`.
   - **History is cut after Smells Like Teen Spirit.** Road Trip Mix and Nirvana are
     test songs, my call. The songs below them are my real downloads, so they're
     blanked out, and the screen keeps the app's tab bar at the bottom.
+  - **The Up next songs are test songs too**, my word 16 Oct, so step 3's picture
+    stays as it is.
 - **A credits block under the button:** File, Size, Runs on, Installs from, in the
   app's small spaced capitals. It fills the space under the button. I'd said the page
   felt "too spread apart".

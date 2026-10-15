@@ -39,8 +39,6 @@ and the app page is the Riso layout in the app's Liner Notes look. All in
   them. Not run yet. I wanted the site live first.
 - **Open questions on YT Music Downloader's page:**
   - The FAQ's "Is this legal?", left out till I decide.
-  - Whether the Up next songs in How to use it's step 3 picture (Here Comes the Sun,
-    Dreams, September…) are test songs. If not, blank them like History's.
   - Whether the sticky header goes to one row on phones.
   - A phone cut-off I saw on the old Riso page that Claude couldn't reproduce.
 - **Leftovers:** `.impeccable/questions/` (old picking-page state) and
