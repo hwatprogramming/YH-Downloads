@@ -42,8 +42,8 @@ and the app page is the Riso layout in the app's Liner Notes look. All in
   - A phone cut-off I saw on the old Riso page that Claude couldn't reproduce.
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
 - **Leftovers:** `.impeccable/questions/` (old picking-page state) and
-  `.playwright-cli/` (Claude's check screenshots and logs) aren't committed, cause
-  this repo is public. The three canvas directions at
+  `.playwright-cli/` (Claude's check screenshots and logs) are in `.gitignore` since
+  2026-10-16, cause this repo is public. The three canvas directions at
   <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate".
   Riso and Warm replaced them, so ask before moving them to "Past".
 - Further off, in [`doc/backlog.md`](doc/backlog.md): the Support me page, parked till

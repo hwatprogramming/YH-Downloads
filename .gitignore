@@ -1,0 +1,5 @@
+# Claude's working files. This repo is public, so they stay out of it.
+# Playwright CLI's logs and page snapshots from checking pages in the browser.
+.playwright-cli/
+# Impeccable's state from its picking rounds.
+.impeccable/questions/
