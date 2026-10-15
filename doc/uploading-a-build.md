@@ -52,33 +52,39 @@ https://github.com/hwatprogramming/YH-Downloads/releases/download/<tag>/<file na
    ```
    gh release create yt-music "path/to/yt-music.apk" --repo hwatprogramming/YH-Downloads --title "YT Music v1.0" --notes "v1.0, 2026-10-01. First upload."
    ```
-5. Add the app to the downloads page, then commit and push it. See the next section.
+5. Add the app to the site and the README, then commit and push. See the next section.
 
-## Adding a new app to the downloads page
+## Adding a new app to the site
 
-The downloads page is this repo's `README.md`. It's a table with one row per app.
-This is the one step that needs this repo cloned. It sits next to the app repos, at
-`../YH-Downloads`. If the folder isn't there, clone it there first.
+The downloads page is a GitHub Pages site, live since 2026-10-16 at
+<https://hwatprogramming.github.io/YH-Downloads/>. GitHub serves this repo's files as
+they are. This is the step that needs this repo cloned. It sits next to the app repos,
+at `../YH-Downloads`. If the folder isn't there, clone it there first.
+
+- `index.html` is the catalogue: a card per app, in that app's own colours.
+- Each app has its own page at `<tag>/index.html`, with its pictures in
+  `<tag>/assets/`. It's themed on the app, and every app's page has the same parts.
+  See [`downloads-page.md`](live-design-choices/downloads-page.md) and `PRODUCT.md`.
+- Links between pages point at `index.html` itself, not the folder, so a page still
+  works when it's opened straight from the disk.
 
 1. Get the latest copy:
    ```
    git -C ../YH-Downloads pull
    ```
-2. Add one row to the table in `README.md`. Name, one plain line on what it does, and
-   the download link:
-   ```
-   | YT Music | Downloads music from YouTube to your phone | [yt-music.apk](https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music/yt-music.apk) |
-   ```
-3. If the line `Nothing uploaded yet.` is still under the table, remove it.
-4. Commit and push:
-   ```
-   git -C ../YH-Downloads add README.md
-   git -C ../YH-Downloads commit -m "docs: add YT Music to the downloads page"
-   git -C ../YH-Downloads push
-   ```
+2. Design the app's page with the user, with Impeccable. Mockups go in
+   `.impeccable/mocks/`, and the picked one becomes `<tag>/index.html`.
+3. Add its card to `index.html`, with its version, and its chip to the header of
+   each app page.
+4. Add one row to the table in `README.md`, the repo's front page on GitHub. Name, one
+   plain line on what it does, and the download link. No version in the row.
+5. Commit and push. The site updates by itself a minute or so after the push.
 
-Don't put the version number in the row. The row only changes when an app is added,
-renamed or removed, so an update never needs a commit here.
+## The version on the site
+
+Each app's page shows its version and date beside the download button, and its card
+on the catalogue shows the version. The user asked for it 2026-10-16, so people can
+tell they have the latest. So an update does need a commit, see below.
 
 ## Updating an app that's already here
 
@@ -92,8 +98,11 @@ renamed or removed, so an update never needs a commit here.
    gh release edit yt-music --repo hwatprogramming/YH-Downloads --title "YT Music v1.1" --notes "v1.1, 2026-10-08. Playlists."
    ```
 
-The downloads page doesn't change on an update, cause the link stays the same.
-Nothing to commit or push.
+4. Update the version on the site: the "Version X · date" line beside the button on
+   the app's page, and "Version X" on its card in `index.html`. Commit and push.
+
+The link stays the same, so nothing else changes. The README row has no version, so
+it stays as it is.
 
 ## Check it worked
 

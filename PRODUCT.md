@@ -60,9 +60,11 @@ Done means the site is live and the first app is on it.
   My ask, 2026-10-14.
 - First app: YT Music Downloader. Android APK, Android 10 and up, arm64 phones only.
 - No release is uploaded yet, so no download link works yet.
-- **Undecided:** whether the page shows version numbers. The README page left them out
-  so an update needs no commit. Not confirmed for the website.
-- **Undecided:** which picture of YT Music Downloader goes on the page.
+- An app's page shows the version its button downloads, and the version's date,
+  beside the button, so people can tell they have the latest. My ask, 2026-10-16. Each
+  update edits that line on the page.
+- YT Music Downloader's page shows three real screenshots of the app: the Download
+  tab, History and Help. Decided 2026-10-16.
 
 ## Brand Commitments
 
@@ -78,17 +80,26 @@ Done means the site is live and the first app is on it.
 - YT Music Downloader's icon is a dark download arrow with sound bars beside it, on a
   gold tile. Gold `#EDBB4E`, dark `#16202C`. The app is named "YT Music Downloader" on
   the phone since 2026-10-14. It was "Music Downloader" before that.
+- YT Music Downloader's page wears the app's own look, Liner Notes, since 2026-10-16:
+  navy `#0F151D`, warm off-white text, one gold, Barlow Condensed for the name only,
+  Roboto for the rest, hairlines. It's in the app repo's `DESIGN.md`.
 
 ## Evidence on Hand
 
 - YT Music Downloader's icon as a vector:
   `../Mobile-Youtube-Music-Downloader/app/src/main/res/drawable/ic_launcher_foreground.xml`.
-- Screenshots of the app on the phone, from when it was still called Music Downloader:
-  `../Mobile-Youtube-Music-Downloader/doc/reference/app-before-redesign/`. Song names in
-  them are made up. They show the phone's status bar with the carrier name.
+- Screenshots of version 1.0 on the phone:
+  `../Mobile-Youtube-Music-Downloader/.impeccable/review/after-fixes/`. They show the
+  phone's status bar with the carrier name, so the page's copies have it cut off. Those
+  copies are in `.impeccable/mocks/app-page/src/assets/`. History's songs below Smells
+  Like Teen Spirit are real downloads and are blanked there. Older shots, from when it
+  was still called Music Downloader, are in the app repo's
+  `doc/reference/app-before-redesign/`.
 - The facts in its section's Setup, How to use it, What it isn't and FAQ come from the
   app repo's `doc/design-brief.md`, `doc/live-design-choices/` and
-  `doc/reference/target-device.md`, checked 2026-10-14.
+  `doc/reference/target-device.md`, checked 2026-10-14. They were brought up to 1.0
+  from its `doc/for-yh-downloads.md` and its Help text (`help_faq` in
+  `app/src/main/res/values/strings.xml`), 2026-10-16.
 - Why I built YT Music Downloader, in my words:
   `../Mobile-Youtube-Music-Downloader/doc/repo-journal.md`.
 - Nothing else. No user counts, reviews or ratings exist, so none go on the page.
@@ -99,5 +110,7 @@ Done means the site is live and the first app is on it.
    they're looking.
 2. A stranger can tell what an app does from one plain line.
 3. Each section belongs to its app: its name, its picture, its theme.
-4. Links don't break. An update never needs an edit to the page.
+4. Links don't break. An update replaces the file behind the same link, and the page
+   only changes its version line. [Was "an update never needs an edit to the page"
+   till 2026-10-16, when the version went on the page.]
 5. Only what's true and public goes on the page.

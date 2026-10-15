@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72" width="72" height="72">
+  <!-- YT Music Downloader's launcher icon, copied from the app repo's ic_launcher_foreground.xml, showing the middle 72 of 108 like a phone does. -->
+  <rect x="18" y="18" width="72" height="72" fill="#EDBB4E"/>
+  <g fill="#16202C">
+    <path d="M50.5,24h7v42h-7z"/>
+    <path d="M36.75,35a2.25,2.25 0,0 1,2.25 2.25v3.5a2.25,2.25 0,0 1,-4.5 0v-3.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+    <path d="M44.25,29a2.25,2.25 0,0 1,2.25 2.25v10.5a2.25,2.25 0,0 1,-4.5 0v-10.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+    <path d="M63.75,27a2.25,2.25 0,0 1,2.25 2.25v12.5a2.25,2.25 0,0 1,-4.5 0v-12.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+    <path d="M71.25,33a2.25,2.25 0,0 1,2.25 2.25v5.5a2.25,2.25 0,0 1,-4.5 0v-5.5a2.25,2.25 0,0 1,2.25 -2.25z"/>
+    <path d="M40.75,77h26.5a2.75,2.75 0,0 1,0 5.5h-26.5a2.75,2.75 0,0 1,0 -5.5z"/>
+  </g>
+  <path d="M38,52L54,68L70,52" fill="none" stroke="#16202C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,14 +1,26 @@
 # Downloads page
 
-**What it is:** the page that lists every app and its download link. It's the repo's
-`README.md`, a table with one row per app.
+**What it is:** the site that lists every app and its download link, live since 16 Oct
+2026 at <https://hwatprogramming.github.io/YH-Downloads/>. `index.html` is the
+catalogue, and each app has its own page, `yt-music-downloader/index.html` for the
+first. The repo's `README.md` still has a table with one row per app, as the repo's
+front page on GitHub.
 
-[That's still true today. On 13 Oct 2026 I decided to move it to a website, see
-"Moving to a website" below. The site isn't built yet.]
+[It was only the README till 16 Oct. How to add an app or update one is in
+[`uploading-a-build.md`](../uploading-a-build.md).]
 
 ## Moving to a website
 
-Decided 13 Oct 2026. Not built, so `README.md` is still the page.
+Decided 13 Oct 2026. Built and live 16 Oct 2026, from the two picked mockups. The
+mockups stay in `.impeccable/mocks/` as the record. The site's own files are the ones
+to edit now.
+
+- **The catalogue has only real apps.** The two made-up placeholder apps from the
+  mockup came out. Under YT Music Downloader's card sits a dashed empty slot saying
+  "And more apps to come…", my ask 16 Oct.
+- **Links between pages point at `index.html` itself**, not the folder, so a page
+  opened straight from the disk still links to the other one. GitHub Pages would turn
+  a folder link into its page, but a file on disk shows the folder instead.
 
 **Picked: a GitHub Pages website.** GitHub Pages is GitHub's free hosting. It turns
 files in this repo into a site at `hwatprogramming.github.io/YH-Downloads`. This
@@ -99,12 +111,27 @@ itself, its fine for it to be slighty stylised." Still dark.
   stays one shared look.
 - **The app page's header is in this look too.** On YT Music Downloader's page the
   old riso bar is gone. The header is a warm charcoal band with "YH Downloads" in
-  champagne, then "All apps" and a chip per app in that app's own colours. The app
-  you're on has its chip filled in. On phones and tablets the chips scroll sideways
-  with a fade at the edge. The app's name is the page's main heading.
-  - **It sticks to the top** while you scroll, my ask. On a phone it's 103px tall, two
-    rows, so it takes about an eighth of the screen. Claude offered a one-row phone
-    version. Not answered.
+  champagne, then "All apps", the chip of the app you're on in its own colours, and
+  "Support me". The app's name is the page's main heading. [Support me is parked
+  since 16 Oct, see below, so the header has only the two chips for now.]
+  - **Only All apps and the app you're on**, my ask 16 Oct. It had a chip for every
+    app, which scrolled sideways on phones. Other apps are one tap away on All apps.
+  - **Support me**, my ask 16 Oct: an outlined champagne button with a heart, last in
+    the header. It opens the Support me page, see below. On phones it sat beside
+    "YH Downloads", and the two chips got the second row, so nothing scrolled.
+  - **It sticks to the top** while you scroll, my ask. On a phone it's two rows, so it
+    takes about an eighth of the screen. Claude offered a one-row phone version. Not
+    answered.
+- **A Support me page**, my ask 16 Oct: "a simple donation page that links to
+  ko-fi". In the site's own look, like the catalogue, in
+  [`.impeccable/mocks/catalogue/src/support.html`](../../.impeccable/mocks/catalogue/src/support.html).
+  A big champagne "Support me", one line saying every app is free and that you can
+  support me on Ko-fi if one helps, a "Support me on Ko-fi" button, and a note that
+  Ko-fi takes the payment. Ko-fi is a site where people send small payments to
+  creators, so nothing on this site handles money.
+  - **Parked 16 Oct**, my call: I can't get into my Ko-fi account right now. The
+    page's mockup stays, and the Support me button came off the header. Picking it
+    back up is in [`backlog.md`](../backlog.md).
 - **Out:** Cloud and Quiet, and everything from rounds 1 and 2.
 
 ### What I've settled
@@ -136,14 +163,117 @@ The product facts are in [`PRODUCT.md`](../../PRODUCT.md), which Impeccable read
 
 ### Not settled
 
-- **YT Music Downloader's page, after its redesign.** I'm redesigning the app's own
-  look (font, UI) in its repo, 14 Oct. Its page here, and its card and chip on the
-  catalogue, get updated to match once that's done.
-- **Version numbers on the site.** The README leaves them out so an update needs no
-  commit. I haven't said if the site does the same.
-- **Which picture of YT Music Downloader goes on the page.**
+- [Version numbers on the site: settled 16 Oct, see "Version beside the button"
+  under YT Music Downloader's page below.]
+
+### YT Music Downloader's page, in the app's new look
+
+Decided 16 Oct 2026. Replaces the Two-Ink Riso page in "Picking the look" below.
+
+**Why it changed:** I finished the app's own redesign, Liner Notes. Each song is set
+like album credits, the name is in tall condensed capitals with a gold "YT", and the
+app is navy with one gold. The Riso page's font, cream ink and print effects came
+from the app's old look. [The app's look is in
+`../Mobile-Youtube-Music-Downloader/DESIGN.md`, and what the page had wrong is in its
+`doc/for-yh-downloads.md`.]
+
+**Picked: the Riso page's layout, in the app's new look.** My words: "what i like
+about the old one is that its neat, presents the important stuff clearly then goes on
+to provide more details." It's in
+[`.impeccable/mocks/app-page/src/yt-music-downloader.html`](../../.impeccable/mocks/app-page/src/yt-music-downloader.html),
+with pictures `yt-music-downloader-desktop.png` and `yt-music-downloader-phone.png`
+beside `src/`.
+
+- **Layout kept from Riso.** The big two-line name, the line, three facts and the
+  download button, with the picture on the right. Then Setup next to How to use it,
+  What it's used for next to What it isn't, and the FAQ, one question open at a time.
+- **Look from the app.** Barlow Condensed for the name only, Roboto for the rest,
+  hairlines, the gold pill button. The riso grain, sun, dots, tilts and cut-paper
+  button are gone.
+- **Three real screenshots in a stack:** the Download tab, History and Help, my ask.
+  The one showing is in front and the other two peek out behind it. Tabs over it, like
+  the app's, bring one to the front, and so does clicking one that peeks out.
+  - They're the app repo's `.impeccable/review/after-fixes/` shots, version 1.0, with
+    the status bar (carrier and time) cut off.
+  - **History is cut after Smells Like Teen Spirit.** Road Trip Mix and Nirvana are
+    test songs, my call. The songs below them are my real downloads, so they're
+    blanked out, and the screen keeps the app's tab bar at the bottom.
+- **A credits block under the button:** File, Size, Runs on, Installs from, in the
+  app's small spaced capitals. It fills the space under the button. I'd said the page
+  felt "too spread apart".
+- **One 1200px column**, with the header lined up to it. Full width felt spread apart,
+  and so did 1040px.
+- **The details are short and titled**, my ask, cause they felt wordy. Every step has a
+  short title in white and a few grey words under it, so the titles alone tell the
+  story. Steps sit on numbered rings joined by a thin line.
+- **What it's used for and What it isn't are one section, "What it's for"**, my ask, so
+  they don't read as two. "Made for" and "Not" sit side by side on one panel, in the
+  navy of the app's Help pop-up, with a tick or a cross in a small disc. Most items
+  are only a few words. It replaced a gold slab for What it isn't, cause the app keeps
+  gold for what you tap.
+- **Section headings in the name's lettering**, my ask: Barlow Condensed capitals. The
+  app itself keeps Barlow for its name only, but the page doesn't have to.
+- **A sound wave between the groups of sections**, my ask for highlights cause
+  everything under the first screen was the same dark blue. It sits at the top of the
+  details, above What it's for and above the FAQ. Its gold part is how much has
+  "played": a third, two thirds, then all of it by the FAQ. In browsers that can, the
+  gold fills in as you scroll it into view. It started as a thin line, my ask, then
+  became the wave.
+- **The real screen for a step, beside the steps**, my ask to fill the space with
+  proper content. The step whose picture shows has a gold ring. On phones the picture
+  sits under the steps.
+  - **Setup:** the phone's "Allow YT Music Downloader to send you notifications?"
+    prompt, for step 4.
+  - **How to use it has the app's two ways in as tabs**, my ask: Share from YT Music,
+    and Paste a link. A tab swaps the first two steps (share and pick the app, or copy
+    the link and paste it in the app). The rest is the same both ways: "Big playlist?
+    Say yes" (over 20 songs, it asks on the notification first), Let it run, Play it.
+    Pointing at or tapping a step shows its screen.
+  - Most are screenshots I took 16 Oct. They're cropped so the status bar (carrier,
+    time), the Nevermind album cover, other apps' icons (WhatsApp, Messenger,
+    Instagram, Facebook) and my other notifications stay off the page. They're saved
+    as PNG from the pixels only, so the phone's photo data doesn't come along.
+  - **The pasted link's share code is painted out.** It ended in `&si=…`, YouTube's
+    share code that can tie a link back to my account, so the picture shows only
+    `…watch?v=ljUtuoFt-8c`.
+  - Unused for now: YT Music's now-playing screen, its song menu, the Trending 20
+    Singapore playlist page, and Android's notification settings with the Allow
+    notifications switch.
+  - First tried: the app's "Notifications are off" card beside Setup. The real
+    prompt shows the step better.
+- **What it's for as credits lines:** the item, dots across, a short note at the end,
+  like the credits on an album. It fills the width without adding sentences. On narrow
+  phones the note sits under the item instead. "Sharing from YT Music, no need to open
+  the app" was added so both sides have five.
+- **The page ends on "Back to top"**, a gold text button like the app's, my ask. It
+  replaced a second Download for Android button there.
+- **Content brought up to version 1.0** from the app's note: the button is "Update
+  download engine (yt-dlp)", the FAQ says which links work and that private ones
+  don't, Setup says big playlists ask first, and the size is about 67 MB.
+- **Version beside the button**, my ask 16 Oct, "so that we know its the latest one":
+  "Version 1.0" and its date, 15 Oct 2026. Under the button on phones, beside it from
+  tablets up. The app's Help shows the version too, so people can check theirs.
+  - **What it costs:** every update now edits the page and needs a commit. The README
+    page left versions out to avoid exactly that, see "No version number on the page"
+    at the end. The site does it the other way.
+
+**Rejected:**
+- **Three fresh directions** in the app's look, drawn first, side by side in
+  [`.impeccable/mocks/app-page/compare.png`](../../.impeccable/mocks/app-page/compare.png).
+  I preferred the old layout.
+  - **Album back cover.** A tracklist indexes the page, with the download as track A1.
+  - **App screen.** The page is the app's Download tab, bigger, with a made-up queue
+    running on it and the app's tabs at the bottom.
+  - **Tags before and after.** One song saved two ways, with only the video's name and
+    with its credits.
+- **One screenshot with tabs to switch it.** Built first, but it left empty space
+  between the text and the picture.
+- **History uncut.** It shows my real downloads.
 
 ### Picking the look
+
+[Replaced 16 Oct 2026 by "YT Music Downloader's page, in the app's new look" above.
+Kept as the record of how the layout came about.]
 
 **Two-Ink Riso became YT Music Downloader's app page**, 14 Oct. I said "i really like
 this" and asked for changes to it, then it became the app page when the catalogue
