@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YT Music Downloader · YH Downloads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Figtree:wght@400..800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* The app's own colours, from its DESIGN.md: navy ground, warm ink, one gold. */
+:root{
+  --ground:#0F151D; --navy:#16202C; --high:#1C2734; --highest:#23303F; --outline:#3A4757;
+  --ink:#ECE7DE; --grey:#9AA4B1; --gold:#EDBB4E;
+}
+*{box-sizing:border-box}
+html{scrollbar-color:var(--outline) var(--ground); scroll-padding-top:120px}
+html,body{margin:0}
+body{background:var(--ground); color:var(--ink); font-family:'Roboto',sans-serif; font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+::selection{background:var(--gold); color:var(--navy)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold); outline-offset:4px}
+b{font-weight:500; color:var(--ink)}
+
+/* The site's header, in the catalogue's look rather than this app's. */
+.site{
+  position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; column-gap:20px; row-gap:10px;
+  padding:14px 16px 12px; background:#1B1917; color:#EEE7DD; font-family:'Figtree',sans-serif;
+  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9);
+}
+.site .home{flex:none; white-space:nowrap; font-weight:750; font-size:21px; line-height:1; letter-spacing:-.025em; color:#E6C88E; text-decoration:none}
+.site nav{flex-basis:100%; min-width:0; display:flex; gap:8px; margin:0 -16px; padding:0 16px 2px; overflow-x:auto; scrollbar-width:none}
+.site nav::-webkit-scrollbar{display:none}
+.site nav{-webkit-mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image:linear-gradient(to right, #000 calc(100% - 36px), transparent)}
+.chip{flex:none; display:inline-flex; align-items:center; gap:9px; min-height:44px; padding:0 15px 0 6px; border-radius:999px; background:var(--card); color:var(--btn); font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none}
+.chip .ic{width:32px; height:32px; border-radius:10px; overflow:hidden; display:grid; place-items:center; background:var(--btn); color:var(--btn-text); font-weight:800; font-size:15px}
+.chip .ic img{display:block; width:100%; height:100%}
+.chip[aria-current]{background:var(--btn); color:var(--btn-text)}
+.chip.all{padding:0 16px; background:transparent; color:#EEE7DD; box-shadow:inset 0 0 0 1.5px #4A443D}
+.site :focus-visible{outline:2px solid #E6C88E; outline-offset:3px}
+@media (hover:hover){.chip:not([aria-current]):hover{filter:brightness(1.18)} .site .home:hover{text-decoration:underline; text-underline-offset:4px}}
+
+/* The first screen shows the one thing the app is for: the same song, saved two ways.
+   Once with only the video's name, once with its credits filled in. */
+.open{display:grid; grid-template-columns:minmax(0,1fr); padding:28px 20px 48px}
+.name{margin:0; font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.06em; line-height:1; white-space:nowrap; font-size:min(8.6vw,64px)}
+.name .yt{color:var(--gold)}
+.hook{margin:14px 0 0; max-width:32ch; font-size:19px; line-height:1.4}
+
+.saved{margin-top:32px; display:grid; grid-template-columns:minmax(0,1fr); row-gap:28px}
+.saved h2{margin:0; padding:0 0 8px; border-bottom:1px solid var(--highest); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
+.song{position:relative; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; column-gap:16px; padding:14px 0 16px; border-bottom:1px solid var(--high)}
+.song .t{display:block; line-height:1.15}
+.song .c{display:block; margin-top:6px; letter-spacing:.09em; text-transform:uppercase; color:var(--grey)}
+.song .fig{color:var(--grey); font-variant-numeric:tabular-nums; padding-bottom:2px}
+.was .t{font-size:clamp(20px,4.6vw,30px); color:var(--grey)}
+.was .c{font-size:12px}
+.is .t{font-size:clamp(44px,12vw,96px); letter-spacing:-.01em; line-height:1}
+.is .c{font-size:clamp(13px,2.2vw,20px)}
+.is .fig{font-size:clamp(14px,1.6vw,18px)}
+.is.going .fig{color:var(--gold)}
+/* The signature moment: the credits row lands like a download in the app, its gold
+   rule running to the end, then the size takes the percent's place. */
+.is .rule{position:absolute; left:0; bottom:-1px; height:2px; width:calc(var(--p,100) * 1%); background:var(--gold); opacity:0; transition:opacity .4s}
+.is.going .rule{opacity:1}
+
+.get{margin-top:32px; display:grid; row-gap:12px}
+.pill{display:flex; align-items:center; justify-content:center; gap:10px; height:56px; padding:0 32px; border-radius:999px; background:var(--gold); color:var(--navy); font-size:16px; font-weight:500; letter-spacing:.01em; text-decoration:none; transition:background-color .2s}
+.pill svg{width:20px; height:20px; flex:none}
+.pill:active{transform:translateY(1px)}
+@media (hover:hover){.pill:hover{background:#F4C866}}
+.meta{margin:0; font-size:15px; color:var(--grey)}
+
+/* Under it, a credits sheet: what each part is on the left, its words on the right,
+   one hairline between parts. */
+.sheet{padding:0 20px 88px}
+.credit{display:grid; grid-template-columns:minmax(0,1fr); row-gap:12px; padding:26px 0 34px; border-top:1px solid var(--highest)}
+.credit > h2{margin:0; font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; line-height:1.6}
+.credit > h2 span{display:block; color:var(--grey); font-weight:400; letter-spacing:.09em}
+.app figure{margin:0; display:grid; row-gap:12px}
+.app img{display:block; width:min(80%,300px); height:auto; aspect-ratio:1200/1800; object-fit:cover; object-position:top; border:1px solid var(--highest)}
+.app figcaption{font-size:13px; color:var(--grey)}
+.facts{margin:0; padding:0; list-style:none; font-size:15px; color:var(--grey)}
+.facts li{padding:8px 0; border-bottom:1px solid var(--high)}
+.facts li:first-child{border-top:1px solid var(--high)}
+.steps{margin:0; padding:0; list-style:none; counter-reset:s; max-width:66ch}
+.steps li{counter-increment:s; display:grid; grid-template-columns:30px minmax(0,1fr); column-gap:10px; padding:10px 0}
+.steps li::before{content:counter(s); padding-top:2px; font-size:13px; color:var(--grey); font-variant-numeric:tabular-nums}
+.or{margin:6px 0 0 40px; font-size:16px; color:var(--grey)}
+.rows{margin:0; padding:0; list-style:none; max-width:66ch}
+.rows li{padding:10px 0}
+.rows .s{display:block; margin-top:1px; font-size:15px; color:var(--grey)}
+.qa{columns:2 300px; column-gap:40px}
+.qa div{break-inside:avoid; padding:0 0 22px}
+.qa h3{margin:0 0 4px; font-size:17px; font-weight:500; line-height:1.35}
+.qa p{margin:0; font-size:15px; color:var(--grey)}
+.qa ul{margin:4px 0 6px; padding-left:18px; font-size:15px; color:var(--grey)}
+.end{padding:28px 0 0; border-top:1px solid var(--highest); display:grid; row-gap:12px}
+
+@media (min-width:760px){
+  .site{flex-wrap:nowrap; height:72px; padding:0 32px}
+  .site nav{flex:0 1 auto; margin:0 0 0 auto; padding:0}
+  .chip{min-height:40px}
+  .chip .ic{width:28px; height:28px; border-radius:8px}
+  .open{padding:40px 32px 56px}
+  .sheet{padding:0 32px 120px}
+  .get,.end{grid-template-columns:auto minmax(0,1fr); align-items:center; column-gap:24px}
+  .credit{grid-template-columns:minmax(0,3fr) minmax(0,9fr); column-gap:40px}
+  .app figure{grid-template-columns:300px minmax(0,1fr); column-gap:32px; align-items:start}
+  .app img{width:100%}
+}
+/* Desktop: the two saves sit side by side, the plain one small on the left and the
+   credited one large on the right, so the difference reads in one look. */
+@media (min-width:1100px){
+  .site{padding:0 56px}
+  .site .home{font-size:24px}
+  .site nav{-webkit-mask-image:none; mask-image:none}
+  .open{grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:40px; padding:48px 56px 64px}
+  .name,.hook,.get{grid-column:1 / -1}
+  .hook{font-size:21px}
+  .saved{grid-column:1 / -1; grid-template-columns:minmax(0,4fr) minmax(0,8fr); column-gap:40px; margin-top:44px}
+  .was .t{font-size:30px}
+  .get{margin-top:40px}
+  .sheet{padding:0 56px 140px}
+  .credit{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .credit > h2{grid-column:1 / span 3}
+  .credit > :not(h2){grid-column:4 / span 9}
+}
+@media (prefers-reduced-motion:reduce){.pill,.is .rule{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="home" href="../../catalogue/src/soft-warm.html">YH Downloads</a>
+  <nav aria-label="Apps">
+    <a class="chip all" href="../../catalogue/src/soft-warm.html">All apps</a>
+    <a class="chip" href="#top" aria-current="page" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C"><span class="ic"><img src="../../catalogue/src/assets/ytmd-icon.svg" alt=""></span>YT Music Downloader</a>
+    <a class="chip" href="#" style="--card:#0F3A3C; --btn:#FFD0C6; --btn-text:#0B3133"><span class="ic" aria-hidden="true">E</span>Example app</a>
+    <a class="chip" href="#" style="--card:#2A2140; --btn:#FFE800; --btn-text:#2A2140"><span class="ic" aria-hidden="true">A</span>Another example</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="open" aria-labelledby="app-name">
+    <h1 class="name" id="app-name"><span class="yt">YT</span> Music Downloader</h1>
+    <p class="hook">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
+
+    <div class="saved">
+      <div class="was">
+        <h2>A lot of downloaders save</h2>
+        <div class="song"><span><span class="t">Mr. Brightside (Official Music Video) [HD]</span><span class="c">Unknown artist · Unknown album</span></span></div>
+      </div>
+      <div class="is">
+        <h2>This one saves</h2>
+        <div class="song" id="landing"><span><span class="t">Mr. Brightside</span><span class="c">The Killers · Hot Fuss · cover art</span></span><span class="fig">3.6 MB</span><span class="rule"></span></div>
+      </div>
+    </div>
+
+    <div class="get">
+      <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Download for Android
+      </a>
+      <p class="meta">yt-music-downloader.apk · Android 10 and up, 64-bit phones · about 67 MB</p>
+    </div>
+  </section>
+
+  <div class="sheet">
+    <section class="credit app">
+      <h2>The app<span>On a real phone</span></h2>
+      <figure>
+        <img src="assets/download-tab.png" width="1200" height="2360" alt="The app's Download tab: the paste box, the gold Download button, a playlist waiting to be OK'd, a song downloading at 46%, and two failed songs with Retry">
+        <figcaption>
+          The Download tab. The songs are made up for the picture.
+          <ul class="facts" style="margin-top:16px">
+            <li>Android 10 and up, 64-bit phones only.</li>
+            <li>Not on the Play Store. It installs from this page.</li>
+            <li>Not from YouTube or Google.</li>
+          </ul>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="credit" id="setup">
+      <h2>Setup<span>4 steps</span></h2>
+      <ol class="steps">
+        <li><span>Tap <b>Download for Android</b> and open the file once it's downloaded.</span></li>
+        <li><span>Your phone asks if your browser can install apps. Allow it, then tap <b>Install</b>.</span></li>
+        <li><span>Open the app once while you're online. The first time, it gets the newest download engine (yt-dlp), the part that does the downloading.</span></li>
+        <li><span>If it asks to send notifications, allow it. That's where downloads show how they're going, and where big playlists ask first.</span></li>
+      </ol>
+    </section>
+
+    <section class="credit" id="use">
+      <h2>How to use it<span>Share from YT Music</span></h2>
+      <div>
+        <ol class="steps">
+          <li><span>In YT Music, open a song, album or playlist and tap <b>Share</b>, then <b>Share with other apps</b>.</span></li>
+          <li><span>Pick <b>YT Music Downloader</b>. It's queued straight away, and you stay in YT Music.</span></li>
+          <li><span>It downloads in the background. A notification shows how it's going.</span></li>
+          <li><span>The songs land in your phone's Music folder, ready in your music app.</span></li>
+        </ol>
+        <p class="or">Or open the app, paste a link from YouTube or YT Music and tap <b>Download</b>.</p>
+      </div>
+    </section>
+
+    <section class="credit" id="used">
+      <h2>What it's used for</h2>
+      <ul class="rows">
+        <li>Keeping songs from YouTube Music on your phone, to play offline.</li>
+        <li>Whole playlists and albums, not just single songs. Big ones too.</li>
+        <li>Songs that show up properly in your music app, with title, artist, album, year and cover art.</li>
+        <li>Topping up a playlist. Share it again and only the songs you don't have yet download.</li>
+      </ul>
+    </section>
+
+    <section class="credit" id="isnt">
+      <h2>What it isn't</h2>
+      <ul class="rows">
+        <li>A music player.<span class="s">It saves the songs, and your music app plays them.</span></li>
+        <li>A video downloader.<span class="s">You only get the audio.</span></li>
+        <li>A sync tool.<span class="s">Take a song out of a playlist on YouTube and it stays on your phone.</span></li>
+        <li>From YouTube or Google.<span class="s">It's an app I built, and it's not on the Play Store.</span></li>
+        <li>For iPhone.<span class="s">Android 10 and up only, on 64-bit phones.</span></li>
+      </ul>
+    </section>
+
+    <section class="credit" id="faq">
+      <h2>FAQ<span>9 questions</span></h2>
+      <div class="qa">
+        <div><h3>Why does my phone warn me when I install it?</h3><p>It's not from the Play Store, and Android warns about every app that isn't. Allowing it lets your browser install apps, and you can switch that off again afterwards.</p></div>
+        <div><h3>Do I need YouTube Premium or an account?</h3><p>No. The app doesn't sign in to anything.</p></div>
+        <div><h3>What links work?</h3><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube.</p></div>
+        <div><h3>What can it get to on my phone?</h3><p>The internet and your notifications. It doesn't ask for your files, cause Android puts each song in the Music folder for it.</p></div>
+        <div><h3>What quality are the songs?</h3><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></div>
+        <div><h3>A download failed. What do I do?</h3><p>It tries 3 more times by itself. If it still fails, tap <b>Retry</b>. If lots fail, tap <b>Update download engine (yt-dlp)</b>. YouTube changes things now and then, and the download engine catches up with an update.</p></div>
+        <div><h3>What if I share a song I already have?</h3><p>It asks if you want it again or want to skip it. A playlist just skips the songs you already have.</p></div>
+        <div><h3>Do plain YouTube links work?</h3><p>Yes, but YT Music links come out cleaner. A YouTube video's title often has extras like "(Official Video)", and they end up in the song's name.</p></div>
+        <div><h3>How do I get the newest version?</h3><p>Tap <b>Download for Android</b> again. The button always gets the newest version. Yours is at the bottom of the app's Help.</p></div>
+      </div>
+    </section>
+
+    <div class="end">
+      <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Download for Android
+      </a>
+      <p class="meta">yt-music-downloader.apk · Android 10 and up, 64-bit phones · about 67 MB</p>
+    </div>
+  </div>
+</main>
+
+<script>
+// On load the credited song lands like a download in the app: percent in gold, the rule
+// running to the end, then the size. The page is drawn finished, so without the script
+// or with reduced motion it just shows the size.
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var row = document.getElementById('landing'), fig = row.querySelector('.fig');
+  var size = fig.textContent, p = 0, last;
+  row.parentNode.classList.add('going'); row.style.setProperty('--p', 0); fig.textContent = '0%';
+  setTimeout(function(){
+    last = performance.now();
+    (function step(now){
+      p = Math.min(100, p + (now - last) / 22); last = now;
+      row.style.setProperty('--p', p); fig.textContent = Math.floor(p) + '%';
+      if (p < 100) return requestAnimationFrame(step);
+      setTimeout(function(){ row.parentNode.classList.remove('going'); fig.textContent = size; }, 350);
+    })(last);
+  }, 700);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support me · YH Downloads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&display=swap" rel="stylesheet">
+<style>
+/* The site's own look, same as the catalogue: warm charcoal, oat text, a champagne
+   title. No app's colours here. */
+:root{--ground:#1B1917; --text:#EEE7DD; --muted:#ADA397; --title:#E6C88E; --wrap:1200px; --gut:20px}
+*{box-sizing:border-box}
+html{scrollbar-color:#4A443D var(--ground)}
+html,body{margin:0}
+body{min-height:100vh; background:var(--ground); color:var(--text); font-family:'Figtree',sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased}
+::selection{background:var(--title); color:var(--ground)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--title); outline-offset:3px}
+
+/* The site's header: All apps, and Support me filled in, cause that's this page. */
+.site{
+  position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; column-gap:12px; row-gap:10px;
+  padding:12px 16px; background:#1B1917; color:#EEE7DD;
+  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9);
+}
+.site .home{flex:none; white-space:nowrap; font-weight:750; font-size:21px; line-height:1; letter-spacing:-.025em; color:#E6C88E; text-decoration:none}
+.site nav{order:3; flex-basis:100%; min-width:0; display:flex; gap:8px}
+.chip{flex:none; display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border-radius:999px; color:#EEE7DD; box-shadow:inset 0 0 0 1.5px #4A443D; font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none}
+.support{order:2; margin-left:auto; flex:none; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px 0 13px; border-radius:999px; color:#E6C88E; box-shadow:inset 0 0 0 1.5px rgba(230,200,142,.5); font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none}
+.support svg{width:18px; height:18px; flex:none}
+.support[aria-current]{background:#E6C88E; color:#1B1917; box-shadow:none}
+@media (hover:hover){.chip:hover{filter:brightness(1.18)} .site .home:hover{text-decoration:underline; text-underline-offset:4px}}
+
+.page{max-width:calc(var(--wrap) + 2 * var(--gut)); margin:0 auto; padding:44px var(--gut) 88px}
+h1{margin:0; color:var(--title); font-weight:750; font-size:min(15vw,104px); line-height:1; letter-spacing:-.035em}
+.lede{margin:18px 0 0; max-width:36ch; font-size:19px; line-height:1.45}
+.nb{white-space:nowrap}
+.give{margin-top:32px; display:grid; justify-items:start; row-gap:12px}
+.kofi{
+  display:inline-flex; align-items:center; gap:10px; min-height:56px; padding:0 28px; border-radius:999px;
+  background:var(--title); color:var(--ground); font-weight:700; font-size:17px; text-decoration:none; transition:filter .2s;
+}
+.kofi svg{width:20px; height:20px; flex:none}
+@media (hover:hover){.kofi:hover{filter:brightness(1.07)}}
+.note{margin:0; max-width:46ch; font-size:15px; color:var(--muted)}
+.back{display:inline-block; margin-top:48px; color:var(--muted); font-size:15px; font-weight:600; text-decoration:none}
+@media (hover:hover){.back:hover{color:var(--text); text-decoration:underline; text-underline-offset:4px}}
+
+@media (min-width:760px){
+  :root{--gut:32px}
+  .site{flex-wrap:nowrap; height:72px; padding:0 32px}
+  .site nav{order:0; flex:0 1 auto; margin-left:auto}
+  .support{order:0; margin-left:0; min-height:40px}
+  .chip{min-height:40px}
+  .page{padding-top:88px; padding-bottom:120px}
+  .lede{font-size:21px}
+}
+@media (min-width:1100px){
+  :root{--gut:56px}
+  .site{padding:0 max(var(--gut), calc((100% - var(--wrap)) / 2))}
+  .site .home{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){.kofi{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="home" href="soft-warm.html">YH Downloads</a>
+  <nav aria-label="Apps">
+    <a class="chip" href="soft-warm.html">All apps</a>
+  </nav>
+  <a class="support" href="support.html" aria-current="page">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+    Support me
+  </a>
+</header>
+
+<main class="page">
+  <h1>Support me</h1>
+  <p class="lede">Every app here is free to download. If one of them helps you out, you can support me on <span class="nb">Ko-fi</span>.</p>
+  <div class="give">
+    <!-- Placeholder: the Ko-fi page name isn't known yet. -->
+    <a class="kofi" href="https://ko-fi.com/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      Support me on Ko-fi
+    </a>
+    <p class="note">It opens Ko-fi, which takes the payment. Nothing here asks for your card.</p>
+  </div>
+  <a class="back" href="soft-warm.html">Back to all apps</a>
+</main>
+
+</body>
+</html>

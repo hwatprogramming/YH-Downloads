@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>YT Music Downloader page, three directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* A board for picking: each direction's first screen on desktop, then on a phone. */
+body{margin:0; padding:40px; background:#2A2D31; color:#ECE7DE; font-family:'Roboto',sans-serif}
+.board{display:grid; grid-template-columns:repeat(3,600px); gap:40px}
+h2{margin:0; font-size:26px; font-weight:500}
+p{margin:6px 0 16px; font-size:16px; line-height:1.4; color:#B9C0C9; min-height:66px}
+.shots{display:grid; row-gap:20px}
+img{display:block; border:1px solid #4A4F57}
+.d{width:600px; height:auto}
+.m{width:300px; height:auto}
+small{display:block; margin:-12px 0 0; font-size:13px; color:#8F97A1}
+</style>
+</head>
+<body>
+<div class="board">
+  <section>
+    <h2>Album back cover</h2>
+    <p>The page is the back of a record sleeve. A tracklist indexes the page, with the download as track A1. The parts below are printed open like liner notes.</p>
+    <div class="shots">
+      <img class="d" src="back-cover-desktop-first.png" alt=""><small>Desktop, first screen</small>
+      <img class="m" src="back-cover-phone-first.png" alt=""><small>Phone, first screen</small>
+    </div>
+  </section>
+  <section>
+    <h2>App screen</h2>
+    <p>The page is the app's Download tab, bigger. A made-up queue runs on it, every part is a row, and the app's tabs at the bottom jump between parts.</p>
+    <div class="shots">
+      <img class="d" src="app-screen-desktop-first.png" alt=""><small>Desktop, first screen</small>
+      <img class="m" src="app-screen-phone-first.png" alt=""><small>Phone, first screen</small>
+    </div>
+  </section>
+  <section>
+    <h2>Tags before and after</h2>
+    <p>The page opens on one song saved two ways: with only the video's name, and with its credits. The credited one lands like a download. The parts sit in a credits sheet below.</p>
+    <div class="shots">
+      <img class="d" src="tags-desktop-first.png" alt=""><small>Desktop, first screen</small>
+      <img class="m" src="tags-phone-first.png" alt=""><small>Phone, first screen</small>
+    </div>
+  </section>
+</div>
+</body>
+</html>
