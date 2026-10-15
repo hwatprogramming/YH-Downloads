@@ -38,9 +38,9 @@ and the app page is the Riso layout in the app's Liner Notes look. All in
   process ends with a fresh review of the built pages and a `DESIGN.md` written from
   them. Not run yet. I wanted the site live first.
 - **Open questions on YT Music Downloader's page:**
-  - The FAQ's "Is this legal?", left out till I decide.
   - Whether the sticky header goes to one row on phones.
   - A phone cut-off I saw on the old Riso page that Claude couldn't reproduce.
+  [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
 - **Leftovers:** `.impeccable/questions/` (old picking-page state) and
   `.playwright-cli/` (Claude's check screenshots and logs) aren't committed, cause
   this repo is public. The three canvas directions at

@@ -146,9 +146,10 @@ itself, its fine for it to be slighty stylised." Still dark.
 - **The same parts on every app's page**, my ask 2026-10-14. Under the app's name, line,
   download button and picture come Setup, How to use it, What it's used for, What it
   isn't, and an FAQ. Setup and the FAQ are left out when an app has none.
-  - **Left out of YT Music Downloader's FAQ:** "Is this legal?" It's the most common
-    question for this kind of app, but the honest answer is that YouTube's terms don't
-    allow downloading, so whether it goes on a public page is my call. Not asked yet.
+  - **Left out of YT Music Downloader's FAQ, for good:** "Is this legal?" It's the
+    most common question for this kind of app, but the honest answer is that
+    YouTube's terms don't allow downloading. My call 16 Oct: skip it. Don't
+    re-suggest it.
 - **Built with plain HTML and CSS.** No build step: the catalogue page plus one page
   per app since 14 Oct. I said "you pick" and Claude picked it.
   - Every app's page has its own theme, and a shared template would fight that.
