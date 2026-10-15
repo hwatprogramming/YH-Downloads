@@ -34,26 +34,19 @@ release-signed, as release `yt-music-downloader`. The catalogue is the Warm mock
 and the app page is the Riso layout in the app's Liner Notes look. All in
 [`downloads-page.md`](doc/live-design-choices/downloads-page.md).]
 
-- **Impeccable's finish review and `DESIGN.md` for the live site, next session,** my
-  plan 2026-10-16. Impeccable's process ends with a fresh review of the built pages and
-  a `DESIGN.md` written from them. I wanted the site live first. What the next session
-  needs to know:
-  - **No direction contract is written yet.** Impeccable normally records one in a
-    surface brief before building, and its reviewer checks the build against it. This
-    one went straight from mockups to the site, so write the contract from what
-    shipped first: the Riso layout in the app's Liner Notes look, decided in
-    [`downloads-page.md`](doc/live-design-choices/downloads-page.md).
-  - **Built without image generation**, so there's no approved comp. The mockups in
-    `.impeccable/mocks/` (catalogue `soft-warm.html`, app page
-    `app-page/src/yt-music-downloader.html`) are the reference.
-  - **Review the live files**, `index.html` and `yt-music-downloader/index.html`, at
-    desktop and phone width. Impeccable's checker ran once already, 2026-10-16, with
-    two warnings that were left on purpose: Roboto (the app's own font) and "cramped
-    padding" on the FAQ list, where the checker read the thin line above it as a box.
-  - Then update `downloads-page.md` with what the review changed, and commit and push.
-- **Open questions on YT Music Downloader's page:**
-  - Whether the sticky header goes to one row on phones.
-  - A phone cut-off I saw on the old Riso page that Claude couldn't reproduce.
+- **Pick fixes from Impeccable's finish review, then finish it,** next session. The
+  review ran 2026-10-16 and both pages came back "fix": small fixes, no redesign.
+  Nothing changed yet. The 11 fixes, the picture-note wording waiting for my OK, and
+  the steps left after I pick (retake screenshots, a fresh reviewer scores the fixes,
+  `DESIGN.md`, update `downloads-page.md`, commit and push) are all in
+  [`doc/finish-review.md`](doc/finish-review.md).
+  - Direction contracts for both pages got written for the review, from what shipped,
+    in `.impeccable/surfaces/`.
+- **Open questions on YT Music Downloader's page**, the reviewer's view on both is in
+  [`doc/finish-review.md`](doc/finish-review.md):
+  - Whether the sticky header goes to one row on phones. Reviewer: it can't fit.
+  - A phone cut-off I saw on the old Riso page. Reviewer's best guess: "DOWNLOADER" in
+    the fallback font on a slow first load.
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
 - **Leftovers:** `.impeccable/questions/` (old picking-page state) and
   `.playwright-cli/` (Claude's check screenshots and logs) are in `.gitignore` since
