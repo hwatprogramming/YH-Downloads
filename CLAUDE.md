@@ -34,23 +34,31 @@ release-signed, as release `yt-music-downloader`. The catalogue is the Warm mock
 and the app page is the Riso layout in the app's Liner Notes look. All in
 [`downloads-page.md`](doc/live-design-choices/downloads-page.md).]
 
-- **Pick fixes from Impeccable's finish review, then finish it.** The review ran
-  2026-10-16 and both pages came back "fix": small fixes, no redesign. **All 11 fixes
-  applied and pushed 16 Oct, plus a new phone layout for the catalogue card. Picture
-  notes are in all 15 screenshots. Second round 16 Oct: fresh reviewers scored every
-  fix resolved, both pages "ship".** Left: Impeccable's documenter writes `DESIGN.md`,
-  fix `PRODUCT.md`'s stale line, update `downloads-page.md`, commit and push. All in
-  [`doc/finish-review.md`](doc/finish-review.md).
-  - Direction contracts for both pages got written for the review, from what shipped,
-    in `.impeccable/surfaces/`. Both brought up to date 16 Oct, after the stack change,
-    the review fixes and the new card layout, so the fresh reviewer checks against
-    what's live.
+[Finished 2026-10-16: Impeccable's finish, both pages "ship". All 11 review fixes, a
+new phone card, picture notes in the 15 screenshots, a second review round with every
+fix resolved, and [`DESIGN.md`](DESIGN.md) written from the live pages. Details in
+[`doc/finish-review.md`](doc/finish-review.md). Barlow Condensed is for the name and
+the section headings, my call the same day.]
+
+[Stopped here 16 Oct, my call. By the done line from 13 Oct (page live in that layout,
+first app on it) the site is done. Nothing below blocks that.]
+
+- **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
+  long page, a section per app", but it became a catalogue page plus a page per app on
+  14 Oct. Claude offered to log that change with `log` and reword the goal. Not
+  answered yet.
 - **Open question on YT Music Downloader's page:** whether the sticky header goes to one
-  row on phones. Reviewer: it can't fit. Their view is in
-  [`doc/finish-review.md`](doc/finish-review.md).
+  row on phones. Reviewer: it can't fit, so keep two rows, or unstick it on phones only.
+  Their view is in [`doc/finish-review.md`](doc/finish-review.md).
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
+- **Two small layout things Claude found 16 Oct, not picked yet:**
+  - At exactly 760px wide, two notes in What it's for's "Not" list ("your music app
+    plays them", "songs stay on your phone") poke past the screen edge, so the page
+    scrolls sideways. It was there before the fixes.
+  - With the new phone card, the download button runs the card's full width up to
+    759px, so on a small tablet it's about 690px wide. Cap it there? Not answered.
 - **Leftovers:** `.impeccable/questions/` (old picking-page state) and
   `.playwright-cli/` (Claude's check screenshots and logs) are in `.gitignore` since
   2026-10-16, cause this repo is public. The three canvas directions at

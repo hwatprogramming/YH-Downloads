@@ -106,6 +106,11 @@ committed). How each was done:
    `file://`, so serve the folder first (`python -m http.server`).
 3. ~~A fresh reviewer scores each fix resolved, partial or unresolved.~~ Done 16 Oct,
    both "ship", see the top.
-4. Impeccable's documenter writes `DESIGN.md` and `.impeccable/design.json` from the
-   built pages.
-5. Update `live-design-choices/downloads-page.md` with what changed, then commit and push.
+4. ~~Impeccable's documenter writes `DESIGN.md` and `.impeccable/design.json` from the
+   built pages.~~ Done 16 Oct. Its notes on things it left as found: the app page types
+   the Warm header's colours out again, cause there's no shared stylesheet, so they
+   could drift from the catalogue's. `PRODUCT.md` said Barlow is for the name only,
+   but the page uses it for section headings too. My call 16 Oct: name and headings,
+   so the docs got fixed, not the page.
+5. ~~Update `live-design-choices/downloads-page.md` with what changed~~ Done 16 Oct, then
+   commit and push.

@@ -59,7 +59,8 @@ Done means the site is live and the first app is on it.
   for, What it isn't, and an FAQ. Setup and the FAQ are left out when an app has none.
   My ask, 2026-10-14.
 - First app: YT Music Downloader. Android APK, Android 10 and up, arm64 phones only.
-- No release is uploaded yet, so no download link works yet.
+- YT Music Downloader 1.0 is uploaded, release-signed, as release `yt-music-downloader`.
+  The download links work. Since 2026-10-16.
 - An app's page shows the version its button downloads, and the version's date,
   beside the button, so people can tell they have the latest. My ask, 2026-10-16. Each
   update edits that line on the page.
@@ -81,8 +82,9 @@ Done means the site is live and the first app is on it.
   gold tile. Gold `#EDBB4E`, dark `#16202C`. The app is named "YT Music Downloader" on
   the phone since 2026-10-14. It was "Music Downloader" before that.
 - YT Music Downloader's page wears the app's own look, Liner Notes, since 2026-10-16:
-  navy `#0F151D`, warm off-white text, one gold, Barlow Condensed for the name only,
-  Roboto for the rest, hairlines. It's in the app repo's `DESIGN.md`.
+  navy `#0F151D`, warm off-white text, one gold, Barlow Condensed for the name and the
+  section headings (my call 2026-10-16), Roboto for the rest, hairlines. It's in the app
+  repo's `DESIGN.md`.
 
 ## Evidence on Hand
 

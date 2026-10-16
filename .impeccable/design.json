@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T00:00:00Z",
+  "title": "Design System: YH Downloads",
+  "extensions": {
+    "colorMeta": {
+      "title-champagne": { "role": "primary", "displayName": "Champagne Title", "canonical": "oklch(84.5% 0.082 83)", "tonalRamp": ["oklch(15% 0.082 83)", "oklch(26% 0.082 83)", "oklch(38% 0.082 83)", "oklch(50% 0.082 83)", "oklch(62% 0.082 83)", "oklch(74% 0.082 83)", "oklch(85% 0.082 83)", "oklch(95% 0.082 83)"] },
+      "charcoal-ground": { "role": "neutral", "displayName": "Warm Charcoal", "canonical": "oklch(21.5% 0.005 68)", "tonalRamp": ["oklch(15% 0.005 68)", "oklch(26% 0.005 68)", "oklch(38% 0.005 68)", "oklch(50% 0.005 68)", "oklch(62% 0.005 68)", "oklch(74% 0.005 68)", "oklch(85% 0.005 68)", "oklch(95% 0.005 68)"] },
+      "oat-text": { "role": "neutral", "displayName": "Oat", "canonical": "oklch(93.1% 0.015 77)", "tonalRamp": ["oklch(15% 0.015 77)", "oklch(26% 0.015 77)", "oklch(38% 0.015 77)", "oklch(50% 0.015 77)", "oklch(62% 0.015 77)", "oklch(74% 0.015 77)", "oklch(85% 0.015 77)", "oklch(95% 0.015 77)"] },
+      "muted-taupe": { "role": "neutral", "displayName": "Muted Taupe", "canonical": "oklch(72.1% 0.021 72)", "tonalRamp": ["oklch(15% 0.021 72)", "oklch(26% 0.021 72)", "oklch(38% 0.021 72)", "oklch(50% 0.021 72)", "oklch(62% 0.021 72)", "oklch(74% 0.021 72)", "oklch(85% 0.021 72)", "oklch(95% 0.021 72)"] },
+      "card-ink": { "role": "neutral", "displayName": "Card Ink", "canonical": "oklch(94.5% 0.012 80)", "tonalRamp": ["oklch(15% 0.012 80)", "oklch(26% 0.012 80)", "oklch(38% 0.012 80)", "oklch(50% 0.012 80)", "oklch(62% 0.012 80)", "oklch(74% 0.012 80)", "oklch(85% 0.012 80)", "oklch(95% 0.012 80)"] },
+      "dashed-umber": { "role": "neutral", "displayName": "Dashed Umber", "canonical": "oklch(39.0% 0.014 72)", "tonalRamp": ["oklch(15% 0.014 72)", "oklch(26% 0.014 72)", "oklch(38% 0.014 72)", "oklch(50% 0.014 72)", "oklch(62% 0.014 72)", "oklch(74% 0.014 72)", "oklch(85% 0.014 72)", "oklch(95% 0.014 72)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The catalogue's \"YH Downloads\" title, in Champagne." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "\"YH Downloads\" in the app pages' sticky header; 24px from 1100px." },
+      "title": { "displayName": "Title", "purpose": "An app's name on its card; 22px under 760px." },
+      "lead": { "displayName": "Lead", "purpose": "The muted line under the title, about 36ch; 19px under 760px." },
+      "body": { "displayName": "Body", "purpose": "Default text; an app's one line on its card is 16px at 50ch." },
+      "label": { "displayName": "Label", "purpose": "The download button's words." },
+      "meta": { "displayName": "Meta", "purpose": "A card's version line and the footer." }
+    },
+    "shadows": [
+      { "name": "card-lift", "value": "0 18px 40px -28px rgba(0,0,0,.8)", "purpose": "Every app card: a soft pool under the card, no outline." },
+      { "name": "header-shelf", "value": "0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9)", "purpose": "The sticky Warm site header on app pages." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "The download arrow's 2px drop on hover (0.25s)." },
+      { "name": "button-brighten", "value": "filter .2s", "purpose": "Download pill brightens to 1.07 on hover; app chips to 1.18." }
+    ],
+    "breakpoints": [
+      { "name": "wide", "value": "760px" },
+      { "name": "header-column", "value": "1100px" }
+    ],
+    "perAppSlots": {
+      "description": "Set inline on each app card and app chip from that app's own look. Not Warm tokens.",
+      "slots": [
+        { "name": "--card", "purpose": "The card's fill and the app chip's fill. Must be dark enough to carry Card Ink text." },
+        { "name": "--btn", "purpose": "The download button, the card's text link, the letter-icon fallback, the current app chip." },
+        { "name": "--btn-text", "purpose": "Text on --btn." }
+      ]
+    },
+    "appLooks": [
+      {
+        "app": "YT Music Downloader",
+        "look": "Liner Notes",
+        "page": "yt-music-downloader/index.html",
+        "source": "The app repo's DESIGN.md",
+        "note": "An instance, not site tokens. A future app's page starts from its own app's DESIGN.md.",
+        "catalogueSlots": { "--card": "#16202C", "--btn": "#EDBB4E", "--btn-text": "#16202C" },
+        "colors": { "ground": "#0F151D", "navy": "#16202C", "panel": "#1C2734", "highest": "#23303F", "outline": "#3A4757", "ink": "#ECE7DE", "grey": "#9AA4B1", "gold": "#EDBB4E", "gold-hover": "#F4C866" },
+        "fonts": { "display": "Barlow Condensed 700, uppercase, 0.04em", "text": "Roboto 400/500", "fallback": "local Roboto or Arial at size-adjust 67% until Barlow loads" }
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "App Card",
+      "kind": "card",
+      "refersTo": "app-card-wide",
+      "description": "One card per app on the catalogue, filled with that app's colours; pill download and text link on the right from 760px.",
+      "html": "<div class=\"ds-card\" style=\"--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C\"><span class=\"ds-card-icon\">Y</span><div><h2 class=\"ds-card-name\">YT Music Downloader</h2><p class=\"ds-card-line\">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p><p class=\"ds-card-meta\"><b>Version 1.0</b> · Android 10 and up</p></div><div class=\"ds-card-acts\"><a class=\"ds-dl\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v11\"/><path d=\"M7 11l5 5 5-5\"/><path d=\"M5 20h14\"/></svg>Download for Android</a><a class=\"ds-more\" href=\"#\">Setup, how to use it, FAQ</a></div></div>",
+      "css": ".ds-card { display:grid; grid-template-columns:80px minmax(0,1fr) auto; column-gap:24px; align-items:center; padding:24px 30px 24px 24px; border-radius:32px; background:var(--card); color:#F1ECE4; box-shadow:0 18px 40px -28px rgba(0,0,0,.8); font-family:'Figtree',sans-serif; } .ds-card-icon { width:80px; height:80px; border-radius:22px; display:grid; place-items:center; background:var(--btn); color:var(--btn-text); font-weight:750; font-size:34px; } .ds-card-name { margin:3px 0 0; font-weight:700; font-size:27px; line-height:1.2; letter-spacing:-.015em; } .ds-card-line { margin:6px 0 0; max-width:50ch; font-size:16px; color:color-mix(in srgb, #F1ECE4 74%, var(--card)); } .ds-card-meta { margin:10px 0 0; font-size:14px; color:color-mix(in srgb, #F1ECE4 74%, var(--card)); } .ds-card-meta b { font-weight:600; color:#F1ECE4; } .ds-card-acts { display:flex; flex-direction:column; align-items:flex-end; gap:12px; } .ds-dl { display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; border-radius:999px; background:var(--btn); color:var(--btn-text); text-decoration:none; font-weight:700; font-size:16px; transition:filter .2s; } .ds-dl svg { width:18px; height:18px; transition:transform .25s cubic-bezier(.16,1,.3,1); } .ds-dl:hover { filter:brightness(1.07); } .ds-dl:hover svg { transform:translateY(2px); } .ds-dl:focus-visible, .ds-more:focus-visible { outline:2px solid #E6C88E; outline-offset:3px; border-radius:6px; } .ds-more { font-size:15px; font-weight:600; color:var(--btn); text-decoration:none; } .ds-more:hover { text-decoration:underline; text-underline-offset:4px; }"
+    },
+    {
+      "name": "Download Button",
+      "kind": "button",
+      "refersTo": "button-download",
+      "description": "Pill in the app's --btn colour with a stroked down-arrow; full width on phones.",
+      "html": "<a class=\"ds-dl-btn\" href=\"#\" style=\"--btn:#EDBB4E; --btn-text:#16202C\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v11\"/><path d=\"M7 11l5 5 5-5\"/><path d=\"M5 20h14\"/></svg>Download for Android</a>",
+      "css": ".ds-dl-btn { display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; border-radius:999px; background:var(--btn); color:var(--btn-text); text-decoration:none; font-family:'Figtree',sans-serif; font-weight:700; font-size:16px; transition:filter .2s; } .ds-dl-btn svg { width:18px; height:18px; flex:none; transition:transform .25s cubic-bezier(.16,1,.3,1); } .ds-dl-btn:hover { filter:brightness(1.07); } .ds-dl-btn:hover svg { transform:translateY(2px); } .ds-dl-btn:focus-visible { outline:2px solid #E6C88E; outline-offset:3px; }"
+    },
+    {
+      "name": "Coming-Soon Slot",
+      "kind": "custom",
+      "refersTo": "slot-coming-soon",
+      "description": "Dashed, card-shaped empty slot under the last app.",
+      "html": "<div class=\"ds-soon\">And more apps to come…</div>",
+      "css": ".ds-soon { display:flex; align-items:center; min-height:84px; padding:0 30px 0 22.5px; border:1.5px dashed #4A443D; border-radius:32px; color:#ADA397; font-family:'Figtree',sans-serif; font-size:18px; font-weight:600; }"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "site-header",
+      "description": "Sticky Warm header on every app page: wordmark home, All apps chip, and the current app's chip in its own colours.",
+      "html": "<header class=\"ds-site\"><a class=\"ds-home\" href=\"#\">YH Downloads</a><nav class=\"ds-nav\"><a class=\"ds-chip ds-chip-all\" href=\"#\">All apps</a><a class=\"ds-chip ds-chip-current\" href=\"#\" style=\"--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C\"><span class=\"ds-chip-ic\">Y</span>YT Music Downloader</a></nav></header>",
+      "css": ".ds-site { display:flex; align-items:center; column-gap:12px; height:72px; padding:0 32px; background:#1B1917; color:#EEE7DD; font-family:'Figtree',sans-serif; box-shadow:0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9); } .ds-home { font-weight:750; font-size:21px; line-height:1; letter-spacing:-.025em; color:#E6C88E; text-decoration:none; } .ds-home:hover { text-decoration:underline; text-underline-offset:4px; } .ds-nav { display:flex; gap:8px; margin-left:auto; } .ds-chip { display:inline-flex; align-items:center; gap:9px; min-height:40px; padding:0 15px 0 6px; border-radius:999px; background:var(--card); color:var(--btn); font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none; } .ds-chip-ic { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:var(--btn); color:var(--btn-text); font-weight:800; font-size:15px; } .ds-chip-current { background:var(--btn); color:var(--btn-text); } .ds-chip-all { padding:0 16px; background:transparent; color:#EEE7DD; box-shadow:inset 0 0 0 1.5px #4A443D; } .ds-chip-all:hover { filter:brightness(1.18); } .ds-home:focus-visible, .ds-chip:focus-visible { outline:2px solid #E6C88E; outline-offset:3px; }"
+    },
+    {
+      "name": "Catalogue Title",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "The catalogue's masthead: champagne title and one muted line.",
+      "html": "<header class=\"ds-mast\"><h1>YH Downloads</h1><p>Apps I've built, ready to download. Each one has its own page with setup steps and answers.</p></header>",
+      "css": ".ds-mast { background:#1B1917; padding:40px; font-family:'Figtree',sans-serif; } .ds-mast h1 { margin:0; color:#E6C88E; font-weight:750; font-size:min(13vw,104px); line-height:1; letter-spacing:-.035em; } .ds-mast p { margin:16px 0 0; max-width:36ch; font-size:21px; line-height:1.45; color:#ADA397; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Soft Contents Page",
+    "overview": "YH Downloads is a zine's contents page, made soft: one big champagne title, one muted line, then a tight stack of rounded cards, one per app. The site's own look, \"Warm\", is a warm charcoal room with oat text and a single champagne-gold voice. It is professional and only slightly stylised. It never speaks for any one app; it is the shelf the apps sit on.\n\nThe site has two layers, and they never mix. Warm is the site's own system: the catalogue page, the sticky header on every app page, the tab icon, and the frame around each app's card. App looks belong to the apps: each app's own page wears that app's look, taken from the app's own DESIGN.md, and on the catalogue each app's card is filled with that app's colours. The frontmatter above is Warm only. The first app look, YT Music Downloader's Liner Notes, is recorded under \"App Pages\" at the end as an instance, not as tokens for future pages to inherit.\n\nDensity is low and calm: few elements, generous radii, soft ambient shadow, one accent. The user confirmed two rejections for the Warm layer: no pink, and no Bagel Fat One.",
+    "keyCharacteristics": [
+      "Dark, warm charcoal ground with oat text; the only accent is the champagne title.",
+      "Figtree everywhere, heavy (750) and tightly tracked for the title.",
+      "Round cards (28px, 32px from 760px) with no outlines and a soft drop shadow.",
+      "Pill buttons and pill chips.",
+      "Each app arrives as a block of its own colour on the one shared charcoal page.",
+      "A dashed empty slot under the last app says more are coming."
+    ],
+    "rules": [
+      { "name": "The One Champagne Rule", "body": "Champagne is the site's name, the focus ring and the text-selection fill, nothing else. It is never an app's button colour and never a card fill.", "section": "colors" },
+      { "name": "The Borrowed Colour Rule", "body": "An app's colours appear only inside that app's card or chip. The ground, title, header and slot stay Warm on every page.", "section": "colors" },
+      { "name": "The Dark Card Rule", "body": "Card text is always Card Ink (#F1ECE4), so an app's `--card` must be dark enough to carry light text. A light-themed app brings its darkest surface to the catalogue, not its lightest.", "section": "colors" },
+      { "name": "The Self-Hosted Rule", "body": "Every font comes from `assets/fonts/`, with its OFL licence beside it, loaded with `font-display: swap`. No page ever waits on another server for a font.", "section": "typography" },
+      { "name": "The One Left Edge Rule", "body": "On phones a card's content starts at one left edge, and the button runs the full width.", "section": "layout" },
+      { "name": "The No-Outline Card Rule", "body": "Cards are separated from the ground by colour and the Card Lift shadow, never by a border. The only lines in Warm are the dashed slot and the \"All apps\" ring, both Dashed Umber.", "section": "elevation" },
+      { "name": "The Own Look Rule", "body": "A new app's page starts from that app's DESIGN.md, not from another app's page. Copy the page's structure if it fits, never its colours or fonts.", "section": "app-pages" }
+    ],
+    "dos": [
+      "Do keep the catalogue, the header and the tab icon in Warm on every page: Warm Charcoal, Oat, Champagne, Figtree.",
+      "Do give each app's card and chip that app's own colours through `--card`, `--btn` and `--btn-text`, set inline on the card or chip.",
+      "Do set card text in Card Ink and mix secondary card text toward the card's fill (74%, 64% for the faintest).",
+      "Do use round shapes throughout: 28 to 32px cards, pill buttons and chips.",
+      "Do gate hover effects behind `(hover:hover)` and drop transitions under `prefers-reduced-motion: reduce`.",
+      "Do load every font from `assets/fonts/` with its licence beside it."
+    ],
+    "donts": [
+      "Don't use pink or Bagel Fat One anywhere in Warm.",
+      "Don't use Champagne for an app's button, card or link; it is the site's name colour.",
+      "Don't give a card an outline; separate it with its colour and the Card Lift shadow.",
+      "Don't carry an app's colours or fonts into the header, the ground or the title.",
+      "Don't give a future app's page navy, gold, Barlow Condensed or Roboto because YT Music Downloader's page has them; those are that app's, not the site's."
+    ]
+  }
+}

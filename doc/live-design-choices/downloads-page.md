@@ -200,7 +200,9 @@ beside `src/`.
 - **Layout kept from Riso.** The big two-line name, the line, three facts and the
   download button, with the picture on the right. Then Setup next to How to use it,
   What it's used for next to What it isn't, and the FAQ, one question open at a time.
-- **Look from the app.** Barlow Condensed for the name only, Roboto for the rest,
+- **Look from the app.** Barlow Condensed for the name and the section headings,
+  Roboto for the rest. [Said "name only" until 16 Oct, but the page always used it for
+  the headings too. My call 16 Oct: name and headings.] Also
   hairlines, the gold pill button. The riso grain, sun, dots, tilts and cut-paper
   button are gone.
 - **Three real screenshots in a stack:** the Download tab, History and Help, my ask.
@@ -382,6 +384,32 @@ Decided 1 Oct 2026.
   version on the page right.
 - Website that reads Releases. Nothing to keep in sync, but it's a page to design and
   build first, and it shows empty if GitHub's release list doesn't load for a visitor.
+
+### Finish review, 16 Oct
+
+Impeccable's finish review said "fix" on both pages: small fixes, no redesign. I took
+all 11 after seeing each as a before and after picture, and a second round scored every
+one resolved, both pages "ship". The full list is in
+[`finish-review.md`](../finish-review.md). The ones that change how the site looks or
+works:
+
+- **Step screens on phones open inside the step you tapped**, under its text, with a
+  grey "Tap a step to see its screen." under Setup and How to use it. Before, the
+  screen showed below the last step and nothing said steps could be tapped. Wider
+  screens keep the screen beside the steps.
+- **A "YH" tab icon**, in champagne on charcoal, on every page. Not the music app's
+  icon, so the site doesn't look like it belongs to that one app.
+- **Fonts live on the site**, in `assets/fonts/` with their licences, about 86 KB. Before,
+  they came from Google, and if that failed the titles went to Arial.
+- **The phone cut-off I saw was the name in its stand-in font on a slow first load.**
+  The stand-in is now shrunk to Barlow's width, and the name is a bit smaller on
+  phones (15vw, 59px letters at 390px instead of 64px). Checked on my phone.
+- **The catalogue card says "64-bit phones"**, like the app page does.
+- **Not fixed, on purpose:** the app page's File fact breaks as "yt-music-" /
+  "downloader.apk" on phones. The name is wider than its column, so it has to break
+  somewhere.
+
+The design system, written from the finished pages, is in [`DESIGN.md`](../../DESIGN.md).
 
 ## No version number on the page
 
