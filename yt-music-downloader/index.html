@@ -79,29 +79,29 @@ b{font-weight:500; color:var(--ink)}
 .specs dt{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
 .specs dd{margin:4px 0 0; font-size:15px; overflow-wrap:anywhere}
 
-/* The app, as three real phone screenshots in a stack: the one showing in front, the
-   other two peeking out behind it to the left. Text tabs over it, in the app's tab
-   style, pick which one is in front. */
+/* The app, as three real phone screenshots in a stack: the one showing in front in the
+   middle, the other two peeking out behind it, one each side. Text tabs over it, in the
+   app's tab style, pick which one is in front. */
 .shots{--w:min(60vw,230px); --step:40px; margin:40px 0 0; justify-self:center; width:calc(var(--w) + 2 * var(--step))}
 .stack{position:relative; height:calc(var(--w) * 2360 / 1200)}
 .phone{
   position:absolute; left:0; top:0; width:var(--w); aspect-ratio:1200/2360; overflow:hidden;
   border-radius:calc(var(--w) * .085); border:1px solid var(--highest); background:var(--ground); cursor:pointer;
-  transform-origin:left center; transform:translateX(calc((2 - var(--pos)) * var(--step))) scale(calc(1 - var(--pos) * .07));
+  transform:translateX(calc(var(--x) * var(--step))) scale(var(--s));
   transition:transform .55s cubic-bezier(.16,1,.3,1), filter .55s cubic-bezier(.16,1,.3,1);
 }
 .phone img{display:block; width:100%; height:100%}
-.phone[data-pos="0"]{--pos:0; z-index:3; cursor:default}
-.phone[data-pos="1"]{--pos:1; z-index:2; filter:brightness(.5)}
-.phone[data-pos="2"]{--pos:2; z-index:1; filter:brightness(.32)}
-@media (hover:hover){.phone[data-pos="1"]:hover,.phone[data-pos="2"]:hover{filter:brightness(.75)}}
-.tabs{display:flex; justify-content:center; gap:20px; width:var(--w); margin:0 0 10px calc(2 * var(--step))}
+.phone[data-pos="centre"]{--x:1; --s:1; z-index:2; cursor:default}
+.phone[data-pos="left"]{--x:0; --s:.93; z-index:1; filter:brightness(.5)}
+.phone[data-pos="right"]{--x:2; --s:.93; z-index:1; filter:brightness(.5)}
+@media (hover:hover){.phone[data-pos="left"]:hover,.phone[data-pos="right"]:hover{filter:brightness(.75)}}
+.tabs{display:flex; justify-content:center; gap:20px; width:var(--w); margin:0 0 10px var(--step)}
 .tabs button{position:relative; min-height:44px; padding:10px 8px 14px; border:0; background:none; color:var(--grey); font:500 15px/1 'Roboto',sans-serif; cursor:pointer}
 .tabs button::after{content:""; position:absolute; left:8px; right:8px; bottom:6px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .tabs button[aria-selected="true"]{color:var(--ink)}
 .tabs button[aria-selected="true"]::after{transform:scaleX(1)}
 @media (hover:hover){.tabs button:hover{color:var(--ink)}}
-.shots figcaption{width:var(--w); margin:12px 0 0 calc(2 * var(--step)); min-height:4.4em; font-size:14px; line-height:1.45; color:var(--grey); text-align:center}
+.shots figcaption{width:var(--w); margin:12px 0 0 var(--step); min-height:4.4em; font-size:14px; line-height:1.45; color:var(--grey); text-align:center}
 
 /* More details: Setup and How to use it side by side, then what it's for and what it
    isn't, then the FAQ. Headings in the app's Help heading style. */
@@ -296,14 +296,14 @@ b{font-weight:500; color:var(--ink)}
 
     <figure class="shots">
       <div class="tabs" role="tablist" aria-label="Screens">
+        <button role="tab" aria-selected="false" aria-controls="phone" data-shot="help" data-cap="The two ways in, and which links work." tabindex="-1">Help</button>
         <button role="tab" aria-selected="true" aria-controls="phone" data-shot="download" data-cap="A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.">Download</button>
         <button role="tab" aria-selected="false" aria-controls="phone" data-shot="history" data-cap="Every song that's done, with its artist and album." tabindex="-1">History</button>
-        <button role="tab" aria-selected="false" aria-controls="phone" data-shot="help" data-cap="The two ways in, and which links work." tabindex="-1">Help</button>
       </div>
       <div class="stack" id="phone">
-        <div class="phone" data-shot="download" data-pos="0"><img src="assets/download-tab.png" width="1200" height="2360" alt="The Download tab: the paste box, the gold Download button, a playlist waiting to be OK'd, a song downloading at 46%, and two failed songs with Retry"></div>
-        <div class="phone" data-shot="history" data-pos="1" aria-hidden="true"><img src="assets/history-tab.png" width="1200" height="2360" alt="The History tab: finished songs, each with its artist, album and size"></div>
-        <div class="phone" data-shot="help" data-pos="2" aria-hidden="true"><img src="assets/help.png" width="1200" height="2360" alt="The Help pop-up: how to paste a link, how to share from YT Music, and which links work"></div>
+        <div class="phone" data-shot="download" data-pos="centre"><img src="assets/download-tab.png" width="1200" height="2360" alt="The Download tab: the paste box, the gold Download button, a playlist waiting to be OK'd, a song downloading at 46%, and two failed songs with Retry"></div>
+        <div class="phone" data-shot="history" data-pos="right" aria-hidden="true"><img src="assets/history-tab.png" width="1200" height="2360" alt="The History tab: finished songs, each with its artist, album and size"></div>
+        <div class="phone" data-shot="help" data-pos="left" aria-hidden="true"><img src="assets/help.png" width="1200" height="2360" alt="The Help pop-up: how to paste a link, how to share from YT Music, and which links work"></div>
       </div>
       <figcaption id="shot-cap">A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.</figcaption>
     </figure>
@@ -419,18 +419,19 @@ b{font-weight:500; color:var(--ink)}
 
 <script>
 // The tabs over the stack pick which screen is in front, like the app's own tabs. The
-// other two keep their order behind it. Clicking a phone that peeks out does the same,
+// picked screen swaps places with the one in the centre, so the old front one goes to
+// the side the picked one came from. Clicking a phone that peeks out does the same,
 // and arrow keys move between the tabs.
 (function(){
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs [role=tab]'));
   var phones = Array.prototype.slice.call(document.querySelectorAll('.stack .phone'));
   var cap = document.getElementById('shot-cap');
   function pick(tab){
-    var behind = 1;
+    var picked = phones.filter(function(ph){ return ph.dataset.shot === tab.dataset.shot; })[0];
+    var centre = phones.filter(function(ph){ return ph.dataset.pos === 'centre'; })[0];
+    if (picked !== centre){ centre.dataset.pos = picked.dataset.pos; picked.dataset.pos = 'centre'; }
     phones.forEach(function(ph){
-      var front = ph.dataset.shot === tab.dataset.shot;
-      ph.dataset.pos = front ? 0 : behind++;
-      if (front) ph.removeAttribute('aria-hidden'); else ph.setAttribute('aria-hidden', 'true');
+      if (ph === picked) ph.removeAttribute('aria-hidden'); else ph.setAttribute('aria-hidden', 'true');
     });
     tabs.forEach(function(t){ var on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     cap.textContent = tab.dataset.cap;
@@ -445,7 +446,7 @@ b{font-weight:500; color:var(--ink)}
   });
   phones.forEach(function(ph){
     ph.addEventListener('click', function(){
-      if (ph.dataset.pos !== '0') pick(tabs.filter(function(t){ return t.dataset.shot === ph.dataset.shot; })[0]);
+      if (ph.dataset.pos !== 'centre') pick(tabs.filter(function(t){ return t.dataset.shot === ph.dataset.shot; })[0]);
     });
   });
 })();

@@ -194,6 +194,13 @@ beside `src/`.
 - **Three real screenshots in a stack:** the Download tab, History and Help, my ask.
   The one showing is in front and the other two peek out behind it. Tabs over it, like
   the app's, bring one to the front, and so does clicking one that peeks out.
+  - **Front one in the centre, one peeking out each side**, my ask 16 Oct. The picked
+    one swaps places with the centre one. Before, both peeked out on the left, and the
+    tabs moving instead (picked tab always in the middle) was tried and dropped the
+    same day. The tabs stay in one order and the gold line moves.
+  - **Tabs go Help, Download, History**, Download picked on load, my ask 16 Oct. The
+    side phones start in the same order, so each tab is over its own screen until the
+    first swap.
   - They're the app repo's `.impeccable/review/after-fixes/` shots, version 1.0, with
     the status bar (carrier and time) cut off.
   - **History is cut after Smells Like Teen Spirit.** Road Trip Mix and Nirvana are
