@@ -34,14 +34,16 @@ release-signed, as release `yt-music-downloader`. The catalogue is the Warm mock
 and the app page is the Riso layout in the app's Liner Notes look. All in
 [`downloads-page.md`](doc/live-design-choices/downloads-page.md).]
 
-- **Pick fixes from Impeccable's finish review, then finish it,** next session. The
-  review ran 2026-10-16 and both pages came back "fix": small fixes, no redesign.
-  Nothing changed yet. The 11 fixes, the picture-note wording waiting for my OK, and
-  the steps left after I pick (retake screenshots, a fresh reviewer scores the fixes,
-  `DESIGN.md`, update `downloads-page.md`, commit and push) are all in
+- **Pick fixes from Impeccable's finish review, then finish it.** The review ran
+  2026-10-16 and both pages came back "fix": small fixes, no redesign. **All 11 fixes
+  applied 16 Oct, plus a new phone layout for the catalogue card, not committed yet.**
+  Left: the picture-note wording waiting for my OK, and the steps after (retake screenshots, a fresh reviewer scores the fixes,
+  `DESIGN.md`, update `downloads-page.md`, commit and push), all in
   [`doc/finish-review.md`](doc/finish-review.md).
   - Direction contracts for both pages got written for the review, from what shipped,
-    in `.impeccable/surfaces/`.
+    in `.impeccable/surfaces/`. **The app page's one is behind:** it still has the
+    old phone stack (both peeking left) and tab order (Download, History, Help).
+    Update it from `downloads-page.md` before the fresh reviewer runs.
 - **Open questions on YT Music Downloader's page**, the reviewer's view on both is in
   [`doc/finish-review.md`](doc/finish-review.md):
   - Whether the sticky header goes to one row on phones. Reviewer: it can't fit.

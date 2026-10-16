@@ -5,10 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YT Music Downloader · YH Downloads</title>
 <meta name="description" content="Songs from YouTube, saved to your Android phone with the right title, artist, album and cover art.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Figtree:wght@400..800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <style>
+/* The fonts sit next to the pages in assets/fonts/, with their licences, so the page
+   never waits on another server for them. */
+@font-face{font-family:'Barlow Condensed'; font-weight:700; font-display:swap; src:url(../assets/fonts/barlow-condensed-700.woff2) format('woff2')}
+@font-face{font-family:'Figtree'; font-weight:400 800; font-display:swap; src:url(../assets/fonts/figtree.woff2) format('woff2')}
+@font-face{font-family:'Roboto'; font-weight:400 700; font-display:swap; src:url(../assets/fonts/roboto.woff2) format('woff2')}
+/* Until Barlow arrives, the phone draws the name in the phone's own Roboto (Arial on
+   Windows without it), shrunk to Barlow's width so "DOWNLOADER" still fits. 67% was
+   measured with Roboto on the PC. */
+@font-face{font-family:'Barlow Fallback'; src:local('Roboto'),local('Arial'); size-adjust:67%}
+
 /* The app's own colours, from its DESIGN.md: navy ground, warm ink, one gold.
    --panel is the fill of the app's Help pop-up. */
 :root{
@@ -20,7 +28,7 @@
   --tick:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7'/></svg>");
   --cross:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'><path d='M6.5 6.5l11 11M17.5 6.5l-11 11'/></svg>");
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html{scrollbar-color:var(--outline) var(--ground); scroll-padding-top:120px}
 html,body{margin:0}
 body{background:var(--ground); color:var(--ink); font-family:'Roboto',sans-serif; font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden}
@@ -53,7 +61,7 @@ b{font-weight:500; color:var(--ink)}
 /* First screen: what it is and the download on the left, the app itself on the right.
    Phone first: one column, the download before the picture. */
 .intro{display:grid; grid-template-columns:minmax(0,1fr); max-width:calc(var(--wrap) + 2 * var(--gut)); margin:0 auto; padding:24px var(--gut) 44px}
-.name{margin:0; font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.04em; line-height:.9; font-size:min(16.4vw,116px)}
+.name{margin:0; font-family:'Barlow Condensed','Barlow Fallback',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.04em; line-height:.9; font-size:min(15vw,116px)}
 .name span{display:block}
 .name .yt{display:inline; color:var(--gold)}
 .hook{margin:18px 0 0; max-width:31ch; font-size:19px; line-height:1.4}
@@ -139,21 +147,27 @@ b{font-weight:500; color:var(--ink)}
 
 /* Beside the steps, the real screen for a step. A step with a picture has a gold ring
    while its picture shows. In How to use it, pointing at or tapping a step shows its
-   screen. On phones the picture sits under the steps. */
+   screen. On phones the picture opens inside the step you tapped, under its text, and a
+   grey line under the heading says steps can be tapped. */
 .pair{display:grid; grid-template-columns:minmax(0,1fr); gap:20px}
 .cut{margin:0; width:min(80%,280px)}
 .cut img{display:none; width:100%; height:auto; border-radius:16px; border:1px solid var(--highest)}
 .cut img.on{display:block; animation:show .35s cubic-bezier(.16,1,.3,1)}
 @keyframes show{from{opacity:0; transform:translateY(4px)}}
 .cut figcaption{margin-top:10px; font-size:13px; line-height:1.4; color:var(--grey)}
+.steps li > .cut{grid-column:2; margin:10px 0 4px}
+.hint{margin:-12px 0 18px; font-size:14px; color:var(--grey)}
 .steps li[data-shot]{cursor:pointer}
 .steps li[data-shot].on::before{border-color:var(--gold); color:var(--gold)}
 @media (hover:hover){.steps li[data-shot]:not(.on):hover::before{border-color:var(--ink)}}
+/* Android's own tap flash is off page-wide, so a step shows its press here instead. */
+.steps li[data-shot]:active::before{border-color:var(--ink)}
 .steps li[data-shot]:focus-visible{outline:none}
 .steps li[data-shot]:focus-visible .t{text-decoration:underline 2px var(--gold); text-underline-offset:4px}
 @media (min-width:560px){
   .pair{grid-template-columns:minmax(0,1fr) var(--cut,190px); column-gap:28px; align-items:start}
   .cut{width:auto}
+  .hint{display:none}
 }
 @media (min-width:900px) and (max-width:1099px){.pair{--cut:150px; column-gap:20px}}
 @media (min-width:1100px){.pair{--cut:230px; column-gap:36px}}
@@ -290,7 +304,7 @@ b{font-weight:500; color:var(--ink)}
     <dl class="specs">
       <div><dt>File</dt><dd>yt-music-downloader.apk</dd></div>
       <div><dt>Size</dt><dd>About 67 MB</dd></div>
-      <div><dt>Runs on</dt><dd>Android 10 and up, 64-bit phones</dd></div>
+      <div><dt>Runs on</dt><dd>Android 10 and up, 64&#8209;bit phones</dd></div>
       <div><dt>Installs from</dt><dd>This page, not the Play Store</dd></div>
     </dl>
 
@@ -314,6 +328,7 @@ b{font-weight:500; color:var(--ink)}
 
     <section class="setup" id="setup">
       <h2>Setup</h2>
+      <p class="hint">Tap a step to see its screen.</p>
       <div class="pair">
         <ol class="steps">
           <li class="on" data-shot="downloaded" data-cap="The file in your phone's downloads." tabindex="0"><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader.apk</b>.</span></span></li>
@@ -323,7 +338,7 @@ b{font-weight:500; color:var(--ink)}
           <li data-shot="installed" data-cap="Tap Open. The first time, it gets the download engine." tabindex="0"><span><span class="t">Open it once, online</span><span class="s">It gets the download engine (yt-dlp).</span></span></li>
           <li data-shot="allow" data-cap="Tap Allow." tabindex="0"><span><span class="t">Allow notifications</span><span class="s">Progress shows there.</span></span></li>
         </ol>
-        <figure class="cut" aria-live="polite">
+        <figure class="cut">
           <img class="on" data-shot="downloaded" src="assets/setup-downloaded.png" width="890" height="220" alt="The phone's downloads, with yt-music-downloader.apk, 67.29 MB">
           <img data-shot="openwith" src="assets/setup-open-with.png" width="272" height="206" alt="Package installer, offered when the phone asks what to open the file with">
           <img data-shot="protect" src="assets/setup-play-protect.png" width="864" height="1259" alt="Google Play Protect: App blocked to protect your device. YT Music Downloader. Play Protect hasn't seen an app from this developer before. Install anyway, and OK">
@@ -337,6 +352,7 @@ b{font-weight:500; color:var(--ink)}
 
     <section class="use" id="use">
       <h2>How to use it</h2>
+      <p class="hint">Tap a step to see its screen.</p>
       <div class="ways" role="tablist" aria-label="Two ways in">
         <button role="tab" aria-selected="true" aria-controls="use-steps" data-way="share">Share from YT Music</button>
         <button role="tab" aria-selected="false" aria-controls="use-steps" data-way="paste" tabindex="-1">Paste a link</button>
@@ -351,7 +367,7 @@ b{font-weight:500; color:var(--ink)}
           <li data-shot="queue" data-cap="Five songs at a time, the rest up next." tabindex="0"><span><span class="t">Let it run</span><span class="s">It downloads in the background.</span></span></li>
           <li><span><span class="t">Play it</span><span class="s">Songs land in your Music folder.</span></span></li>
         </ol>
-        <figure class="cut" aria-live="polite">
+        <figure class="cut">
           <img class="on" data-shot="menu" src="assets/share-menu.png" width="905" height="513" alt="YT Music's share menu: Copy link, Quick Share, and Share with other apps">
           <img data-shot="list" src="assets/share-list.png" width="320" height="330" alt="The YT Music Downloader icon in the phone's share list">
           <img data-shot="copied" src="assets/link-copied.png" width="906" height="458" alt="YT Music showing the copied link and a Copied message">
@@ -452,18 +468,28 @@ b{font-weight:500; color:var(--ink)}
 })();
 
 // Steps with a picture: pointing at one, tapping it or tabbing to it shows its screen
-// beside the steps, with a gold ring on that step.
+// beside the steps, with a gold ring on that step. On phones (under 560px) the picture
+// moves into the step itself, so it opens right under what you tapped.
 (function(){
+  var phone = window.matchMedia('(max-width:559px)');
   Array.prototype.forEach.call(document.querySelectorAll('.pair'), function(pair){
     var steps = pair.querySelectorAll('.steps li[data-shot]');
-    var imgs = pair.querySelectorAll('.cut img');
-    var cap = pair.querySelector('.cut figcaption');
+    var fig = pair.querySelector('.cut');
+    var imgs = fig.querySelectorAll('img');
+    var cap = fig.querySelector('figcaption');
     if (steps.length < 2) return;
+    function place(){
+      var on = pair.querySelector('.steps li.on');
+      if (phone.matches && on) on.appendChild(fig); else pair.appendChild(fig);
+    }
     function show(step){
       Array.prototype.forEach.call(steps, function(s){ s.classList.toggle('on', s === step); });
       Array.prototype.forEach.call(imgs, function(im){ im.classList.toggle('on', im.dataset.shot === step.dataset.shot); });
       cap.textContent = step.dataset.cap;
+      place();
     }
+    place();
+    phone.addEventListener('change', place);
     Array.prototype.forEach.call(steps, function(step){
       step.addEventListener('mouseenter', function(){ show(step); });
       step.addEventListener('focus', function(){ show(step); });

@@ -109,6 +109,18 @@ itself, its fine for it to be slighty stylised." Still dark.
   card is its navy with a gold button. This replaced "an app's own colours only show
   in its icon" from round 2. The page around the cards (title, type, layout, spacing)
   stays one shared look.
+- **On phones the card has one left edge**, my call 16 Oct, cause the old card felt
+  asymmetrical. The icon sits next to the app's name, and the line, the facts, the
+  button and the link all start at the card's left edge under them. The button runs
+  the card's full width. Desktop keeps icon, text and buttons in one row.
+  - Four phone layouts were drawn as real screenshots
+    (`.playwright-cli/fix-mocks/card-layouts.png`, not committed): **A** as it was,
+    text right of the icon but the button back at the card's edge. **B** button and
+    link moved right to line up with the text. **C** icon with the name, the rest at
+    the card's edge. **D** everything centred. **Picked C, with the button stretched
+    across.** I didn't say why not B or D. The tradeoffs shown with them: B leaves the
+    icon alone in its column, and D is about 75px taller with centred text that's
+    slower to read.
 - **The app page's header is in this look too.** On YT Music Downloader's page the
   old riso bar is gone. The header is a warm charcoal band with "YH Downloads" in
   champagne, then "All apps", the chip of the app you're on in its own colours, and

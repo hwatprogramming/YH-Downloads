@@ -2,7 +2,8 @@
 
 Impeccable's finish review of the two live pages, 16 Oct 2026. Each page got a fresh
 reviewer. Both said **fix**: the look matches what I picked, nothing gets redesigned,
-just small fixes. Nothing has been changed yet. I'm deciding which fixes to take.
+just small fixes. **All 11 applied 16 Oct, my call**, after seeing each as a before and
+after picture.
 
 [Direction contracts the reviewers checked against: `.impeccable/surfaces/index-html.md`
 and `.impeccable/surfaces/yt-music-downloader-index-html.md`, written 16 Oct from what
@@ -21,6 +22,13 @@ shipped. Screenshots they looked at: `.impeccable/review/catalogue/` and
 
 ## Small fixes you'd barely notice
 
+[**All six applied 16 Oct**, after Claude showed each as a before and after picture
+(`.playwright-cli/fix-mocks/fixes-1-to-6.png`, not committed). #2 is catalogue only,
+cause the app page already sets its scrollbar colours.]
+[The app page's File fact breaks the same way as #1, "yt-music-" / "downloader.apk".
+Left as is: the name is 167px and its column is 159px on a 390px phone, so it has to
+break somewhere.]
+
 | # | Page | What's wrong | Fix |
 |---|---|---|---|
 | 1 | Catalogue | On phones the file name breaks as "yt-" / "music-downloader.apk" | Wrap it in `<span class="file">` with `white-space:nowrap`, line 88 |
@@ -31,6 +39,17 @@ shipped. Screenshots they looked at: `.impeccable/review/catalogue/` and
 | 6 | App page | A screen reader reads out every caption as the mouse moves down the steps | Remove `aria-live="polite"` from both `figure.cut` |
 
 ## Changes you'd see, my call
+
+[**All five applied 16 Oct** (pictures: `.playwright-cli/fix-mocks/fixes-7-to-11.png`, not
+committed). How each was done:
+- #7: on phones the step's `figure.cut` moves into the tapped step and back out above
+  560px. The grey hint line is phones only.
+- #8: `assets/favicon.svg`, the letters drawn as shapes, cause a tab icon can't load a font.
+- #10: the font files and their licences are in `assets/fonts/`, about 86 KB. Neither page
+  asks Google for anything now.
+- #11: the stand-in font is sized at 67%, measured with Roboto on the PC. On the PC the
+  stand-in name comes out 309px against Barlow's 310px at 390 wide. Still to check on a
+  phone.]
 
 | # | Page | What it is | Tradeoff |
 |---|---|---|---|

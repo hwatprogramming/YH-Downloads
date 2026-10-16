@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The site's tab icon: "YH" in the catalogue's champagne gold on its warm charcoal.
+       Drawn as shapes, cause a tab icon can't load the page's font. -->
+  <rect width="64" height="64" rx="14" fill="#1B1917"/>
+  <clipPath id="cap"><rect x="0" y="17" width="64" height="30"/></clipPath>
+  <g fill="#E6C88E">
+    <path d="M8 11 L19 30 L30 11" fill="none" stroke="#E6C88E" stroke-width="7" clip-path="url(#cap)"/>
+    <rect x="15.5" y="28" width="7" height="19"/>
+    <rect x="35" y="17" width="7" height="30"/>
+    <rect x="50" y="17" width="7" height="30"/>
+    <rect x="35" y="28.5" width="22" height="6.5"/>
+  </g>
+</svg>
