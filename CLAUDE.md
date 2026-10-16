@@ -37,13 +37,14 @@ and the app page is the Riso layout in the app's Liner Notes look. All in
 - **Pick fixes from Impeccable's finish review, then finish it.** The review ran
   2026-10-16 and both pages came back "fix": small fixes, no redesign. **All 11 fixes
   applied and pushed 16 Oct, plus a new phone layout for the catalogue card. Picture
-  notes are in all 15 screenshots.** Left: retake the review screenshots, a fresh
-  reviewer scores the fixes, `DESIGN.md`, update `downloads-page.md`, commit and push.
-  All in [`doc/finish-review.md`](doc/finish-review.md).
+  notes are in all 15 screenshots. Second round 16 Oct: fresh reviewers scored every
+  fix resolved, both pages "ship".** Left: Impeccable's documenter writes `DESIGN.md`,
+  fix `PRODUCT.md`'s stale line, update `downloads-page.md`, commit and push. All in
+  [`doc/finish-review.md`](doc/finish-review.md).
   - Direction contracts for both pages got written for the review, from what shipped,
-    in `.impeccable/surfaces/`. **The app page's one is behind:** it still has the
-    old phone stack (both peeking left) and tab order (Download, History, Help).
-    Update it from `downloads-page.md` before the fresh reviewer runs.
+    in `.impeccable/surfaces/`. Both brought up to date 16 Oct, after the stack change,
+    the review fixes and the new card layout, so the fresh reviewer checks against
+    what's live.
 - **Open question on YT Music Downloader's page:** whether the sticky header goes to one
   row on phones. Reviewer: it can't fit. Their view is in
   [`doc/finish-review.md`](doc/finish-review.md).

@@ -5,6 +5,18 @@ reviewer. Both said **fix**: the look matches what I picked, nothing gets redesi
 just small fixes. **All 11 applied 16 Oct, my call**, after seeing each as a before and
 after picture.
 
+**Second round, 16 Oct: both pages "ship".** A fresh reviewer per page scored that
+page's fixes from new screenshots and the page files. Every fix came back resolved,
+and neither found anything the fixes broke.
+- Catalogue: #1, #2, #3, #8, #9, #10 resolved. My new phone card layout breaks nothing.
+- App page: #4, #5, #6, #7, #8, #10, #11 resolved. Their one caveat, that #11 was only
+  shown in a Chromium screenshot, is covered: I checked it on my phone the same day.
+- "Ship" here covers the scored fixes, not a fresh full review of either page.
+- #2, #5, #6, #8 and #10 can't show in a screenshot, so the reviewers scored those from
+  the page files.
+- New screenshots are over the old ones in `.impeccable/review/`, plus
+  `yt-music-downloader/mobile-slow-name.png`, the name with Barlow blocked, for #11.
+
 [Direction contracts the reviewers checked against: `.impeccable/surfaces/index-html.md`
 and `.impeccable/surfaces/yt-music-downloader-index-html.md`, written 16 Oct from what
 shipped. Screenshots they looked at: `.impeccable/review/catalogue/` and
@@ -88,12 +100,12 @@ committed). How each was done:
 
 ## What's left after I pick
 
-1. Apply the picked fixes.
-2. Retake the same four screenshots per page into `.impeccable/review/`, with reduced
-   motion on so the waves show their gold. Playwright can't open `file://`, so serve the
-   folder first (`python -m http.server`).
-3. A fresh reviewer scores each fix resolved, partial or unresolved. This session's
-   reviewers don't carry over.
+1. ~~Apply the picked fixes.~~ Done 16 Oct.
+2. ~~Retake the same four screenshots per page into `.impeccable/review/`, with reduced
+   motion on so the waves show their gold.~~ Done 16 Oct. Playwright can't open
+   `file://`, so serve the folder first (`python -m http.server`).
+3. ~~A fresh reviewer scores each fix resolved, partial or unresolved.~~ Done 16 Oct,
+   both "ship", see the top.
 4. Impeccable's documenter writes `DESIGN.md` and `.impeccable/design.json` from the
    built pages.
 5. Update `live-design-choices/downloads-page.md` with what changed, then commit and push.
