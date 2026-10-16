@@ -48,8 +48,8 @@ committed). How each was done:
 - #10: the font files and their licences are in `assets/fonts/`, about 86 KB. Neither page
   asks Google for anything now.
 - #11: the stand-in font is sized at 67%, measured with Roboto on the PC. On the PC the
-  stand-in name comes out 309px against Barlow's 310px at 390 wide. Still to check on a
-  phone.]
+  stand-in name comes out 309px against Barlow's 310px at 390 wide. Checked on my
+  phone 16 Oct, looks good.]
 
 | # | Page | What it is | Tradeoff |
 |---|---|---|---|
@@ -76,10 +76,11 @@ committed). How each was done:
 
 - **Picture notes on the 15 screenshots** in `yt-music-downloader/assets/`. Impeccable
   wants each picture to say where it came from. The note is one text line inside the
-  PNG, and the pixels stay the same (tested on a copy). Wording Claude proposed for all
-  of them, not yet OK'd: "Real screenshot of YT Music Downloader 1.0 or Android on the
-  owner's phone, cropped for this page, Oct 2026. Not generated." Command:
-  `impeccable embed-prompt <file> --prompt "<wording>"`.
+  PNG, and the pixels stay the same. **Done 16 Oct**, wording OK'd by me: "Real
+  screenshot of YT Music Downloader 1.0 or Android on the owner's phone, cropped for
+  this page, Oct 2026. Not generated." Pixels checked unchanged on all 15, and
+  Impeccable's scan finds none missing. Command, for new screenshots:
+  `~/.claude/skills/impeccable/scripts/impeccable embed-prompt <file> --prompt "<wording>"`.
 - **Stale line in `PRODUCT.md`**, line 62: "No release is uploaded yet, so no download
   link works yet." Fix it when `DESIGN.md` gets written.
 - **One idea, not a fix:** the thin line between step rings could fill gold up to the
