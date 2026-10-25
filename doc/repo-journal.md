@@ -23,6 +23,52 @@ on it".]
 
 Each section gets its own theme, based on the project it's built on.
 
+## 26 Oct 2026, The Windows version on the same page
+
+I want the catalogue to have 2 buttons, one for the APK and one more for Windows. As for
+YT Music Downloader, I haven't decided if I want to merge them or make them separate.
+Overall I think a lot of wordings need to get reviewed to support both APK and Windows,
+or perhaps 2 tabs in the app page, APK and Windows (desktop).
+
+I'm leaning tabs/merged.
+
+I like tabs.
+
+## 26 Oct 2026, How to use it, and Play it
+
+For Share from YT Music, there should be a (mobile/Android only) label. I think a plain
+(Android only) would work better, and add some padding so that it's not too near the next
+tab. Then the default should be Paste a link, and it's the first tab.
+
+Also, on a side note, my friend pointed out that in How to use it, point 5 isn't
+clickable, so maybe you can just screenshot the song in a default player or something?
+
+Also add a note that not all phones have a default player, and some of them may be
+YouTube Music, so... a suggestion is to either figure out if their phone has an
+uninstalled default player, or they can install a 3rd party music player.
+
+At Play it, 2 tabs appear as well, Windows and Android. I think a good place to put it is
+above the images.
+
+Also 2 more screenshots from Windows, 1 in Media Player and one in the music player. Help
+me blur out other songs and personal info.
+
+## 26 Oct 2026, Two buttons on the catalogue card
+
+Two gold buttons side by side, each with its version under it. Make the button smaller,
+push the text to the left a bit more to squeeze 2 buttons.
+
+Try up and down for desktop, mobile one is fine. Version to the right of the button.
+Centre the 2 buttons: basically shift it downwards, such that the centre of the 2 buttons
+aligns with the whole tab's centre.
+
+Too much padding on top. Actually it looks good already, add a bit more gap between the
+buttons.
+
+Great.
+
+For Android, the Setup, how to use it, FAQ should be centred.
+
 # Repo summary
 
 [Kept by Claude, built from the entries above. Every line carries the date of the
@@ -38,6 +84,18 @@ entry it came from, e.g. `[6 Oct]`, so the reasoning is one jump away.]
 - One section per app. A section has the app details, the download links and some
   image of the app. [13 Oct]
 - Claude uploads each app and designs its section when I ask. [13 Oct]
+- The catalogue card has 2 buttons, one for the APK and one for Windows. [26 Oct]
+- YT Music Downloader's page has Android and Windows tabs. [26 Oct] [Mockup in
+  `.impeccable/mocks/both-platforms/src/tabs.html`, reasons in
+  `doc/live-design-choices/downloads-page.md`.]
+- In How to use it, Paste a link is the first tab and opens first, and Share from YT
+  Music says "(Android only)". [26 Oct]
+- Play it shows a song in the default music player, with a Windows / Android switch
+  above the pictures. [26 Oct]
+- A note for phones with no default music player, or only YouTube Music: check whether
+  the phone's own player was uninstalled, or install a 3rd party one. [26 Oct] [It's
+  under Play it and in the FAQ.]
+- Screenshots on the page get other songs and personal info blurred. [26 Oct]
 
 ## Goals
 
@@ -57,6 +115,12 @@ the date and why, never gets deleted.]
 - Adding the next app by myself, without Claude. Opted out for this repo. If I'm
   developing any repo I have a Claude sub, so I can ask Claude to upload and design
   each section. [13 Oct]
+- Merging Android and Windows into one page's wording, or a page each: tabs instead.
+  [26 Oct]
+- "(Android only)" in small spaced capitals: plain works better. [26 Oct]
+- On the catalogue card on desktop, the 2 buttons side by side, or with the version
+  under each: up and down, version to the right. The link under the buttons with space
+  above to centre them: too much padding on top. [26 Oct]
 
 ## Look
 
@@ -64,3 +128,9 @@ the date and why, never gets deleted.]
 
 - One long page, separated by sections, one section per app. [13 Oct]
 - Each section gets its own theme, based on the project it's built on. [13 Oct]
+- "(Android only)" is plain, with some padding before the next tab. [26 Oct]
+- The catalogue card's 2 buttons are gold and smaller. On desktop they're up and down
+  with the version to the right of each, a bit more gap between them, and their centre
+  on the card's centre. On phones they're side by side, the words pushed left, with
+  the version under each and "Setup, how to use it, FAQ" centred. [26 Oct] [Picture:
+  `.impeccable/mocks/both-platforms/catalogue-two-buttons.png`.]

@@ -43,6 +43,27 @@ the section headings, my call the same day.]
 [Stopped here 16 Oct, my call. By the done line from 13 Oct (page live in that layout,
 first app on it) the site is done. Nothing below blocks that.]
 
+- **The Windows version on YT Music Downloader's page.** Tabs picked 26 Oct, see
+  [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "The Windows
+  version, on the same page". The installer goes in the APK's release,
+  `yt-music-downloader`, as `yt-music-downloader-setup.exe`. Uploaded 26 Oct (the
+  03:25 build), with the title "YT Music Downloader · Android 1.0 · Windows 1.0.0".
+  Nothing on the site links to it yet.
+  - **Done:** both mockups, OK'd 26 Oct, in `.impeccable/mocks/both-platforms/src/`:
+    `tabs.html` (the app page) and `catalogue.html` (the card with two buttons).
+    `tabs.html` has everything picked since, like "(Android only)", Paste a link first,
+    the Play it pictures and switch, and the new FAQ answers. `sheet.png` is the
+    Tabs-or-Merged comparison from when Tabs got picked, so it's older.
+  - **Stopped here 26 Oct, waiting on me:** screenshots of installing from the link.
+    Uninstall my copy first (app data unticked), then from the browser: any download
+    warning, SmartScreen before and after More info, each installer screen, the app in
+    the Start menu. Claude crops and blurs them. They replace the dashed "screens come
+    from installing" note in Windows Setup, and its four steps get checked against
+    them (the SmartScreen step is a guess).
+  - **Then:** Claude takes fresh 1.0.0 window shots (Downloading, History, Help) for
+    the Windows stack. The current ones are from 25 Oct, with the old text size icon
+    and tabs. Then build both mockups into `index.html` and
+    `yt-music-downloader/index.html`, add Windows to the README row, commit and push.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
@@ -59,10 +80,5 @@ first app on it) the site is done. Nothing below blocks that.]
     scrolls sideways. It was there before the fixes.
   - With the new phone card, the download button runs the card's full width up to
     759px, so on a small tablet it's about 690px wide. Cap it there? Not answered.
-- **Leftovers:** `.impeccable/questions/` (old picking-page state) and
-  `.playwright-cli/` (Claude's check screenshots and logs) are in `.gitignore` since
-  2026-10-16, cause this repo is public. The three canvas directions at
-  <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate".
-  Riso and Warm replaced them, so ask before moving them to "Past".
-- Further off, in [`doc/backlog.md`](doc/backlog.md): the Support me page, parked till
-  I can get into Ko-fi.
+- Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
+  in "To evaluate", and the Support me page, parked till I can get into Ko-fi.

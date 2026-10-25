@@ -6,6 +6,13 @@ moves up, so keep this list in the order they'd be done.
 
 ## Tasks
 
+- **Old canvas directions.** The three at
+  <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate". Riso
+  and Warm replaced them, so ask before moving them to "Past". Moved here from `Next`
+  2026-10-26.
+  - [`.impeccable/questions/` (old picking-page state) and `.playwright-cli/` (Claude's
+    check screenshots and logs) are in `.gitignore` since 2026-10-16, cause this repo is
+    public.]
 - **Support me page, with Ko-fi.** Parked 2026-10-16, cause I can't get into my Ko-fi
   account right now. Waiting on me, not on order.
   - The mockup is done: `.impeccable/mocks/catalogue/src/support.html`, in the site's

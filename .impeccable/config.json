@@ -1,0 +1,34 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/both-platforms/src/*.html",
+          "yt-music-downloader/**"
+        ],
+        "createdAt": "2026-10-25T18:54:24.821Z",
+        "reason": "YT Music Downloader's page wears the app's Liner Notes fonts (Barlow Condensed, Roboto), recorded under App Pages in DESIGN.md; Barlow for name and headings confirmed by the user 2026-10-16"
+      },
+      {
+        "rule": "overused-font",
+        "value": "roboto",
+        "createdAt": "2026-10-25T18:57:11.338Z",
+        "reason": "Roboto is YT Music Downloader's own body font (Liner Notes), recorded under App Pages in DESIGN.md; the design-system-font check still flags it on any other page"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/both-platforms/src/*.html",
+          "yt-music-downloader/**"
+        ],
+        "createdAt": "2026-10-25T18:57:11.494Z",
+        "reason": "False positive on the FAQ list: .qs has a top hairline and each summary already has 14px top padding, so no text touches the line; the live page passed the 16 Oct finish review"
+      }
+    ]
+  }
+}

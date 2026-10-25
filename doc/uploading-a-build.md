@@ -34,6 +34,14 @@ The version goes in the title and notes, not in the tag or the file name. If it 
 in either of those, the download link would change with every update and every link
 pointing at it would break.
 
+**An app with two versions**, like YT Music Downloader's Android and Windows ones, keeps
+both files in its one release. The second file gets a word after the tag that says what
+it is, like `yt-music-downloader-setup.exe` for the Windows installer. The title names
+both versions, like `YT Music Downloader · Android 1.0 · Windows 1.0.0`, and the notes
+have a line per version. Updating one version edits its part of the title and notes and
+leaves the other's alone. [Decided 2026-10-26, see
+[`downloads-page.md`](live-design-choices/downloads-page.md).]
+
 Download link for any app, which stays the same across updates:
 
 ```

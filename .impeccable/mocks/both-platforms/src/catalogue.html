@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup: catalogue with two buttons · YH Downloads</title>
+<meta name="description" content="Apps I've built, ready to download.">
+<link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+<style>
+/* The font sits next to the pages in assets/fonts/, with its licence, so the page never
+   waits on another server for it. */
+@font-face{font-family:'Figtree'; font-weight:400 800; font-display:swap; src:url(../../../../assets/fonts/figtree.woff2) format('woff2')}
+
+/* The page itself is one soft look: warm charcoal, oat text, a champagne-gold title.
+   Each app's card and button wear that app's own colours: --card behind it, --btn for
+   its button and links, --btn-text on the button. */
+:root{color-scheme:dark; --ground:#1B1917; --text:#EEE7DD; --muted:#ADA397; --title:#E6C88E; --on-card:#F1ECE4}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{min-height:100vh; background:var(--ground); color:var(--text); font-family:'Figtree',sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased}
+::selection{background:var(--title); color:var(--ground)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--title); outline-offset:3px; border-radius:6px}
+
+.page{max-width:1080px; margin:0 auto; padding:44px 16px 72px}
+
+.mast h1{margin:0; color:var(--title); font-weight:750; font-size:min(13vw, 104px); line-height:1; letter-spacing:-.035em}
+.mast p{margin:16px 0 0; max-width:36ch; font-size:19px; line-height:1.45; color:var(--muted)}
+
+.list{display:flex; flex-direction:column; gap:14px; margin:40px 0 0; padding:0; list-style:none}
+.item{
+  display:grid; grid-template-columns:60px minmax(0,1fr); column-gap:16px; padding:20px 20px 22px;
+  background:var(--card); color:var(--on-card); border-radius:28px; box-shadow:0 18px 40px -28px rgba(0,0,0,.8);
+}
+.icon{width:60px; height:60px; border-radius:16px; overflow:hidden; display:grid; place-items:center}
+.icon img{display:block; width:100%; height:100%}
+.icon.letter{background:var(--btn); color:var(--btn-text); font-weight:750; font-size:26px}
+.name{margin:3px 0 0; font-weight:700; font-size:22px; line-height:1.2; letter-spacing:-.015em}
+.name a{text-decoration:none}
+.line{margin:6px 0 0; max-width:50ch; text-wrap:pretty; color:color-mix(in srgb, var(--on-card) 74%, var(--card)); font-size:16px}
+.meta{margin:10px 0 0; font-size:14px; color:color-mix(in srgb, var(--on-card) 74%, var(--card))}
+.meta b{font-weight:600; color:var(--on-card)}
+.file{white-space:nowrap}
+.ph{margin:8px 0 0; font-size:14px; color:color-mix(in srgb, var(--on-card) 64%, var(--card))}
+
+.acts{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:20px}
+.dl{
+  display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; border-radius:999px;
+  background:var(--btn); color:var(--btn-text); text-decoration:none; font-weight:700; font-size:16px;
+  transition:filter .2s;
+}
+.dl svg{width:18px; height:18px; flex:none; transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.more{font-size:15px; font-weight:600; color:var(--btn); text-decoration:none}
+@media (hover:hover){
+  .dl:hover{filter:brightness(1.07)}
+  .dl:hover svg{transform:translateY(2px)}
+  .more:hover,.name a:hover{text-decoration:underline; text-underline-offset:4px}
+}
+/* Under the last app, a dashed empty slot: more apps are coming. Its text starts in line
+   with the app icon above it. */
+.soon{display:flex; align-items:center; min-height:76px; padding:0 22px 0 18.5px; border:1.5px dashed #4A443D; border-radius:28px; color:var(--muted); font-size:17px; font-weight:600}
+.foot{margin:24px 0 0 4px; color:var(--muted); font-size:14px}
+
+/* On phones the icon sits next to the name, and everything under them starts at the
+   card's left edge, so the card has one left edge. The button runs the full width. */
+@media (max-width:759px){
+  .item > div:not(.acts){display:contents}
+  .icon{grid-row:1}
+  .name{grid-column:2; grid-row:1; align-self:center; margin:0}
+  .line,.meta,.ph{grid-column:1 / -1}
+  .line{margin-top:14px}
+  .dl{flex:1 1 100%; justify-content:center}
+}
+
+@media (min-width:760px){
+  .page{padding:80px 40px 112px}
+  .mast p{font-size:21px}
+  .list{margin-top:56px; gap:16px}
+  .item{grid-template-columns:80px minmax(0,1fr) auto; column-gap:24px; align-items:center; padding:24px 30px 24px 24px; border-radius:32px}
+  .icon{width:80px; height:80px; border-radius:22px}
+  .icon.letter{font-size:34px}
+  .soon{min-height:84px; padding:0 30px 0 22.5px; border-radius:32px; font-size:18px}
+  .name{font-size:27px}
+  .acts{grid-column:auto; flex-direction:column; align-items:flex-end; margin-top:0}
+}
+@media (prefers-reduced-motion:reduce){.dl,.dl svg{transition:none}}
+/* ---- Mockup: two gold buttons side by side, each with its version under it. ---- */
+.dls{display:flex; gap:12px}
+.get{display:grid; justify-items:center; align-content:start; row-gap:7px}
+.ver{margin:0; font-size:14px; line-height:1.3; color:color-mix(in srgb, var(--on-card) 74%, var(--card))}
+.ver b{font-weight:600; color:var(--on-card)}
+/* Smaller buttons than the one-button card, so two fit beside the text. */
+.dls .dl{min-height:44px; padding:0 18px; gap:8px; font-size:15px}
+.dls .dl svg{width:16px; height:16px}
+/* Phones: still side by side. The words go in two lines, left, next to the arrow:
+   "Download for" small, the platform under it. */
+@media (max-width:759px){
+  .acts{gap:14px 20px}
+  .dls{flex:1 1 100%; gap:10px}
+  .get{flex:1 1 0; min-width:0; justify-items:stretch}
+  .dls .dl{justify-content:flex-start; min-height:52px; padding:0 14px 0 16px; gap:10px}
+  .lbl{display:grid; line-height:1.15}
+  .for{font-size:12px; font-weight:600; white-space:nowrap}
+  .os{font-size:16px}
+  .ver{text-align:center}
+  .acts .more{flex:1 1 100%; text-align:center}
+}
+/* The smallest phones: a little less room inside each button. */
+@media (max-width:359px){
+  .dls .dl{padding:0 10px 0 12px; gap:7px}
+  .dls .dl svg{width:14px; height:14px}
+}
+/* Desktop: the two buttons up and down, the same width, each with its version to
+   its right, then the link. */
+@media (min-width:760px){
+  .acts{gap:14px}
+  .dls{display:grid; grid-template-columns:auto auto; gap:20px 14px; align-items:center}
+  .get{display:contents}
+  .dls .dl{justify-content:center}
+  /* The link moves under the card's text, like on the phone, so the buttons alone
+     sit in the card's middle. */
+  .item{grid-template-rows:auto auto; row-gap:10px}
+  .icon{grid-row:1 / span 2}
+  .item > div:not(.acts){grid-column:2; grid-row:1; align-self:end}
+  .acts{display:contents}
+  .dls{grid-column:3; grid-row:1 / span 2; align-self:center}
+  .acts .more{grid-column:2; grid-row:2; align-self:start; justify-self:start}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="mast">
+    <h1>YH Downloads</h1>
+    <p>Apps I've built, ready to download. Each one has its own page with setup steps and answers.</p>
+  </header>
+
+  <main>
+    <ul class="list" aria-label="Apps">
+      <li class="item" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C">
+        <span class="icon"><img src="../../../../assets/ytmd-icon.svg" alt=""></span>
+        <div>
+          <h2 class="name"><a href="tabs.html">YT Music Downloader</a></h2>
+          <p class="line">Songs from YouTube, saved to your phone or PC with the right title, artist, album and cover art.</p>
+          <p class="meta"><span class="file">Android 10 and up, 64&#8209;bit phones</span> · <span class="file">Windows 10 and 11, 64&#8209;bit</span></p>
+        </div>
+        <div class="acts">
+          <div class="dls">
+            <div class="get">
+              <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk" aria-label="Download for Android"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span class="lbl"><span class="for">Download for </span><span class="os">Android</span></span></a>
+              <p class="ver"><b>Version 1.0</b></p>
+            </div>
+            <div class="get">
+              <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader-setup.exe" aria-label="Download for Windows"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span class="lbl"><span class="for">Download for </span><span class="os">Windows</span></span></a>
+              <p class="ver"><b>Version 1.0.0</b></p>
+            </div>
+          </div>
+          <a class="more" href="tabs.html">Setup, how to use it, FAQ</a>
+        </div>
+      </li>
+
+      <li class="soon">And more apps to come…</li>
+    </ul>
+    <p class="foot">Built files only. Each app's code stays private.</p>
+  </main>
+</div>
+</body>
+</html>

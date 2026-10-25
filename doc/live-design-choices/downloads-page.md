@@ -411,6 +411,94 @@ works:
 
 The design system, written from the finished pages, is in [`DESIGN.md`](../../DESIGN.md).
 
+### The Windows version, on the same page
+
+Decided 26 Oct 2026. The app's Windows version (`../Desktop-Youtube-Music-Downloader`)
+goes on YT Music Downloader's page beside the Android one, my call 23 Oct in that repo.
+Not built yet.
+
+- **The catalogue card gets two buttons**, one for the APK and one for Windows. My ask
+  26 Oct. Mockup in `.impeccable/mocks/both-platforms/src/catalogue.html`, picture
+  `catalogue-two-buttons.png` beside `src/`. OK'd 26 Oct ("great").
+  - **Two gold buttons side by side, each with its version under it**, my pick over
+    one gold button plus a quieter second one.
+  - **Smaller than the one-button card's**, my ask, so two fit beside the text: 44px
+    tall, 15px words. On phones they stay side by side, with the words in two lines
+    next to the arrow, "Download for" small over the platform. Drawn first: stacked at
+    full width (the 16 Oct one-left-edge layout), or side by side cut to "Android" and
+    "Windows". I asked for smaller buttons with the words pushed left instead.
+  - **On desktop they're up and down**, my ask: the same width, each with its version
+    to its right, then "Setup, how to use it, FAQ". Side by side was drawn first, then
+    up and down with the version under each, and I asked for it on the right. The phone
+    stays side by side, "mobile one is fine".
+  - **The two buttons' middle lines up with the card's middle**, my ask. The link under
+    them put the buttons high, so on desktop "Setup, how to use it, FAQ" moved under
+    the card's text on the left, like on the phone. The card is 204px tall, from 187.
+    - First tried: the link kept under the buttons, with an empty space its height
+      above them. That made the card 220px, and I said it had too much padding on top.
+  - **20px between the two buttons on desktop**, from 12px, my ask. "Looks good alr"
+    otherwise, 26 Oct.
+  - **On phones "Setup, how to use it, FAQ" is centred** under the buttons, my ask 26
+    Oct. The rest of the phone card keeps one left edge.
+  - The line under the card's text says what each needs: "Android 10 and up, 64-bit
+    phones · Windows 10 and 11, 64-bit". The file names came off the card. They're on
+    the app's page.
+- **Picked: Tabs.** An "Android phone / Windows PC" switch under the app's line, and the
+  whole page follows it: facts, the button with its version, file details, screens,
+  Setup, How to use it, What it's for and the FAQ. A Windows PC opens on Windows,
+  everyone else on Android. The switch shows again where the details start. I didn't
+  say why over Merged.
+  - Mockup in
+    [`.impeccable/mocks/both-platforms/src/tabs.html`](../../.impeccable/mocks/both-platforms/src/tabs.html).
+    `sheet.png` beside `src/` has both directions side by side.
+  - Tradeoff shown with it: each visitor reads only their version, so wording stays
+    short, and the Android tab is the live page as it is. The cost is two versions of
+    every section to keep up to date.
+  - **"Share from YT Music" says "(Android only)"**, my ask, in plain grey after the
+    tab's name, with 40px before "Paste a link". On narrow phones it drops under the
+    name. Small spaced capitals were tried first, and I said plain works better.
+    "Android only" rather than "mobile only", cause iPhone isn't supported.
+  - **"Paste a link" comes first and opens by default**, my call once Share got its
+    label. The live page has Share first.
+- **"Play it" gets a screen**, from a friend 26 Oct: it was the only step in How to use
+  it you couldn't tap. It's Tip Toe by HYBS in HONOR Music, the phone's own player,
+  showing the title, artist and cover the app filled in. Taken over USB, with the
+  status bar (carrier, time) and the gesture bar cut off. In the mockup's
+  `src/assets/play-it.png`.
+  - **A note for phones with no music player**, my ask. Not every phone has one, and on
+    some the music app is YT Music. Under "Play it": "No music player? See the FAQ",
+    which opens a new FAQ answer: check if the phone's own player was uninstalled or
+    turned off, or install a music player from the Play Store. My two suggestions.
+  - **On the Windows tab, "Play it" shows two pictures**, one under the other, both my
+    screenshots from 26 Oct: Galaxy Express by D Gerrard playing in Windows' Media
+    Player, then Media Player's music library with its artist and album. The other
+    songs in the library are blurred, cause they're my real ones. In the mockup's
+    `src/assets/win-play-now.png` and `win-play-library.png`.
+  - **"Play it" has its own Android phone / Windows PC switch**, my ask, above its
+    pictures, so either player can be seen from either tab. It starts on the tab
+    you're on, swaps only the pictures and caption, and shows only while Play it does.
+    Small text tabs in the app's style. Claude first put it under the step's text, and
+    I said above the pictures is better.
+  - **A Windows FAQ answer for Media Player's library**, my OK 26 Oct: "Why don't my
+    songs show in Media Player's library?" The library only lists the folders it
+    watches, Music unless you add more. The answer says the app starts on Music, and
+    to use Add folder for any other folder. "Not in Media Player? See the FAQ" under
+    the Windows "Play it" links to it, like the Android one.
+    - The desktop app started on Downloads till 26 Oct. Seeing this, I moved it to
+      Music, and the "Folder not found" picker too. Rebuilt the installer the same day.
+      [In the desktop repo's `folder-window.md`.]
+- **Rejected:**
+  - **Merged.** One page for both: two buttons, one table of both files, wording like
+    "On a phone… On a PC…", and Setup with its own switch. Sentences got longer, and on
+    phones the second button and the table pushed the screens down.
+  - **A page each.** I leaned tabs or merged and dropped it, 26 Oct.
+- **The installer goes in the APK's release**, my call 26 Oct: `yt-music-downloader`
+  holds both files, the APK and `yt-music-downloader-setup.exe`. The release's title
+  names both versions, like "YT Music Downloader · Android 1.0 · Windows 1.0.0".
+  - **Rejected: a release of its own** (`yt-music-downloader-windows`). Each version
+    would have had its own title, so updating one never touched the other, but it broke
+    "one release per app".
+
 ## No version number on the page
 
 The row for an app has its name, one line on what it does, and the link. The version

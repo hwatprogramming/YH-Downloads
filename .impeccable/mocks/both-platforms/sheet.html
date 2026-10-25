@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Android and Windows on one page: Tabs or Merged</title>
+<style>
+@font-face{font-family:'Figtree'; font-weight:400 800; src:url(../../../assets/fonts/figtree.woff2) format('woff2')}
+body{margin:0; padding:36px 40px 48px; background:#1B1917; color:#EEE7DD; font-family:'Figtree',sans-serif; font-size:17px; line-height:1.45}
+h1{margin:0 0 6px; font-size:34px; font-weight:750; letter-spacing:-.02em; color:#E6C88E}
+.lead{margin:0 0 28px; color:#ADA397; max-width:110ch}
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:40px}
+.col h2{margin:0 0 4px; font-size:28px; font-weight:750; letter-spacing:-.015em}
+.col .what{margin:0 0 18px; color:#ADA397; min-height:4.4em}
+.row{margin:0 0 26px}
+.row h3{margin:0 0 8px; font-size:15px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#ADA397}
+.row img{display:block; width:100%; border-radius:6px; box-shadow:0 0 0 1px #4A443D}
+.phones{display:flex; gap:16px}
+.phones figure{position:relative; margin:0; width:300px}
+.phones figure img{width:300px}
+.fold{position:absolute; left:-6px; right:-6px; top:calc(732px * 300 / 360); border-top:2px dashed #E6C88E}
+.fold span{position:absolute; right:0; top:-22px; font-size:12px; font-weight:700; color:#E6C88E; background:#1B1917; padding:0 4px}
+.phones figcaption{margin-top:6px; font-size:13px; color:#ADA397}
+</style>
+</head>
+<body>
+<h1>Android and Windows on one page</h1>
+<p class="lead">Both use the same real content and the live page's look. The Windows screens are the desktop app's review shots from 25 Oct. The Windows install has no screenshots yet, so Setup shows a dashed note there.</p>
+<div class="cols">
+  <div class="col">
+    <h2>A · Tabs</h2>
+    <p class="what">An Android phone / Windows PC switch under the line, and everything below follows it: facts, button, file details, screens, Setup, How to use it, What it's for, FAQ. A Windows PC opens on Windows, everyone else on Android. The switch shows again where the details start.</p>
+    <div class="row"><h3>Desktop, first screen (as a Windows PC opens it)</h3><img src="sheet/tabs-d1.png" alt=""></div>
+    <div class="row"><h3>Desktop, Setup and How to use it</h3><img src="sheet/tabs-d2.png" alt=""></div>
+    <div class="row"><h3>Phone (as an Android phone opens it)</h3>
+      <div class="phones">
+        <figure><img src="sheet/tabs-p1.png" alt=""><div class="fold"></div><figcaption>Top of the page. Dashed line: where the first screen ends</figcaption></figure>
+        <figure><img src="sheet/tabs-p2.png" alt=""><figcaption>Where the details start</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <h2>B · Merged</h2>
+    <p class="what">One page for both. Two download buttons, each with its version, and one table of both files. Wording covers both, like "On a phone… On a PC…". Only Setup has its own Android / Windows switch, cause its steps are different all the way through.</p>
+    <div class="row"><h3>Desktop, first screen</h3><img src="sheet/merged-d1.png" alt=""></div>
+    <div class="row"><h3>Desktop, Setup and How to use it</h3><img src="sheet/merged-d2.png" alt=""></div>
+    <div class="row"><h3>Phone</h3>
+      <div class="phones">
+        <figure><img src="sheet/merged-p1.png" alt=""><div class="fold"></div><figcaption>Top of the page. Dashed line: where the first screen ends</figcaption></figure>
+        <figure><img src="sheet/merged-p2.png" alt=""><figcaption>Where the details start</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
