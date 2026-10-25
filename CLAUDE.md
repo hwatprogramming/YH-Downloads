@@ -54,15 +54,16 @@ first app on it) the site is done. Nothing below blocks that.]
     `tabs.html` has everything picked since, like "(Android only)", Paste a link first,
     the Play it pictures and switch, and the new FAQ answers. `sheet.png` is the
     Tabs-or-Merged comparison from when Tabs got picked, so it's older.
-  - **Stopped here 26 Oct, waiting on me:** screenshots of installing from the link.
-    Uninstall my copy first (app data unticked), then from the browser: any download
-    warning, SmartScreen before and after More info, each installer screen, the app in
-    the Start menu. Claude crops and blurs them. They replace the dashed "screens come
-    from installing" note in Windows Setup, and its four steps get checked against
-    them (the SmartScreen step is a guess).
-  - **Then:** Claude takes fresh 1.0.0 window shots (Downloading, History, Help) for
-    the Windows stack. The current ones are from 25 Oct, with the old text size icon
-    and tabs. Then build both mockups into `index.html` and
+  - **Done 26 Oct:** Windows Setup has the real install screens, from my screenshots
+    installing off the release link. Details in `downloads-page.md`.
+  - **Next:** Claude takes fresh 1.0.0 window shots (Downloading, History, Help) for
+    the Windows stack, and Downloading again for How to use it's "Let it run". The
+    current ones are from 25 Oct, with the old text size icon and tabs. The folder
+    window and closing prompt shots look the same in 1.0.0. How: back up History and
+    settings, queue test songs with `../Desktop-Youtube-Music-Downloader/tools/try-in-app/`,
+    screenshot, put everything back. **Waiting on my go-ahead, with my copy of the app
+    closed.** With the settings backed up, the desktop app's Music first start can be
+    checked at the same time (clear `last_folder`). Then build both mockups into `index.html` and
     `yt-music-downloader/index.html`, add Windows to the README row, commit and push.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on

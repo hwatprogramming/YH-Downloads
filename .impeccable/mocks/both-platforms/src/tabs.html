@@ -510,15 +510,22 @@ body[data-os="windows"] [data-for="android"]{display:none !important}
     <!-- ===== Windows ===== -->
     <section class="setup" data-for="windows">
       <h2>Setup</h2>
+      <p class="hint">Tap a step to see its screen.</p>
       <div class="pair">
         <ol class="steps">
           <li><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader-setup.exe</b>.</span></span></li>
-          <li><span><span class="t">Get past SmartScreen</span><span class="s">If it says <b>Windows protected your PC</b>: <b>More info</b>, then <b>Run anyway</b>.</span></span></li>
-          <li><span><span class="t">Install it</span><span class="s">Click through. It adds itself to the Start menu.</span></span></li>
-          <li><span><span class="t">Open it</span><span class="s">Everything it needs is inside, so it's ready straight away.</span></span></li>
+          <li class="on" data-shot="smartscreen" data-cap="SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway." tabindex="0"><span><span class="t">Get past SmartScreen</span><span class="s"><b>More info</b>, then <b>Run anyway</b>.</span></span></li>
+          <li data-shot="location" data-cap="It picks where to install for you." tabindex="0"><span><span class="t">Install it</span><span class="s"><b>Next</b>, then <b>Next</b> again.</span></span></li>
+          <li data-shot="finish" data-cap="It adds a desktop shortcut and a Start menu entry too." tabindex="0"><span><span class="t">Finish</span><span class="s">Leave <b>Run</b> ticked, then <b>Finish</b>.</span></span></li>
+          <li data-shot="open" data-cap="The app, ready for a link." tabindex="0"><span><span class="t">Open it</span><span class="s">Everything it needs is inside, so it's ready straight away.</span></span></li>
         </ol>
         <figure class="cut">
-          <p class="todo">Mockup: these screens come from installing 1.0.0 off the live page. SmartScreen, the installer, and the app in the Start menu.</p>
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-smartscreen.png" width="532" height="295" alt="Windows protected your PC: Microsoft Defender SmartScreen prevented an unrecognized app from starting. More info, and Don't run">
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-run-anyway.png" width="532" height="295" alt="After More info: App yt-music-downloader-setup.exe, Publisher Unknown publisher, with Run anyway and Don't run">
+          <img data-shot="location" src="assets/win-setup-location.png" width="499" height="388" alt="YT Music Downloader Setup: Choose Install Location, with Next">
+          <img data-shot="finish" src="assets/win-setup-finish.png" width="499" height="388" alt="Completing YT Music Downloader Setup, with Run YT Music Downloader and Create desktop shortcut ticked, and Finish">
+          <img data-shot="open" src="assets/win-setup-open.png" width="880" height="740" alt="YT Music Downloader open, with an empty paste box and Ready. Paste a link.">
+          <figcaption>SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway.</figcaption>
         </figure>
       </div>
     </section>
@@ -536,7 +543,7 @@ body[data-os="windows"] [data-for="android"]{display:none !important}
           <li data-shot="play" data-p="windows" data-cap-android="A downloaded song in the phone's own music player, with its title, artist and cover." data-cap-windows="Galaxy Express in Windows' Media Player, and in its music library with the artist and album the app filled in." tabindex="0"><span><span class="t">Play it</span><span class="s">Songs land in the folder you picked. Not in Media Player? <a class="see" href="#faq-library">See the FAQ</a>.</span></span></li>
         </ol>
         <figure class="cut">
-          <img data-shot="paste" src="assets/win-empty.png" width="896" height="779" alt="">
+          <img data-shot="paste" src="assets/win-setup-open.png" width="880" height="740" alt="">
           <img class="on" data-shot="folder" src="assets/win-folder.png" width="616" height="265" alt="">
           <img data-shot="queue" src="assets/win-downloading.png" width="896" height="779" alt="">
           <img data-shot="close" src="assets/win-closing.png" width="896" height="779" alt="">

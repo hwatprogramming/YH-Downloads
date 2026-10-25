@@ -487,6 +487,17 @@ Not built yet.
     - The desktop app started on Downloads till 26 Oct. Seeing this, I moved it to
       Music, and the "Folder not found" picker too. Rebuilt the installer the same day.
       [In the desktop repo's `folder-window.md`.]
+- **Windows Setup follows the real install**, from my screenshots installing the 26 Oct
+  build off the release link: "Windows protected your PC" then More info and Run
+  anyway (the guessed step was right), the installer's Next, Next, then Finish with
+  Run ticked, and the app open. Five steps.
+  - The Install it screen had my Windows username in the folder path, blurred. The
+    "Installation Complete" screen has it too, in its file log, so it's left out.
+  - The two SmartScreen screens have their empty teal middle cut out, so the step
+    isn't two tall blocks.
+  - The browser didn't warn about the download, so there's no screen for that.
+  - The new empty app window also replaced the 25 Oct one in How to use it's "Paste it
+    in the app".
 - **Rejected:**
   - **Merged.** One page for both: two buttons, one table of both files, wording like
     "On a phone… On a PC…", and Setup with its own switch. Sentences got longer, and on
