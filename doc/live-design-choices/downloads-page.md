@@ -599,8 +599,21 @@ with more than one version gets it.
       gets an old version.
   - Today's 1.0 and 1.0.0 files have no numbered copy yet. They need one when the
     picker gets built, before the next update overwrites them.
-- **Still open:** how the rule is made to stick: a step in `doc/uploading-a-build.md`,
-  the menu built from a list of versions per app, or a check script.
+- **How the rule sticks: all three together**, my pick 26 Oct.
+  - **A list of versions per app**, like `yt-music-downloader/versions.json`: number,
+    date and what changed for each version, per platform. The menu and the version
+    beside the button are drawn from it, so an update adds one entry and both follow.
+    If the entry gets skipped, the whole page shows the old version, so it's plainly
+    behind instead of half updated.
+  - **A step in `doc/uploading-a-build.md`**: upload a numbered copy too, and add the
+    entry to the list.
+  - **A check script**, `check-versions.bat`: compares the files on GitHub with the
+    lists and says what's missing. Claude runs it at the end of every upload, in
+    "Check it worked", and I can double-click it. Not run by GitHub on every push,
+    which would be one more thing to set up.
+  - Drawn before picking: `.playwright-cli/enforce/making-the-rule-stick.png` (not
+    committed). Each way on its own was the option: the step alone is easy to skip
+    without anyone noticing, and the script alone only helps when it's run.
 
 ## No version number on the page
 

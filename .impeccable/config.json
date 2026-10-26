@@ -46,6 +46,24 @@
         ],
         "createdAt": "2026-10-26T11:41:33.178Z",
         "reason": "Claude: drawing of GitHub's releases page in gitignored .playwright-cli/; the 3px bar is GitHub's own selected-release marker, drawn as GitHub shows it"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "consolas",
+        "files": [
+          ".playwright-cli/enforce/sheet.html"
+        ],
+        "createdAt": "2026-10-26T11:50:39.928Z",
+        "reason": "Claude: drawing in gitignored .playwright-cli/; consolas is on purpose there (monospace for drawn code, Roboto as the app page's own font)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "roboto",
+        "files": [
+          ".playwright-cli/enforce/sheet.html"
+        ],
+        "createdAt": "2026-10-26T11:50:40.096Z",
+        "reason": "Claude: drawing in gitignored .playwright-cli/; Roboto is on purpose there (monospace for drawn code, Roboto as the app page's own font)"
       }
     ]
   }

@@ -84,6 +84,17 @@ version should have? How do we enforce this? Just put it in CLAUDE.md, or?
 
 For the version picker, I like A.
 
+## 26 Oct 2026, Keeping old files
+
+I like 1, but why do I need a setup and a setup v1.0?
+
+Just keep 1, I think. No need for any changes, I don't think people will be seeing the
+page anyway.
+
+## 26 Oct 2026, Making the version picker stick
+
+Can we just do all 3?
+
 # Repo summary
 
 [Kept by Claude, built from the entries above. Every line carries the date of the
@@ -116,9 +127,13 @@ entry it came from, e.g. `[6 Oct]`, so the reasoning is one jump away.]
   so old versions are gone after an update. Keeping them changes how uploads work.]
 - The catalogue shows only the latest version, for simplicity. [26 Oct]
 - A changelog, and the difference between versions, would be nice too. [26 Oct]
-- Every uploaded app with more than 1 version has the version picker. [26 Oct] [How
-  it's made to stick isn't decided: a step in `doc/uploading-a-build.md`, a picker
-  built from a list of versions, or a check script.]
+- Every uploaded app with more than 1 version has the version picker. [26 Oct]
+- It's made to stick all 3 ways: a step in `doc/uploading-a-build.md`, the picker
+  built from a list of versions per app, and a check script after every upload.
+  [26 Oct] [Details in `doc/live-design-choices/downloads-page.md`.]
+- Old versions' files stay in the app's one release as numbered copies, next to the
+  newest one with its fixed name. [26 Oct] [Way 1 of 3. The other two, and why, in
+  `doc/live-design-choices/downloads-page.md`.]
 
 ## Goals
 
@@ -144,6 +159,8 @@ the date and why, never gets deleted.]
 - On the catalogue card on desktop, the 2 buttons side by side, or with the version
   under each: up and down, version to the right. The link under the buttons with space
   above to centre them: too much padding on top. [26 Oct]
+- Changing way 1 so the newest file isn't stored twice: people won't be seeing
+  GitHub's releases page anyway. [26 Oct]
 
 ## Look
 

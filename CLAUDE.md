@@ -81,9 +81,18 @@ first app on it) the site is done. Nothing below blocks that.]
   - **Old files: kept as numbered copies in the app's one release**, my pick 26 Oct.
     The fixed name stays the newest for the button. Each update uploads the new file
     twice. `doc/uploading-a-build.md` doesn't say so yet, so an update before the
-    picker is built still loses the old file. Today's 1.0 and 1.0.0 need their copies.
-  - **Next, before building:** how the rule sticks, any mix of: a step in
-    `doc/uploading-a-build.md`, the menu built from a list of versions per app, a
-    check script. Not answered.
+    picker is built still loses the old file. My call 26 Oct: change the guide when
+    the picker is built, not before. Today's 1.0 and 1.0.0 need their copies then.
+  - **How the rule sticks: all three**, my pick 26 Oct. A versions list per app that
+    the menu is drawn from, a step in the upload guide, and `check-versions.bat` run
+    after every upload. Details in `downloads-page.md`.
+  - **Next: build it, in a new session**, my call 26 Oct. Build now, not at the next
+    update, and show it working with made-up versions in a test copy. Nothing changes
+    on the live site till an app has a second version: YT Music Downloader has one per
+    platform (Android 1.0, Windows 1.0.0). Upload the numbered copies of 1.0 and
+    1.0.0 as part of it.
+    - When it's built, the "Apps on YH-Downloads" section in my global `CLAUDE.md`
+      lists the update steps too. Ask me to add the numbered copy and the list entry
+      there, cause it's the first thing an uploading Claude reads.
 - Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
   in "To evaluate", and the Support me page, parked till I can get into Ko-fi.
