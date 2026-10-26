@@ -55,9 +55,8 @@ first app on it) the site is done. Nothing below blocks that.]
   - **Left:** Impeccable's finish for the new parts, a finish review and DESIGN.md
     (the version switch, the two-button card). Not run yet.
   - **Left, mine:** delete the empty `D:\Songs` folder. Claude's safety check blocked it.
-  - The desktop app's "Download to" now says "It's set to your Music folder." the very
-    first time. That came after the upload, so the installer needs a rebuild and
-    re-upload. Tracked in the desktop repo's `Next`.
+  - The installer on the release is the 18:41 rebuild, still 1.0.0, re-uploaded 26 Oct:
+    "Download to" says "It's set to your Music folder." the very first time.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
