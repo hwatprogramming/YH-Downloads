@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-os="android">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YT Music Downloader · YH Downloads</title>
-<meta name="description" content="Songs from YouTube, saved to your Android phone with the right title, artist, album and cover art.">
+<meta name="description" content="Songs from YouTube, saved to your Android phone or Windows PC with the right title, artist, album and cover art.">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>
+// Which version the page shows first: a Windows PC gets Windows, everyone else Android.
+// ?os=android or ?os=windows in the link picks one. Set before the page draws, so a PC
+// never sees the Android version flash first.
+(function(){
+  var forced = (location.search.match(/[?&]os=(android|windows)/) || [])[1];
+  document.documentElement.dataset.os = forced || (/Windows/i.test(navigator.userAgent) ? 'windows' : 'android');
+})();
+</script>
 <style>
 /* The fonts sit next to the pages in assets/fonts/, with their licences, so the page
    never waits on another server for them. */
@@ -273,6 +282,66 @@ b{font-weight:500; color:var(--ink)}
   .shots{grid-row:1 / span 6; --w:320px; --step:76px; margin:0}
 }
 @media (prefers-reduced-motion:reduce){.pill,.phone,.tabs button::after,.qs summary::after{transition:none}}
+
+/* Android or Windows: one switch, and the whole page follows it. A Windows PC opens on
+   Windows, everyone else on Android (the script in the head). */
+html[data-os="android"] [data-for="windows"],
+html[data-os="windows"] [data-for="android"]{display:none !important}
+
+/* The switch: the app's text tabs, bigger, with a drawn phone and a drawn PC. */
+.os{display:flex; gap:30px; max-width:420px; margin:26px 0 0; border-bottom:1px solid var(--highest)}
+.os button{position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:10px 0 14px; border:0; background:none; color:var(--grey); font:500 17px/1.2 'Roboto',sans-serif; cursor:pointer}
+.os button svg{width:20px; height:20px; flex:none}
+.os button::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.os button[aria-selected="true"]{color:var(--ink)}
+.os button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.os button:hover{color:var(--ink)}}
+.os + .facts{margin-top:0; border-top:0}
+/* The same switch again where the details start, for someone who scrolled down. */
+.again{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; column-gap:22px; row-gap:6px; margin-top:-12px}
+.again p{margin:0; font-size:15px; color:var(--grey)}
+.again .os{margin:0; max-width:none; border-bottom:0}
+
+/* Windows' screens: the same stack as the phones, with the app's windows. */
+.shots.win{--w:min(80vw,330px); --step:calc(var(--w) * .1)}
+.shots.win .stack{height:calc(var(--w) * 779 / 896)}
+.shots.win .phone{aspect-ratio:896/779; border-radius:8px}
+
+/* Share from YT Music works on Android only, so its tab says so, in plain grey. On
+   narrow phones it drops under the tab's name. More room before the next tab. */
+.ways{column-gap:40px}
+.ways button{display:inline-flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end; column-gap:6px; text-align:left; white-space:nowrap}
+.ways .tag{font-weight:400; color:var(--grey)}
+
+/* "See the FAQ" under Play it: a plain link in the step's grey, gold on hover. */
+.see{color:inherit; text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--outline)}
+@media (hover:hover){.see:hover{color:var(--gold); text-decoration-color:var(--gold)}}
+
+/* Play it's own switch: small text tabs above its pictures, in the app's tab style, so
+   either player can be seen from either version. It shows only while Play it does. */
+.mini{display:none; gap:18px; margin:-6px 0 6px}
+.mini.on{display:flex}
+.mini button{position:relative; min-height:36px; padding:6px 0 10px; border:0; background:none; color:var(--grey); font:500 14px/1.2 'Roboto',sans-serif; cursor:pointer}
+.mini button::after{content:""; position:absolute; left:0; right:0; bottom:4px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.mini button[aria-selected="true"]{color:var(--ink)}
+.mini button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.mini button:hover{color:var(--ink)}}
+
+/* A step with two pictures shows them one under the other. */
+.cut img.on + img.on{margin-top:10px}
+
+@media (min-width:760px){
+  .intro{grid-template-rows:repeat(6,auto) 1fr}
+  .os{grid-column:1}
+  .shots{grid-row:2 / span 6}
+  .shots.win{--w:300px}
+}
+@media (min-width:1280px){
+  .intro{grid-template-rows:repeat(6,auto) 1fr}
+  .shots{grid-row:1 / span 7}
+  .shots.win{--w:420px}
+}
+@media (prefers-reduced-motion:reduce){.os button::after,.mini button::after{transition:none}}
 </style>
 </head>
 <body>
@@ -288,27 +357,60 @@ b{font-weight:500; color:var(--ink)}
 <main id="top">
   <section class="intro" aria-labelledby="app-name">
     <h1 class="name" id="app-name"><span><span class="yt">YT</span> Music</span><span>Downloader</span></h1>
-    <p class="hook">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
-    <ul class="facts">
+    <p class="hook">Songs from YouTube, saved to your phone or PC with the right title, artist, album and cover art.</p>
+
+    <div class="os" role="tablist" aria-label="Which version">
+      <button role="tab" aria-selected="true" data-os="android">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+        Android phone
+      </button>
+      <button role="tab" aria-selected="false" data-os="windows" tabindex="-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M9 20.5h6M12 16.5v4"/></svg>
+        Windows PC
+      </button>
+    </div>
+
+    <!-- Android -->
+    <ul class="facts" data-for="android">
       <li>Single songs and whole playlists</li>
       <li>Share a link straight from YT Music</li>
       <li>Failed downloads retry on their own</li>
     </ul>
-    <div class="get">
+    <div class="get" data-for="android">
       <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
         Download for Android
       </a>
       <p class="ver"><span class="v">Version 1.0</span><span class="d">15 Oct 2026</span></p>
     </div>
-    <dl class="specs">
+    <dl class="specs" data-for="android">
       <div><dt>File</dt><dd>yt-music-downloader.apk</dd></div>
       <div><dt>Size</dt><dd>About 67 MB</dd></div>
       <div><dt>Runs on</dt><dd>Android 10 and up, 64&#8209;bit phones</dd></div>
       <div><dt>Installs from</dt><dd>This page, not the Play Store</dd></div>
     </dl>
 
-    <figure class="shots">
+    <!-- Windows -->
+    <ul class="facts" data-for="windows">
+      <li>Single songs and whole playlists</li>
+      <li>Pick the folder for every download</li>
+      <li>Failed downloads retry on their own</li>
+    </ul>
+    <div class="get" data-for="windows">
+      <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader-setup.exe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Download for Windows
+      </a>
+      <p class="ver"><span class="v">Version 1.0.0</span><span class="d">26 Oct 2026</span></p>
+    </div>
+    <dl class="specs" data-for="windows">
+      <div><dt>File</dt><dd>yt-music-downloader-setup.exe</dd></div>
+      <div><dt>Size</dt><dd>About 75 MB</dd></div>
+      <div><dt>Runs on</dt><dd>Windows 10 and 11, 64&#8209;bit</dd></div>
+      <div><dt>Installs from</dt><dd>This page, not the Microsoft Store</dd></div>
+    </dl>
+
+    <figure class="shots" data-for="android">
       <div class="tabs" role="tablist" aria-label="Screens">
         <button role="tab" aria-selected="false" aria-controls="phone" data-shot="help" data-cap="The two ways in, and which links work." tabindex="-1">Help</button>
         <button role="tab" aria-selected="true" aria-controls="phone" data-shot="download" data-cap="A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.">Download</button>
@@ -319,14 +421,43 @@ b{font-weight:500; color:var(--ink)}
         <div class="phone" data-shot="history" data-pos="right" aria-hidden="true"><img src="assets/history-tab.png" width="1200" height="2360" alt="The History tab: finished songs, each with its artist, album and size"></div>
         <div class="phone" data-shot="help" data-pos="left" aria-hidden="true"><img src="assets/help.png" width="1200" height="2360" alt="The Help pop-up: how to paste a link, how to share from YT Music, and which links work"></div>
       </div>
-      <figcaption id="shot-cap">A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.</figcaption>
+      <figcaption>A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.</figcaption>
+    </figure>
+
+    <figure class="shots win" data-for="windows">
+      <div class="tabs" role="tablist" aria-label="Screens">
+        <button role="tab" aria-selected="false" aria-controls="pc" data-shot="help" data-cap="Help: how to paste a link, and which links work." tabindex="-1">Help</button>
+        <button role="tab" aria-selected="true" aria-controls="pc" data-shot="download" data-cap="Songs downloading, more up next, and failed ones with Retry all. Test songs, for the picture.">Downloading</button>
+        <button role="tab" aria-selected="false" aria-controls="pc" data-shot="history" data-cap="Every song that's done, with its artist, album and the folder it went in." tabindex="-1">History</button>
+      </div>
+      <div class="stack" id="pc">
+        <div class="phone" data-shot="download" data-pos="centre"><img src="assets/win-downloading.png" width="896" height="779" alt="The Downloading tab on Windows: the paste box, the gold Download button, 5 downloading, 13 up next and 2 failed with Clear failed and Retry all, and an album's songs at 100%, starting and 28%"></div>
+        <div class="phone" data-shot="history" data-pos="right" aria-hidden="true"><img src="assets/win-history.png" width="896" height="779" alt="The History tab on Windows: finished songs under their album's heading, each with its artist, album, size, folder and Show in folder"></div>
+        <div class="phone" data-shot="help" data-pos="left" aria-hidden="true"><img src="assets/win-help.png" width="896" height="779" alt="The Help pop-up on Windows: how to paste a link, which links work, where songs go, and closing the app"></div>
+      </div>
+      <figcaption>Songs downloading, more up next, and failed ones with Retry all. Test songs, for the picture.</figcaption>
     </figure>
   </section>
 
   <div class="more">
     <div class="wave" style="--to:34%" aria-hidden="true"></div>
 
-    <section class="setup" id="setup">
+    <div class="again">
+      <p>Steps and answers for</p>
+      <div class="os" role="tablist" aria-label="Which version">
+        <button role="tab" aria-selected="true" data-os="android">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+          Android phone
+        </button>
+        <button role="tab" aria-selected="false" data-os="windows" tabindex="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M9 20.5h6M12 16.5v4"/></svg>
+          Windows PC
+        </button>
+      </div>
+    </div>
+
+    <!-- Android -->
+    <section class="setup" id="setup" data-for="android">
       <h2>Setup</h2>
       <p class="hint">Tap a step to see its screen.</p>
       <div class="pair">
@@ -350,31 +481,84 @@ b{font-weight:500; color:var(--ink)}
       </div>
     </section>
 
-    <section class="use" id="use">
+    <section class="use" id="use" data-for="android">
       <h2>How to use it</h2>
       <p class="hint">Tap a step to see its screen.</p>
       <div class="ways" role="tablist" aria-label="Two ways in">
-        <button role="tab" aria-selected="true" aria-controls="use-steps" data-way="share">Share from YT Music</button>
-        <button role="tab" aria-selected="false" aria-controls="use-steps" data-way="paste" tabindex="-1">Paste a link</button>
+        <button role="tab" aria-selected="true" aria-controls="use-steps" data-way="paste">Paste a link</button>
+        <button role="tab" aria-selected="false" aria-controls="use-steps" data-way="share" tabindex="-1"><span>Share from YT Music</span><span class="tag">(Android only)</span></button>
       </div>
       <div class="pair">
-        <ol class="steps" id="use-steps" data-way="share">
-          <li class="on" data-way="share" data-shot="menu" data-cap="YT Music's share menu: tap Share with other apps." tabindex="0"><span><span class="t">Share a song or playlist</span><span class="s"><b>Share</b>, then <b>Share with other apps</b>.</span></span></li>
-          <li data-way="share" data-shot="list" data-cap="YT Music Downloader in your phone's share list." tabindex="0"><span><span class="t">Pick YT Music Downloader</span><span class="s">You stay in YT Music.</span></span></li>
-          <li data-way="paste" data-shot="copied" data-cap="YT Music copies the link." tabindex="0"><span><span class="t">Copy its link</span><span class="s">In YT Music, <b>Share</b>, then <b>Copy link</b>.</span></span></li>
+        <ol class="steps" id="use-steps" data-way="paste">
+          <li class="on" data-way="paste" data-shot="copied" data-cap="YT Music copies the link." tabindex="0"><span><span class="t">Copy its link</span><span class="s">In YT Music, <b>Share</b>, then <b>Copy link</b>.</span></span></li>
           <li data-way="paste" data-shot="pasted" data-cap="The link in the app's paste box, ready for Download." tabindex="0"><span><span class="t">Paste it in the app</span><span class="s">Tap the paste icon, then <b>Download</b>.</span></span></li>
+          <li data-way="share" data-shot="menu" data-cap="YT Music's share menu: tap Share with other apps." tabindex="0"><span><span class="t">Share a song or playlist</span><span class="s"><b>Share</b>, then <b>Share with other apps</b>.</span></span></li>
+          <li data-way="share" data-shot="list" data-cap="YT Music Downloader in your phone's share list." tabindex="0"><span><span class="t">Pick YT Music Downloader</span><span class="s">You stay in YT Music.</span></span></li>
           <li data-shot="ask" data-cap="Over 20 songs, it asks on the notification first. The app asks too." tabindex="0"><span><span class="t">Big playlist? Say yes</span><span class="s">Over 20 songs, it asks first.</span></span></li>
           <li data-shot="queue" data-cap="Five songs at a time, the rest up next." tabindex="0"><span><span class="t">Let it run</span><span class="s">It downloads in the background.</span></span></li>
-          <li><span><span class="t">Play it</span><span class="s">Songs land in your Music folder.</span></span></li>
+          <li data-shot="play" data-p="android" data-cap-android="A downloaded song in the phone's own music player, with its title, artist and cover." data-cap-windows="Galaxy Express in Windows' Media Player, and in its music library with the artist and album the app filled in." tabindex="0"><span><span class="t">Play it</span><span class="s">Songs land in your Music folder. No music player? <a class="see" href="#faq-player">See the FAQ</a>.</span></span></li>
         </ol>
         <figure class="cut">
-          <img class="on" data-shot="menu" src="assets/share-menu.png" width="905" height="513" alt="YT Music's share menu: Copy link, Quick Share, and Share with other apps">
+          <img data-shot="menu" src="assets/share-menu.png" width="905" height="513" alt="YT Music's share menu: Copy link, Quick Share, and Share with other apps">
           <img data-shot="list" src="assets/share-list.png" width="320" height="330" alt="The YT Music Downloader icon in the phone's share list">
-          <img data-shot="copied" src="assets/link-copied.png" width="906" height="458" alt="YT Music showing the copied link and a Copied message">
+          <img class="on" data-shot="copied" src="assets/link-copied.png" width="906" height="458" alt="YT Music showing the copied link and a Copied message">
           <img data-shot="pasted" src="assets/link-pasted.png" width="945" height="755" alt="The app with a YT Music link pasted in its box, above the Download button">
           <img data-shot="ask" src="assets/big-playlist.png" width="888" height="312" alt="A notification from YT Music Downloader: Download 49 new songs? Autumn Feel, 1 you already have, with Download and Cancel">
           <img data-shot="queue" src="assets/up-next-rows.png" width="1200" height="1350" alt="A list of songs in the app: five downloading and two up next">
-          <figcaption>YT Music's share menu: tap Share with other apps.</figcaption>
+          <div class="mini" role="tablist" aria-label="Which player" data-shot="play"><button role="tab" aria-selected="true" data-p="android">Android phone</button><button role="tab" aria-selected="false" data-p="windows" tabindex="-1">Windows PC</button></div>
+          <img data-shot="play" data-p="android" src="assets/play-it.png" width="900" height="1590" alt="HONOR Music playing Tip Toe by HYBS, with its cover art">
+          <img data-shot="play" data-p="windows" src="assets/win-play-now.png" width="1167" height="845" alt="Windows' Media Player playing Galaxy Express by D Gerrard, with its cover">
+          <img data-shot="play" data-p="windows" src="assets/win-play-library.png" width="1167" height="845" alt="Media Player's music library, with Galaxy Express by D Gerrard, album Galaxy Express. The other songs are blurred">
+          <figcaption>YT Music copies the link.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Windows -->
+    <section class="setup" id="setup-windows" data-for="windows">
+      <h2>Setup</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="pair">
+        <ol class="steps">
+          <li><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader-setup.exe</b>.</span></span></li>
+          <li class="on" data-shot="smartscreen" data-cap="SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway." tabindex="0"><span><span class="t">Get past SmartScreen</span><span class="s"><b>More info</b>, then <b>Run anyway</b>.</span></span></li>
+          <li data-shot="location" data-cap="It picks where to install for you." tabindex="0"><span><span class="t">Install it</span><span class="s"><b>Next</b>, then <b>Next</b> again.</span></span></li>
+          <li data-shot="finish" data-cap="It adds a desktop shortcut and a Start menu entry too." tabindex="0"><span><span class="t">Finish</span><span class="s">Leave <b>Run</b> ticked, then <b>Finish</b>.</span></span></li>
+          <li data-shot="open" data-cap="The app, ready for a link." tabindex="0"><span><span class="t">Open it</span><span class="s">Everything it needs is inside, so it's ready straight away.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-smartscreen.png" width="532" height="295" alt="Windows protected your PC: Microsoft Defender SmartScreen prevented an unrecognized app from starting. More info, and Don't run">
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-run-anyway.png" width="532" height="295" alt="After More info: App yt-music-downloader-setup.exe, Publisher Unknown publisher, with Run anyway and Don't run">
+          <img data-shot="location" src="assets/win-setup-location.png" width="499" height="388" alt="YT Music Downloader Setup: Choose Install Location, with Next">
+          <img data-shot="finish" src="assets/win-setup-finish.png" width="499" height="388" alt="Completing YT Music Downloader Setup, with Run YT Music Downloader and Create desktop shortcut ticked, and Finish">
+          <img data-shot="open" src="assets/win-setup-open.png" width="880" height="740" alt="YT Music Downloader open, with an empty paste box and Ready. Paste a link.">
+          <figcaption>SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="use" id="use-windows" data-for="windows">
+      <h2>How to use it</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="pair">
+        <ol class="steps">
+          <li><span><span class="t">Copy a link</span><span class="s">In your browser, from YouTube or YT Music.</span></span></li>
+          <li data-shot="paste" data-cap="The paste box and Download, at the top of the app." tabindex="0"><span><span class="t">Paste it in the app</span><span class="s">The paste icon, then <b>Download</b>.</span></span></li>
+          <li class="on" data-shot="folder" data-cap="It starts on the folder you used last time." tabindex="0"><span><span class="t">Pick the folder</span><span class="s">Then <b>Download</b> again.</span></span></li>
+          <li data-shot="queue" data-cap="Five songs at a time, the rest up next. Big playlists start straight away." tabindex="0"><span><span class="t">Let it run</span><span class="s">Any size of playlist, no asking.</span></span></li>
+          <li data-shot="close" data-cap="Closing while songs download asks first." tabindex="0"><span><span class="t">Close when you like</span><span class="s"><b>Minimise</b> keeps songs going.</span></span></li>
+          <li data-shot="play" data-p="windows" data-cap-android="A downloaded song in the phone's own music player, with its title, artist and cover." data-cap-windows="Galaxy Express in Windows' Media Player, and in its music library with the artist and album the app filled in." tabindex="0"><span><span class="t">Play it</span><span class="s">Songs land in the folder you picked. Not in Media Player? <a class="see" href="#faq-library">See the FAQ</a>.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img data-shot="paste" src="assets/win-setup-open.png" width="880" height="740" alt="The app's paste box, the paste icon and the gold Download button">
+          <img class="on" data-shot="folder" src="assets/win-folder.png" width="616" height="265" alt="The Download to window: Songs are saved in this folder, the folder box, Change folder, Cancel and Download">
+          <img data-shot="queue" src="assets/win-downloading.png" width="896" height="779" alt="The Downloading tab: an album's songs downloading, more up next, and Retry all for the failed ones">
+          <img data-shot="close" src="assets/win-closing.png" width="896" height="779" alt="Songs are still downloading: 5 are downloading and 10 are up next, with Close and stop, and Minimise">
+          <div class="mini" role="tablist" aria-label="Which player" data-shot="play"><button role="tab" aria-selected="false" data-p="android" tabindex="-1">Android phone</button><button role="tab" aria-selected="true" data-p="windows">Windows PC</button></div>
+          <img data-shot="play" data-p="android" src="assets/play-it.png" width="900" height="1590" alt="HONOR Music playing Tip Toe by HYBS, with its cover art">
+          <img data-shot="play" data-p="windows" src="assets/win-play-now.png" width="1167" height="845" alt="Windows' Media Player playing Galaxy Express by D Gerrard, with its cover">
+          <img data-shot="play" data-p="windows" src="assets/win-play-library.png" width="1167" height="845" alt="Media Player's music library, with Galaxy Express by D Gerrard, album Galaxy Express. The other songs are blurred">
+          <figcaption>It starts on the folder you used last time.</figcaption>
         </figure>
       </div>
     </section>
@@ -388,10 +572,12 @@ b{font-weight:500; color:var(--ink)}
           <h3>Made for</h3>
           <ul class="yes">
             <li><span class="t">Offline listening</span><span class="dots"></span><span class="s">no subscription</span></li>
-            <li><span class="t">Whole playlists and albums</span><span class="dots"></span><span class="s">big ones too</span></li>
+            <li data-for="android"><span class="t">Whole playlists and albums</span><span class="dots"></span><span class="s">big ones too</span></li>
+            <li data-for="windows"><span class="t">Whole playlists and albums</span><span class="dots"></span><span class="s">any size, no asking</span></li>
             <li><span class="t">Proper tags</span><span class="dots"></span><span class="s">title, artist, album, cover art</span></li>
             <li><span class="t">Topping up playlists</span><span class="dots"></span><span class="s">only new songs download</span></li>
-            <li><span class="t">Sharing from YT Music</span><span class="dots"></span><span class="s">no need to open the app</span></li>
+            <li data-for="android"><span class="t">Sharing from YT Music</span><span class="dots"></span><span class="s">no need to open the app</span></li>
+            <li data-for="windows"><span class="t">Your own folders</span><span class="dots"></span><span class="s">pick one every time</span></li>
           </ul>
         </div>
         <div>
@@ -399,9 +585,11 @@ b{font-weight:500; color:var(--ink)}
           <ul class="no">
             <li><span class="t">A music player</span><span class="dots"></span><span class="s">your music app plays them</span></li>
             <li><span class="t">A video downloader</span><span class="dots"></span><span class="s">audio only</span></li>
-            <li><span class="t">A sync tool</span><span class="dots"></span><span class="s">songs stay on your phone</span></li>
+            <li data-for="android"><span class="t">A sync tool</span><span class="dots"></span><span class="s">songs stay on your phone</span></li>
+            <li data-for="windows"><span class="t">A sync tool</span><span class="dots"></span><span class="s">songs stay on your PC</span></li>
             <li><span class="t">From YouTube or Google</span><span class="dots"></span><span class="s">I built it</span></li>
-            <li><span class="t">For iPhone</span><span class="dots"></span><span class="s">Android 10 and up</span></li>
+            <li data-for="android"><span class="t">For iPhone</span><span class="dots"></span><span class="s">Android 10 and up</span></li>
+            <li data-for="windows"><span class="t">For Mac</span><span class="dots"></span><span class="s">Windows 10 and 11</span></li>
           </ul>
         </div>
       </div>
@@ -411,16 +599,31 @@ b{font-weight:500; color:var(--ink)}
 
     <section class="faq" id="faq">
       <h2>FAQ</h2>
-      <div class="qs">
+      <div class="qs" data-for="android">
         <details name="faq" open><summary><span>Why does my phone warn me when I install it?</span></summary><p>It's not from the Play Store, so Google Play Protect hasn't seen it before and says it may be unsafe. Tap <b>More details</b>, then <b>Install anyway</b>. If your phone asks to let your browser install apps, allow it. You can switch that off again afterwards.</p></details>
         <details name="faq"><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
         <details name="faq"><summary><span>What links work?</span></summary><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube.</p></details>
+        <details name="faq" id="faq-player"><summary><span>My phone has no music player. What do I use?</span></summary><p>Not every phone comes with a music player of its own, and on some the music app is YT Music. First check if your phone's own player was uninstalled or turned off: look for it in your phone's app store, or in <b>Settings</b> under <b>Apps</b>. If there isn't one, install a music player from the Play Store. The app saves songs to your Music folder, so a music player finds them there.</p></details>
         <details name="faq"><summary><span>What can it get to on my phone?</span></summary><p>The internet and your notifications. It doesn't ask for your files, cause Android puts each song in the Music folder for it.</p></details>
         <details name="faq"><summary><span>What quality are the songs?</span></summary><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></details>
         <details name="faq"><summary><span>A download failed. What do I do?</span></summary><p>It tries 3 more times by itself. If it still fails, tap <b>Retry</b>. If lots fail, tap <b>Update download engine (yt-dlp)</b>. YouTube changes things now and then, and the download engine catches up with an update.</p></details>
         <details name="faq"><summary><span>What if I share a song I already have?</span></summary><p>It asks if you want it again or want to skip it. A playlist just skips the songs you already have.</p></details>
         <details name="faq"><summary><span>Do plain YouTube links work?</span></summary><p>Yes, but YT Music links come out cleaner. A YouTube video's title often has extras like "(Official Video)", and they end up in the song's name.</p></details>
         <details name="faq"><summary><span>How do I get the newest version?</span></summary><p>Tap <b>Download for Android</b> again. The button always gets the newest version. Yours is at the bottom of the app's Help.</p></details>
+      </div>
+      <div class="qs" data-for="windows">
+        <details name="faq-windows" open><summary><span>Why does Windows warn me when I open it?</span></summary><p>It isn't from the Microsoft Store, so Windows' SmartScreen hasn't seen it before and says <b>Windows protected your PC</b>. Click <b>More info</b>, then <b>Run anyway</b>.</p></details>
+        <details name="faq-windows"><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
+        <details name="faq-windows"><summary><span>What links work?</span></summary><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube. If you paste a song from inside a mix, you get just that song.</p></details>
+        <details name="faq-windows"><summary><span>Where do my songs go?</span></summary><p>Into the folder you pick each time you click Download, with the title, artist, album and cover art filled in. It starts on the folder you used last time. The first time, that's your Music folder.</p></details>
+        <details name="faq-windows" id="faq-library"><summary><span>Why don't my songs show in Media Player's library?</span></summary><p>Media Player's library only lists the folders it watches, and that's your Music folder unless you add more. The app starts on your Music folder, so songs saved there show up. If you picked another folder, open <b>Music library</b> in Media Player, click <b>Add folder</b> and pick it. Opening a song from its folder plays it either way.</p></details>
+        <details name="faq-windows"><summary><span>Can I close the app?</span></summary><p>Yes. If songs are still downloading, it asks first. <b>Minimise</b> keeps them going. <b>Close</b> stops them, and they carry on next time you open the app.</p></details>
+        <details name="faq-windows"><summary><span>What quality are the songs?</span></summary><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></details>
+        <details name="faq-windows"><summary><span>A download failed. What do I do?</span></summary><p>It tries 3 more times by itself. If it still fails, click <b>Retry</b>. If lots fail, it asks to update the download engine. You can also update it yourself with the gold arrow icon at the top.</p></details>
+        <details name="faq-windows"><summary><span>What if I paste a song I already have?</span></summary><p>A playlist skips the songs already in the folder you pick and downloads the rest. A single song downloads again.</p></details>
+        <details name="faq-windows"><summary><span>Do plain YouTube links work?</span></summary><p>Yes, but YT Music links come out cleaner.</p></details>
+        <details name="faq-windows"><summary><span>Is it different from the phone app?</span></summary><p>For now it's the phone app made for Windows, so there's nothing in it that only a computer can do.</p></details>
+        <details name="faq-windows"><summary><span>How do I get the newest version?</span></summary><p>Click <b>Download for Windows</b> again. Yours is at the bottom of the app's Help.</p></details>
       </div>
     </section>
 
@@ -434,14 +637,41 @@ b{font-weight:500; color:var(--ink)}
 </main>
 
 <script>
-// The tabs over the stack pick which screen is in front, like the app's own tabs. The
-// picked screen swaps places with the one in the centre, so the old front one goes to
-// the side the picked one came from. Clicking a phone that peeks out does the same,
-// and arrow keys move between the tabs.
+// Arrow keys move between tabs in a row, like any tab row.
+function arrows(tabs, pick){
+  tabs.forEach(function(t, i){
+    t.addEventListener('keydown', function(e){
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var next = tabs[(i + d + tabs.length) % tabs.length]; pick(next); next.focus();
+    });
+  });
+}
+
+// The Android / Windows switch, under the app's line and again where the details start.
+// Both move together. Which one shows first is set in the head.
 (function(){
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs [role=tab]'));
-  var phones = Array.prototype.slice.call(document.querySelectorAll('.stack .phone'));
-  var cap = document.getElementById('shot-cap');
+  var all = Array.prototype.slice.call(document.querySelectorAll('.os [role=tab]'));
+  function pick(tab){
+    var os = tab.dataset.os;
+    document.documentElement.dataset.os = os;
+    all.forEach(function(t){ var on = t.dataset.os === os; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.os'), function(bar){
+    var tabs = Array.prototype.slice.call(bar.querySelectorAll('[role=tab]'));
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+    arrows(tabs, pick);
+  });
+  pick(all.filter(function(t){ return t.dataset.os === document.documentElement.dataset.os; })[0]);
+})();
+
+// Each stack: the tabs over it pick which screen is in front, like the app's own tabs.
+// The picked screen swaps places with the one in the centre, so the old front one goes
+// to the side the picked one came from. Clicking a screen that peeks out does the same.
+Array.prototype.forEach.call(document.querySelectorAll('.shots'), function(fig){
+  var tabs = Array.prototype.slice.call(fig.querySelectorAll('.tabs [role=tab]'));
+  var phones = Array.prototype.slice.call(fig.querySelectorAll('.stack .phone'));
+  var cap = fig.querySelector('figcaption');
   function pick(tab){
     var picked = phones.filter(function(ph){ return ph.dataset.shot === tab.dataset.shot; })[0];
     var centre = phones.filter(function(ph){ return ph.dataset.pos === 'centre'; })[0];
@@ -452,24 +682,19 @@ b{font-weight:500; color:var(--ink)}
     tabs.forEach(function(t){ var on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     cap.textContent = tab.dataset.cap;
   }
-  tabs.forEach(function(t, i){
-    t.addEventListener('click', function(){ pick(t); });
-    t.addEventListener('keydown', function(e){
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return;
-      var next = tabs[(i + d + tabs.length) % tabs.length]; pick(next); next.focus();
-    });
-  });
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+  arrows(tabs, pick);
   phones.forEach(function(ph){
     ph.addEventListener('click', function(){
       if (ph.dataset.pos !== 'centre') pick(tabs.filter(function(t){ return t.dataset.shot === ph.dataset.shot; })[0]);
     });
   });
-})();
+});
 
 // Steps with a picture: pointing at one, tapping it or tabbing to it shows its screen
 // beside the steps, with a gold ring on that step. On phones (under 560px) the picture
-// moves into the step itself, so it opens right under what you tapped.
+// moves into the step itself, so it opens right under what you tapped. Play it shows
+// the player its small switch is on (data-p), with that player's caption.
 (function(){
   var phone = window.matchMedia('(max-width:559px)');
   Array.prototype.forEach.call(document.querySelectorAll('.pair'), function(pair){
@@ -477,15 +702,18 @@ b{font-weight:500; color:var(--ink)}
     var fig = pair.querySelector('.cut');
     var imgs = fig.querySelectorAll('img');
     var cap = fig.querySelector('figcaption');
+    var mini = fig.querySelector('.mini');
     if (steps.length < 2) return;
     function place(){
       var on = pair.querySelector('.steps li.on');
       if (phone.matches && on) on.appendChild(fig); else pair.appendChild(fig);
     }
     function show(step){
+      var p = step.dataset.p;
       Array.prototype.forEach.call(steps, function(s){ s.classList.toggle('on', s === step); });
-      Array.prototype.forEach.call(imgs, function(im){ im.classList.toggle('on', im.dataset.shot === step.dataset.shot); });
-      cap.textContent = step.dataset.cap;
+      Array.prototype.forEach.call(imgs, function(im){ im.classList.toggle('on', im.dataset.shot === step.dataset.shot && (!im.dataset.p || im.dataset.p === p)); });
+      cap.textContent = (p && step.getAttribute('data-cap-' + p)) || step.dataset.cap;
+      if (mini) mini.classList.toggle('on', mini.dataset.shot === step.dataset.shot);
       place();
     }
     place();
@@ -495,11 +723,34 @@ b{font-weight:500; color:var(--ink)}
       step.addEventListener('focus', function(){ show(step); });
       step.addEventListener('click', function(){ show(step); });
     });
+    // Play it's small switch picks which player its pictures show.
+    if (mini){
+      var players = Array.prototype.slice.call(mini.querySelectorAll('[role=tab]'));
+      var pickPlayer = function(b){
+        var step = pair.querySelector('.steps li[data-shot="' + mini.dataset.shot + '"]');
+        step.dataset.p = b.dataset.p;
+        players.forEach(function(x){ var on = x === b; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
+        show(step);
+      };
+      players.forEach(function(b){
+        b.addEventListener('click', function(e){ e.stopPropagation(); pickPlayer(b); });
+      });
+      arrows(players, pickPlayer);
+    }
   });
 })();
 
-// How to use it's two ways in: a tab swaps the first two steps and shows the first
-// step's screen.
+// A "See the FAQ" link opens that answer, not just scrolls to it.
+Array.prototype.forEach.call(document.querySelectorAll('a.see'), function(a){
+  a.addEventListener('click', function(e){
+    e.stopPropagation();
+    var answer = document.querySelector(a.getAttribute('href'));
+    if (answer) answer.open = true;
+  });
+});
+
+// How to use it's two ways in, on Android: a tab swaps the first two steps and shows
+// the first step's screen.
 (function(){
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.ways [role=tab]'));
   var list = document.getElementById('use-steps');
@@ -508,14 +759,8 @@ b{font-weight:500; color:var(--ink)}
     list.dataset.way = tab.dataset.way;
     list.querySelector('li[data-way="' + tab.dataset.way + '"]').click();
   }
-  tabs.forEach(function(t, i){
-    t.addEventListener('click', function(){ pick(t); });
-    t.addEventListener('keydown', function(e){
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return;
-      var next = tabs[(i + d + tabs.length) % tabs.length]; pick(next); next.focus();
-    });
-  });
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+  arrows(tabs, pick);
 })();
 </script>
 </body>

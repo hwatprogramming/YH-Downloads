@@ -61,6 +61,9 @@ Done means the site is live and the first app is on it.
 - First app: YT Music Downloader. Android APK, Android 10 and up, arm64 phones only.
 - YT Music Downloader 1.0 is uploaded, release-signed, as release `yt-music-downloader`.
   The download links work. Since 2026-10-16.
+- YT Music Downloader also has a Windows version, 1.0.0, an installer for Windows 10
+  and 11, 64-bit, in the same release. On the site since 2026-10-26: the app's page
+  has an Android phone / Windows PC switch, and its card has a button for each.
 - An app's page shows the version its button downloads, and the version's date,
   beside the button, so people can tell they have the latest. My ask, 2026-10-16. Each
   update edits that line on the page.

@@ -108,6 +108,9 @@ tell they have the latest. So an update does need a commit, see below.
 
 4. Update the version on the site: the "Version X · date" line beside the button on
    the app's page, and "Version X" on its card in `index.html`. Commit and push.
+   - An app with two versions has one of each per version. On YT Music Downloader's
+     page the Windows line sits in the `data-for="windows"` block, and on the card
+     it's the one under "Download for Windows". Change only the version you uploaded.
 
 The link stays the same, so nothing else changes. The README row has no version, so
 it stays as it is.

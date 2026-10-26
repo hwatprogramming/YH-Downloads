@@ -415,7 +415,26 @@ The design system, written from the finished pages, is in [`DESIGN.md`](../../DE
 
 Decided 26 Oct 2026. The app's Windows version (`../Desktop-Youtube-Music-Downloader`)
 goes on YT Music Downloader's page beside the Android one, my call 23 Oct in that repo.
-Not built yet.
+Built into `index.html` and `yt-music-downloader/index.html` 26 Oct, from the two
+OK'd mockups.
+
+- **How the build differs from the mockups** [Claude's calls while building]:
+  - The Android version is the live page as it was, so its FAQ keeps the live answers
+    in full. The mockup had shortened three of them.
+  - The live page's alt text, `aria-controls`, section ids and arrow keys on tabs are
+    kept. The mockup had dropped them. Windows sections get `-windows` ids.
+  - Which version shows first is set in the page's head, before anything draws, so a
+    PC never sees the Android version flash. `?os=windows` or `?os=android` on the
+    link picks one.
+  - The two-button card layout only applies to a card with class `two`, so a later
+    app with one download keeps the one-button layout.
+- **Window shots are from 1.0.0**, taken 26 Oct from the installed app, songs saved to
+  `D:\Songs` so no username shows. The folder window and the closing prompt were
+  retaken too: the old ones showed a temp folder path and the old text size icon.
+- **Picture notes** on the 13 new pictures, like the 16 Oct ones: "Real screenshot of
+  YT Music Downloader 1.0.0 or Windows on the owner's PC, cropped for this page, Oct
+  2026. Not generated." The two with blurred parts add "with private parts blurred".
+  `play-it.png` uses the phone wording.
 
 - **The catalogue card gets two buttons**, one for the APK and one for Windows. My ask
   26 Oct. Mockup in `.impeccable/mocks/both-platforms/src/catalogue.html`, picture

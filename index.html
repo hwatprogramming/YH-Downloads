@@ -84,6 +84,46 @@ a{color:inherit}
   .acts{grid-column:auto; flex-direction:column; align-items:flex-end; margin-top:0}
 }
 @media (prefers-reduced-motion:reduce){.dl,.dl svg{transition:none}}
+
+/* An app with two versions gets two buttons, each with its version under it. They're
+   smaller than a one-button card's, so two fit beside the text. */
+.dls{display:flex; gap:12px}
+.get{display:grid; justify-items:center; align-content:start; row-gap:7px}
+.ver{margin:0; font-size:14px; line-height:1.3; color:color-mix(in srgb, var(--on-card) 74%, var(--card))}
+.ver b{font-weight:600; color:var(--on-card)}
+.dls .dl{min-height:44px; padding:0 18px; gap:8px; font-size:15px}
+.dls .dl svg{width:16px; height:16px}
+/* Phones: still side by side. The words go in two lines, left, next to the arrow:
+   "Download for" small, the platform under it. The link under them is centred. */
+@media (max-width:759px){
+  .two .acts{gap:14px 20px}
+  .dls{flex:1 1 100%; gap:10px}
+  .get{flex:1 1 0; min-width:0; justify-items:stretch}
+  .dls .dl{justify-content:flex-start; min-height:52px; padding:0 14px 0 16px; gap:10px}
+  .lbl{display:grid; line-height:1.15}
+  .for{font-size:12px; font-weight:600; white-space:nowrap}
+  .os{font-size:16px}
+  .ver{text-align:center}
+  .dls ~ .more{flex:1 1 100%; text-align:center}
+}
+/* The smallest phones: a little less room inside each button. */
+@media (max-width:359px){
+  .dls .dl{padding:0 10px 0 12px; gap:7px}
+  .dls .dl svg{width:14px; height:14px}
+}
+/* Desktop: the two buttons up and down, the same width, each with its version to its
+   right. The link moves under the card's text, so the buttons alone sit in the card's
+   middle. */
+@media (min-width:760px){
+  .item.two{grid-template-rows:auto auto; row-gap:10px}
+  .two .icon{grid-row:1 / span 2}
+  .two > div:not(.acts){grid-column:2; grid-row:1; align-self:end}
+  .two .acts{display:contents}
+  .dls{display:grid; grid-template-columns:auto auto; gap:20px 14px; align-items:center; grid-column:3; grid-row:1 / span 2; align-self:center}
+  .get{display:contents}
+  .dls .dl{justify-content:center}
+  .two .more{grid-column:2; grid-row:2; align-self:start; justify-self:start}
+}
 </style>
 </head>
 <body>
@@ -95,15 +135,24 @@ a{color:inherit}
 
   <main>
     <ul class="list" aria-label="Apps">
-      <li class="item" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C">
+      <li class="item two" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C">
         <span class="icon"><img src="assets/ytmd-icon.svg" alt=""></span>
         <div>
           <h2 class="name"><a href="yt-music-downloader/index.html">YT Music Downloader</a></h2>
-          <p class="line">Songs from YouTube, saved to your phone with the right title, artist, album and cover art.</p>
-          <p class="meta"><b>Version 1.0</b> · Android 10 and up, 64&#8209;bit phones · <span class="file">yt-music-downloader.apk</span></p>
+          <p class="line">Songs from YouTube, saved to your phone or PC with the right title, artist, album and cover art.</p>
+          <p class="meta"><span class="file">Android 10 and up, 64&#8209;bit phones</span> · <span class="file">Windows 10 and 11, 64&#8209;bit</span></p>
         </div>
         <div class="acts">
-          <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download for Android</a>
+          <div class="dls">
+            <div class="get">
+              <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span class="lbl"><span class="for">Download for </span><span class="os">Android</span></span></a>
+              <p class="ver"><b>Version 1.0</b></p>
+            </div>
+            <div class="get">
+              <a class="dl" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader-setup.exe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span class="lbl"><span class="for">Download for </span><span class="os">Windows</span></span></a>
+              <p class="ver"><b>Version 1.0.0</b></p>
+            </div>
+          </div>
           <a class="more" href="yt-music-downloader/index.html">Setup, how to use it, FAQ</a>
         </div>
       </li>

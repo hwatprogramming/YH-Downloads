@@ -48,23 +48,16 @@ first app on it) the site is done. Nothing below blocks that.]
   version, on the same page". The installer goes in the APK's release,
   `yt-music-downloader`, as `yt-music-downloader-setup.exe`. Uploaded 26 Oct (the
   03:25 build), with the title "YT Music Downloader · Android 1.0 · Windows 1.0.0".
-  Nothing on the site links to it yet.
-  - **Done:** both mockups, OK'd 26 Oct, in `.impeccable/mocks/both-platforms/src/`:
-    `tabs.html` (the app page) and `catalogue.html` (the card with two buttons).
-    `tabs.html` has everything picked since, like "(Android only)", Paste a link first,
-    the Play it pictures and switch, and the new FAQ answers. `sheet.png` is the
-    Tabs-or-Merged comparison from when Tabs got picked, so it's older.
-  - **Done 26 Oct:** Windows Setup has the real install screens, from my screenshots
-    installing off the release link. Details in `downloads-page.md`.
-  - **Next:** Claude takes fresh 1.0.0 window shots (Downloading, History, Help) for
-    the Windows stack, and Downloading again for How to use it's "Let it run". The
-    current ones are from 25 Oct, with the old text size icon and tabs. The folder
-    window and closing prompt shots look the same in 1.0.0. How: back up History and
-    settings, queue test songs with `../Desktop-Youtube-Music-Downloader/tools/try-in-app/`,
-    screenshot, put everything back. **Waiting on my go-ahead, with my copy of the app
-    closed.** With the settings backed up, the desktop app's Music first start can be
-    checked at the same time (clear `last_folder`). Then build both mockups into `index.html` and
-    `yt-music-downloader/index.html`, add Windows to the README row, commit and push.
+  **Built and pushed 26 Oct**, from the OK'd mockups in
+  `.impeccable/mocks/both-platforms/src/`, with fresh 1.0.0 window shots (old and new
+  side by side in `win-shots-1.0.0.png` beside `src/`, OK'd). README row has both
+  files. How the build differs from the mockups is in `downloads-page.md`.
+  - **Left:** Impeccable's finish for the new parts, a finish review and DESIGN.md
+    (the version switch, the two-button card). Not run yet.
+  - **Left, mine:** delete the empty `D:\Songs` folder. Claude's safety check blocked it.
+  - The desktop app's "Download to" now says "It's set to your Music folder." the very
+    first time. That came after the upload, so the installer needs a rebuild and
+    re-upload. Tracked in the desktop repo's `Next`.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
@@ -78,8 +71,10 @@ first app on it) the site is done. Nothing below blocks that.]
 - **Two small layout things Claude found 16 Oct, not picked yet:**
   - At exactly 760px wide, two notes in What it's for's "Not" list ("your music app
     plays them", "songs stay on your phone") poke past the screen edge, so the page
-    scrolls sideways. It was there before the fixes.
+    scrolls sideways. It was there before the fixes. The Windows version has the
+    first one too ("your music app plays them"), checked 26 Oct.
   - With the new phone card, the download button runs the card's full width up to
     759px, so on a small tablet it's about 690px wide. Cap it there? Not answered.
+    [Since 26 Oct the card has two buttons sharing that width, so each is about half.]
 - Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
   in "To evaluate", and the Support me page, parked till I can get into Ko-fi.
