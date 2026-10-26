@@ -69,6 +69,21 @@ Great.
 
 For Android, the Setup, how to use it, FAQ should be centred.
 
+## 26 Oct 2026, Picking which version to install
+
+I'm thinking I should allow users to choose the version they want to install in the app
+page. The catalogue page should show the latest version, for simplicity. A changelog and
+the difference in between versions would be nice too.
+
+## 26 Oct 2026, A version picker for every app with more than one version
+
+Can we make the version picker something that every app uploaded that has more than 1
+version should have? How do we enforce this? Just put it in CLAUDE.md, or?
+
+## 26 Oct 2026, Picking the version picker's look
+
+For the version picker, I like A.
+
 # Repo summary
 
 [Kept by Claude, built from the entries above. Every line carries the date of the
@@ -96,6 +111,14 @@ entry it came from, e.g. `[6 Oct]`, so the reasoning is one jump away.]
   the phone's own player was uninstalled, or install a 3rd party one. [26 Oct] [It's
   under Play it and in the FAQ.]
 - Screenshots on the page get other songs and personal info blurred. [26 Oct]
+- On an app's page, people can choose which version to install. [26 Oct] [Not started.
+  The upload steps in `doc/uploading-a-build.md` replace the old file on every update,
+  so old versions are gone after an update. Keeping them changes how uploads work.]
+- The catalogue shows only the latest version, for simplicity. [26 Oct]
+- A changelog, and the difference between versions, would be nice too. [26 Oct]
+- Every uploaded app with more than 1 version has the version picker. [26 Oct] [How
+  it's made to stick isn't decided: a step in `doc/uploading-a-build.md`, a picker
+  built from a list of versions, or a check script.]
 
 ## Goals
 
@@ -129,6 +152,9 @@ the date and why, never gets deleted.]
 - One long page, separated by sections, one section per app. [13 Oct]
 - Each section gets its own theme, based on the project it's built on. [13 Oct]
 - "(Android only)" is plain, with some padding before the next tab. [26 Oct]
+- The version picker is A: a menu beside the download button, with each version's date
+  and what changed. [26 Oct] [Mockups in `.impeccable/mocks/version-picker/`, B and C
+  in `doc/live-design-choices/downloads-page.md`.]
 - The catalogue card's 2 buttons are gold and smaller. On desktop they're up and down
   with the version to the right of each, a bit more gap between them, and their centre
   on the card's centre. On phones they're side by side, the words pushed left, with

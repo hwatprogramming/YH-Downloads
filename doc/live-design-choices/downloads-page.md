@@ -407,7 +407,8 @@ works:
 - **The catalogue card says "64-bit phones"**, like the app page does.
 - **Not fixed, on purpose:** the app page's File fact breaks as "yt-music-" /
   "downloader.apk" on phones. The name is wider than its column, so it has to break
-  somewhere.
+  somewhere. [Fixed 26 Oct after all: on phones File gets a whole row. See "Finish
+  review of the new parts, 26 Oct".]
 
 The design system, written from the finished pages, is in [`DESIGN.md`](../../DESIGN.md).
 
@@ -528,6 +529,78 @@ OK'd mockups.
   - **Rejected: a release of its own** (`yt-music-downloader-windows`). Each version
     would have had its own title, so updating one never touched the other, but it broke
     "one release per app".
+
+### Finish review of the new parts, 26 Oct
+
+Impeccable's finish review of the Windows version and the two-button card said "fix" on
+both pages. I took all 7 after seeing each as a before and after picture, and a second
+round scored every one resolved, both pages "ship". The list is in
+[`finish-review.md`](../finish-review.md), "Second review, 26 Oct". What changed on
+screen:
+
+- **What it's for's two lists sit side by side only from 1100 wide.** Below that, "Made
+  for" sits above "Not", like on phones. Between 760 and about 990 the notes ran into
+  the other list, and up to about 830 the page scrolled sideways.
+- **From 760 to 919 wide, the version and date go on one line under the button.** The
+  phone pictures covered them at 760.
+- **The Windows window pictures are 280px wide from 760 to 1279**, from 300, so the
+  switch's labels fit on one line. They never wrap now.
+- **On phones the File credit gets a whole row**, so the file name doesn't break.
+  "Installs from" sits alone on the last row.
+- **Windows Setup step 1's file name never breaks.**
+- **Catalogue, 760 to 899 wide: each version goes under its button**, which gives the
+  card's text about 100px more. From 900 up it's still the version on the right.
+- **Catalogue, under 760 wide: the two buttons stop at 440px together**, about 215px
+  each. This answers my 16 Oct question about capping the button.
+
+### Picking an older version, not built yet
+
+From my journal 26 Oct: people can choose which version to install on an app's page,
+the catalogue keeps showing only the latest, and a changelog would be nice. Every app
+with more than one version gets it.
+
+- **Picked: A, a menu beside the button**, 26 Oct. The version line next to the
+  download button becomes a menu. Pick a version and the button gets that one. Each
+  version in the menu has its date and what changed under it, and the newest says
+  "Latest". It follows the Android phone / Windows PC switch.
+  - Mockups: `.impeccable/mocks/version-picker/src/` (built from the live page by
+    `make-mocks.py` beside it), picture `sheet.png`. Versions 1.1 and 1.2 in them are
+    made up.
+  - Tradeoff shown with it: everything's in one spot and the page doesn't grow, but
+    what changed is hidden till you open the menu, and the open menu covers the
+    details under it.
+- **Not picked:**
+  - **B, a Versions section after the FAQ**, set like the FAQ, with a download per
+    version and "Older versions and what changed" under the button. First screen
+    barely changes and the changes are always readable, but older versions are a
+    scroll away.
+  - **C, "All versions and what changed" under the button**, opening a list right
+    there. One tap away, but it pushes the details and the pictures down while open.
+- **Old files are kept as copies in the app's one release**, my pick 26 Oct. The
+  fixed name (`yt-music-downloader.apk`, `yt-music-downloader-setup.exe`) is always the
+  newest, for the download button and the catalogue, so their links never change.
+  Next to it, every version gets a copy with its number in the name
+  (`yt-music-downloader-1.1.apk`, `yt-music-downloader-setup-1.0.1.exe`), for the menu.
+  Each update uploads the new file twice. So the newest file is stored twice, and I'm
+  fine with that: "I don't think people will be seeing the page anyways" (GitHub's
+  releases page).
+  - Drawn before picking, as GitHub's releases page after a few made-up updates:
+    `.playwright-cli/old-files/keeping-old-files.png` (not committed).
+  - **Rejected:**
+    - **A release per version.** Each version gets its own GitHub page, which works as
+      a changelog there, but it breaks "one release per app" and adds a page every
+      update.
+    - **One "older versions" release per app.** Nothing stored twice, but two
+      releases per app and an extra step every update.
+    - **Renaming the old file instead of copying.** One file per version, but it needs
+      a less common GitHub command. Not worth it for a page people won't look at.
+    - **Numbers only, no fixed name.** Fewest files, but every update has to change the
+      button's link on the app page, the catalogue and the README, and a saved link
+      gets an old version.
+  - Today's 1.0 and 1.0.0 files have no numbered copy yet. They need one when the
+    picker gets built, before the next update overwrites them.
+- **Still open:** how the rule is made to stick: a step in `doc/uploading-a-build.md`,
+  the menu built from a list of versions per app, or a check script.
 
 ## No version number on the page
 

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Version picker, 3 ways</title>
+<style>
+@font-face{font-family:'Figtree'; font-weight:400 800; src:url(../../../assets/fonts/figtree.woff2) format('woff2')}
+body{margin:0; padding:32px 40px 48px; width:1760px; background:#DCE0E5; color:#1B1917; font:15px/1.5 'Figtree',sans-serif}
+h1{margin:0 0 4px; font-size:28px; line-height:1.4}
+.sub{margin:0 0 24px; max-width:150ch; color:#4E5560}
+.cols{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; align-items:start}
+.col{background:#fff; border-radius:14px; padding:18px 20px 22px}
+.head{display:flex; align-items:center; gap:12px}
+.n{flex:none; display:grid; place-items:center; width:36px; height:36px; border-radius:50%; background:#1B1917; color:#fff; font-weight:700; font-size:18px}
+h2{margin:0; font-size:20px; line-height:1.4}
+.what{margin:8px 0 6px}
+.trade{margin:0 0 14px; color:#4E5560}
+.trade b{color:#1B1917}
+.cap{margin:14px 0 6px; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#4E5560}
+.col img{display:block; border:1px solid #C9CED6}
+.desk{width:100%}
+.ph{width:390px}
+.wide{margin-top:20px; background:#fff; border-radius:14px; padding:18px 20px 22px}
+.wide .row{display:flex; gap:24px; align-items:flex-start}
+.wide img{display:block; border:1px solid #C9CED6}
+</style>
+</head>
+<body>
+<h1>Version picker: 3 ways to pick a version</h1>
+<p class="sub">All three on YT Music Downloader's page, Android tab, in its own look. Versions 1.1 and 1.2 and what changed in them are made up for the mockup, only 1.0 is real. Each one follows the Android phone / Windows PC switch, and the catalogue keeps showing only the latest. Menus and lists are shown open.</p>
+
+<div class="cols">
+  <div class="col">
+    <div class="head"><span class="n">A</span><h2>A menu beside the button</h2></div>
+    <p class="what">The version line next to the button becomes a menu. Pick a version and the button gets that one. What changed shows under each version in the menu.</p>
+    <p class="trade"><b>Tradeoff:</b> everything's in one spot and the page doesn't grow. But what changed is hidden till you open it, and the open menu covers the details under it.</p>
+    <p class="cap">Desktop, left half of the first screen</p>
+    <img class="desk" src="shots/a-menu-desktop.png" alt="">
+    <p class="cap">Phone, 390 wide</p>
+    <img class="ph" src="shots/a-menu-phone.png" alt="">
+  </div>
+
+  <div class="col">
+    <div class="head"><span class="n">B</span><h2>A Versions section near the end</h2></div>
+    <p class="what">The button always gets the newest. "Older versions and what changed" under it jumps to a Versions section after the FAQ, set like the FAQ, with a download for each version.</p>
+    <p class="trade"><b>Tradeoff:</b> the first screen barely changes, and what changed is always there to read. But older versions are a scroll away from the button. The section is shown in full below.</p>
+    <p class="cap">Desktop, left half of the first screen</p>
+    <img class="desk" src="shots/b-versions-section-desktop.png" alt="">
+    <p class="cap">Phone, 390 wide</p>
+    <img class="ph" src="shots/b-versions-section-phone.png" alt="">
+  </div>
+
+  <div class="col">
+    <div class="head"><span class="n">C</span><h2>All versions, under the button</h2></div>
+    <p class="what">"All versions and what changed" under the button opens a list right there, with a download for each version.</p>
+    <p class="trade"><b>Tradeoff:</b> it's where you're already looking, and what changed is one tap away. But while it's open it pushes the file details and, on phones, the pictures further down.</p>
+    <p class="cap">Desktop, left half of the first screen</p>
+    <img class="desk" src="shots/c-under-the-button-desktop.png" alt="">
+    <p class="cap">Phone, 390 wide</p>
+    <img class="ph" src="shots/c-under-the-button-phone.png" alt="">
+  </div>
+</div>
+
+<div class="wide">
+  <div class="head"><span class="n">B</span><h2>B's Versions section, after the FAQ</h2></div>
+  <p class="cap">Desktop and phone</p>
+  <div class="row"><img src="shots/b-versions-section-desktop-section.png" alt="" style="width:1240px"><img src="shots/b-versions-section-phone-section.png" alt="" style="width:390px"></div>
+</div>
+</body>
+</html>

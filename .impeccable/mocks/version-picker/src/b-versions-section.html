@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en" data-os="android">
+<head>
+<meta charset="utf-8">
+<base href="../../../../yt-music-downloader/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YT Music Downloader · YH Downloads</title>
+<meta name="description" content="Songs from YouTube, saved to your Android phone or Windows PC with the right title, artist, album and cover art.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>
+// Which version the page shows first: a Windows PC gets Windows, everyone else Android.
+// ?os=android or ?os=windows in the link picks one. Set before the page draws, so a PC
+// never sees the Android version flash first.
+(function(){
+  var forced = (location.search.match(/[?&]os=(android|windows)/) || [])[1];
+  document.documentElement.dataset.os = 'android';
+})();
+</script>
+<style>
+/* The fonts sit next to the pages in assets/fonts/, with their licences, so the page
+   never waits on another server for them. */
+@font-face{font-family:'Barlow Condensed'; font-weight:700; font-display:swap; src:url(../assets/fonts/barlow-condensed-700.woff2) format('woff2')}
+@font-face{font-family:'Figtree'; font-weight:400 800; font-display:swap; src:url(../assets/fonts/figtree.woff2) format('woff2')}
+@font-face{font-family:'Roboto'; font-weight:400 700; font-display:swap; src:url(../assets/fonts/roboto.woff2) format('woff2')}
+/* Until Barlow arrives, the phone draws the name in the phone's own Roboto (Arial on
+   Windows without it), shrunk to Barlow's width so "DOWNLOADER" still fits. 67% was
+   measured with Roboto on the PC. */
+@font-face{font-family:'Barlow Fallback'; src:local('Roboto'),local('Arial'); size-adjust:67%}
+
+/* The app's own colours, from its DESIGN.md: navy ground, warm ink, one gold.
+   --panel is the fill of the app's Help pop-up. */
+:root{
+  --ground:#0F151D; --navy:#16202C; --panel:#1C2734; --highest:#23303F; --outline:#3A4757;
+  --ink:#ECE7DE; --grey:#9AA4B1; --gold:#EDBB4E;
+  /* Everything sits in one 1200px column, so nothing drifts to the far edges of a wide screen. */
+  --wrap:1200px; --gut:20px;
+  --wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='32'%3E%3Crect x='2' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='8' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='14' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='20' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='26' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='32' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='38' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='44' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='50' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='56' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='62' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='68' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='74' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='80' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='86' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='92' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='98' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='104' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='110' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='116' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='122' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='128' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='134' y='6.0' width='2' height='20' rx='1'/%3E%3Crect x='140' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='146' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='152' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='158' y='9.5' width='2' height='13' rx='1'/%3E%3Crect x='164' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='170' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='176' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='182' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='188' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='194' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='200' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='206' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='212' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='218' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='224' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='230' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='236' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='242' y='9.5' width='2' height='13' rx='1'/%3E%3Crect x='248' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='254' y='6.0' width='2' height='20' rx='1'/%3E%3Crect x='260' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='266' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='272' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='278' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='284' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='290' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='296' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='302' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='308' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='314' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='320' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='326' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='332' y='9.5' width='2' height='13' rx='1'/%3E%3Crect x='338' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='344' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='350' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='356' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='362' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='368' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='374' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='380' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='386' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='392' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='398' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='404' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='410' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='416' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='422' y='14.5' width='2' height='3' rx='1'/%3E%3Crect x='428' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='434' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='440' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='446' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='452' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='458' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='464' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='470' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='476' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='482' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='488' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='494' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='500' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='506' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='512' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='518' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='524' y='6.0' width='2' height='20' rx='1'/%3E%3Crect x='530' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='536' y='9.5' width='2' height='13' rx='1'/%3E%3Crect x='542' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='548' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='554' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='560' y='6.0' width='2' height='20' rx='1'/%3E%3Crect x='566' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='572' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='578' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='584' y='4.0' width='2' height='24' rx='1'/%3E%3Crect x='590' y='3.5' width='2' height='25' rx='1'/%3E%3Crect x='596' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='602' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='608' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='614' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='620' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='626' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='632' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='638' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='644' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='650' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='656' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='662' y='4.5' width='2' height='23' rx='1'/%3E%3Crect x='668' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='674' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='680' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='686' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='692' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='698' y='4.0' width='2' height='24' rx='1'/%3E%3Crect x='704' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='710' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='716' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='722' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='728' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='734' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='740' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='746' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='752' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='758' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='764' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='770' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='776' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='782' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='788' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='794' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='800' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='806' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='812' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='818' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='824' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='830' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='836' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='842' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='848' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='854' y='11.0' width='2' height='10' rx='1'/%3E%3Crect x='860' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='866' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='872' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='878' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='884' y='13.5' width='2' height='5' rx='1'/%3E%3Crect x='890' y='12.0' width='2' height='8' rx='1'/%3E%3Crect x='896' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='902' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='908' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='914' y='14.0' width='2' height='4' rx='1'/%3E%3Crect x='920' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='926' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='932' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='938' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='944' y='13.0' width='2' height='6' rx='1'/%3E%3Crect x='950' y='8.5' width='2' height='15' rx='1'/%3E%3Crect x='956' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='962' y='6.0' width='2' height='20' rx='1'/%3E%3Crect x='968' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='974' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='980' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='986' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='992' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='998' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='1004' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='1010' y='9.5' width='2' height='13' rx='1'/%3E%3Crect x='1016' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='1022' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='1028' y='4.5' width='2' height='23' rx='1'/%3E%3Crect x='1034' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='1040' y='6.5' width='2' height='19' rx='1'/%3E%3Crect x='1046' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='1052' y='5.5' width='2' height='21' rx='1'/%3E%3Crect x='1058' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='1064' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='1070' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='1076' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='1082' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='1088' y='10.5' width='2' height='11' rx='1'/%3E%3Crect x='1094' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='1100' y='8.0' width='2' height='16' rx='1'/%3E%3Crect x='1106' y='5.0' width='2' height='22' rx='1'/%3E%3Crect x='1112' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='1118' y='4.0' width='2' height='24' rx='1'/%3E%3Crect x='1124' y='3.5' width='2' height='25' rx='1'/%3E%3Crect x='1130' y='4.0' width='2' height='24' rx='1'/%3E%3Crect x='1136' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='1142' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='1148' y='11.5' width='2' height='9' rx='1'/%3E%3Crect x='1154' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='1160' y='12.5' width='2' height='7' rx='1'/%3E%3Crect x='1166' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='1172' y='7.0' width='2' height='18' rx='1'/%3E%3Crect x='1178' y='7.5' width='2' height='17' rx='1'/%3E%3Crect x='1184' y='10.0' width='2' height='12' rx='1'/%3E%3Crect x='1190' y='9.0' width='2' height='14' rx='1'/%3E%3Crect x='1196' y='8.5' width='2' height='15' rx='1'/%3E%3C/svg%3E");
+  --tick:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7'/></svg>");
+  --cross:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'><path d='M6.5 6.5l11 11M17.5 6.5l-11 11'/></svg>");
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html{scrollbar-color:var(--outline) var(--ground); scroll-padding-top:120px}
+html,body{margin:0}
+body{background:var(--ground); color:var(--ink); font-family:'Roboto',sans-serif; font-size:17px; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+::selection{background:var(--gold); color:var(--navy)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold); outline-offset:4px}
+b{font-weight:500; color:var(--ink)}
+
+/* The site's header, in the catalogue's look rather than this app's: All apps, and
+   this app's chip in its own colours. On phones the chips get a row of their own. */
+.site{
+  position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; column-gap:12px; row-gap:10px;
+  padding:12px 16px; background:#1B1917; color:#EEE7DD; font-family:'Figtree',sans-serif;
+  box-shadow:0 1px 0 rgba(255,255,255,.05), 0 12px 24px -16px rgba(0,0,0,.9);
+}
+.site .home{flex:none; white-space:nowrap; font-weight:750; font-size:21px; line-height:1; letter-spacing:-.025em; color:#E6C88E; text-decoration:none}
+.site nav{order:3; flex-basis:100%; min-width:0; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none}
+.site nav::-webkit-scrollbar{display:none}
+.chip{flex:none; display:inline-flex; align-items:center; gap:9px; min-height:44px; padding:0 15px 0 6px; border-radius:999px; background:var(--card); color:var(--btn); font-weight:650; font-size:15px; white-space:nowrap; text-decoration:none}
+.chip .ic{width:32px; height:32px; border-radius:10px; overflow:hidden; display:grid; place-items:center; background:var(--btn); color:var(--btn-text); font-weight:800; font-size:15px}
+.chip .ic img{display:block; width:100%; height:100%}
+.chip[aria-current]{background:var(--btn); color:var(--btn-text)}
+.chip.all{padding:0 16px; background:transparent; color:#EEE7DD; box-shadow:inset 0 0 0 1.5px #4A443D}
+.site :focus-visible{outline:2px solid #E6C88E; outline-offset:3px}
+@media (hover:hover){
+  .chip:not([aria-current]):hover{filter:brightness(1.18)}
+  .site .home:hover{text-decoration:underline; text-underline-offset:4px}
+}
+
+/* First screen: what it is and the download on the left, the app itself on the right.
+   Phone first: one column, the download before the picture. */
+.intro{display:grid; grid-template-columns:minmax(0,1fr); max-width:calc(var(--wrap) + 2 * var(--gut)); margin:0 auto; padding:24px var(--gut) 44px}
+.name{margin:0; font-family:'Barlow Condensed','Barlow Fallback',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.04em; line-height:.9; font-size:min(15vw,116px)}
+.name span{display:block}
+.name .yt{display:inline; color:var(--gold)}
+.hook{margin:18px 0 0; max-width:31ch; font-size:19px; line-height:1.4}
+.facts{margin:22px 0 0; padding:0; list-style:none; max-width:420px; border-top:1px solid var(--highest)}
+.facts li{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--highest); font-size:16px}
+.facts li::before{content:""; flex:none; width:18px; height:18px; background:var(--grey); -webkit-mask:var(--tick) center/contain no-repeat; mask:var(--tick) center/contain no-repeat}
+
+.get{margin-top:28px; display:grid; row-gap:12px; justify-items:stretch}
+.pill{display:flex; align-items:center; justify-content:center; gap:10px; height:56px; padding:0 32px; border-radius:999px; background:var(--gold); color:var(--navy); font-size:16px; font-weight:500; letter-spacing:.01em; text-decoration:none; transition:background-color .2s}
+.pill svg{width:20px; height:20px; flex:none}
+.pill:active{transform:translateY(1px)}
+@media (hover:hover){.pill:hover{background:#F4C866}}
+.file{margin:0; font-size:15px; color:var(--grey)}
+/* The version the button gets, and its date. The app's Help shows the version too, so
+   people can check theirs against it. */
+.ver{margin:0; display:flex; flex-wrap:wrap; column-gap:10px; font-size:15px; line-height:1.35}
+.ver .v{font-weight:500}
+.ver .d{color:var(--grey)}
+/* The file's details, set like the credits on an album's back: label in small spaced
+   capitals, the fact under it. */
+.specs{margin:28px 0 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 32px; max-width:520px}
+.specs div{min-width:0}
+.specs dt{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
+.specs dd{margin:4px 0 0; font-size:15px; overflow-wrap:anywhere}
+/* On phones the file name gets a whole row, so it doesn't break in the middle. */
+@media (max-width:559px){.specs div:first-child{grid-column:1 / -1}}
+
+/* The app, as three real phone screenshots in a stack: the one showing in front in the
+   middle, the other two peeking out behind it, one each side. Text tabs over it, in the
+   app's tab style, pick which one is in front. */
+.shots{--w:min(60vw,230px); --step:40px; margin:40px 0 0; justify-self:center; width:calc(var(--w) + 2 * var(--step))}
+.stack{position:relative; height:calc(var(--w) * 2360 / 1200)}
+.phone{
+  position:absolute; left:0; top:0; width:var(--w); aspect-ratio:1200/2360; overflow:hidden;
+  border-radius:calc(var(--w) * .085); border:1px solid var(--highest); background:var(--ground); cursor:pointer;
+  transform:translateX(calc(var(--x) * var(--step))) scale(var(--s));
+  transition:transform .55s cubic-bezier(.16,1,.3,1), filter .55s cubic-bezier(.16,1,.3,1);
+}
+.phone img{display:block; width:100%; height:100%}
+.phone[data-pos="centre"]{--x:1; --s:1; z-index:2; cursor:default}
+.phone[data-pos="left"]{--x:0; --s:.93; z-index:1; filter:brightness(.5)}
+.phone[data-pos="right"]{--x:2; --s:.93; z-index:1; filter:brightness(.5)}
+@media (hover:hover){.phone[data-pos="left"]:hover,.phone[data-pos="right"]:hover{filter:brightness(.75)}}
+.tabs{display:flex; justify-content:center; gap:20px; width:var(--w); margin:0 0 10px var(--step)}
+.tabs button{position:relative; min-height:44px; padding:10px 8px 14px; border:0; background:none; color:var(--grey); font:500 15px/1 'Roboto',sans-serif; cursor:pointer}
+.tabs button::after{content:""; position:absolute; left:8px; right:8px; bottom:6px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.tabs button[aria-selected="true"]{color:var(--ink)}
+.tabs button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.tabs button:hover{color:var(--ink)}}
+.shots figcaption{width:var(--w); margin:12px 0 0 var(--step); min-height:4.4em; font-size:14px; line-height:1.45; color:var(--grey); text-align:center}
+
+/* More details: Setup and How to use it side by side, then what it's for and what it
+   isn't, then the FAQ. Headings in the app's Help heading style. */
+.more{
+  display:grid; grid-template-columns:minmax(0,1fr); row-gap:48px; max-width:calc(var(--wrap) + 2 * var(--gut)); margin:0 auto; padding:0 var(--gut) 72px;
+}
+/* Section headings in the same tall condensed capitals as the app's name. */
+.more h2{margin:0 0 20px; font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.04em; font-size:36px; line-height:1}
+/* Steps: a ring per step, joined by a thin line, like a progress line through them.
+   A short title in ink, a few grey words under it. */
+.steps{margin:0; padding:0; list-style:none; counter-reset:s}
+.steps li{counter-increment:s; position:relative; display:grid; grid-template-columns:34px minmax(0,1fr); column-gap:16px; padding:0 0 18px}
+.steps li::before{content:counter(s); position:relative; z-index:1; display:grid; place-items:center; width:34px; height:34px; border:1px solid var(--outline); border-radius:50%; background:var(--ground); font-size:14px; font-weight:500; font-variant-numeric:tabular-nums}
+.steps li:not(:last-child)::after{content:""; position:absolute; left:17px; top:34px; bottom:0; width:1px; background:var(--highest)}
+.t{display:block; font-size:17px; font-weight:500; line-height:1.3}
+.steps .t{padding-top:6px}
+.s{display:block; margin-top:2px; font-size:15px; line-height:1.45; color:var(--grey)}
+.or{margin:0 0 0 50px; font-size:15px; color:var(--grey)}
+/* A file name in a step never breaks at its hyphens. */
+.whole{white-space:nowrap}
+
+/* Between the groups of sections, a sound wave instead of a plain line. Its gold part
+   is how much has "played": a third, two thirds, then all of it by the FAQ. Where the
+   browser can, the gold fills in as the wave scrolls into view. */
+@property --played{syntax:'<percentage>'; inherits:false; initial-value:0%}
+.wave{
+  grid-column:1 / -1; height:32px; --played:var(--to);
+  background:linear-gradient(90deg, var(--gold) 0 var(--played), var(--outline) var(--played));
+  -webkit-mask:var(--wave) left center / 1200px 32px repeat-x; mask:var(--wave) left center / 1200px 32px repeat-x;
+}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .wave{animation:play linear both; animation-timeline:view(); animation-range:entry 10% cover 55%}
+    @keyframes play{from{--played:0%} to{--played:var(--to)}}
+  }
+}
+
+/* Beside the steps, the real screen for a step. A step with a picture has a gold ring
+   while its picture shows. In How to use it, pointing at or tapping a step shows its
+   screen. On phones the picture opens inside the step you tapped, under its text, and a
+   grey line under the heading says steps can be tapped. */
+.pair{display:grid; grid-template-columns:minmax(0,1fr); gap:20px}
+.cut{margin:0; width:min(80%,280px)}
+.cut img{display:none; width:100%; height:auto; border-radius:16px; border:1px solid var(--highest)}
+.cut img.on{display:block; animation:show .35s cubic-bezier(.16,1,.3,1)}
+@keyframes show{from{opacity:0; transform:translateY(4px)}}
+.cut figcaption{margin-top:10px; font-size:13px; line-height:1.4; color:var(--grey)}
+.steps li > .cut{grid-column:2; margin:10px 0 4px}
+.hint{margin:-12px 0 18px; font-size:14px; color:var(--grey)}
+.steps li[data-shot]{cursor:pointer}
+.steps li[data-shot].on::before{border-color:var(--gold); color:var(--gold)}
+@media (hover:hover){.steps li[data-shot]:not(.on):hover::before{border-color:var(--ink)}}
+/* Android's own tap flash is off page-wide, so a step shows its press here instead. */
+.steps li[data-shot]:active::before{border-color:var(--ink)}
+.steps li[data-shot]:focus-visible{outline:none}
+.steps li[data-shot]:focus-visible .t{text-decoration:underline 2px var(--gold); text-underline-offset:4px}
+@media (min-width:560px){
+  .pair{grid-template-columns:minmax(0,1fr) var(--cut,190px); column-gap:28px; align-items:start}
+  .cut{width:auto}
+  .hint{display:none}
+}
+@media (min-width:900px) and (max-width:1099px){.pair{--cut:150px; column-gap:20px}}
+@media (min-width:1100px){.pair{--cut:230px; column-gap:36px}}
+@media (prefers-reduced-motion:reduce){.cut img.on{animation:none}}
+
+/* How to use it has the app's two ways in as text tabs, like the app's own: Share
+   from YT Music, or Paste a link. A tab swaps the first two steps; the rest are the
+   same both ways. */
+.ways{display:flex; gap:24px; margin:-4px 0 22px; border-bottom:1px solid var(--highest)}
+.ways button{position:relative; min-height:44px; padding:8px 0 12px; border:0; background:none; color:var(--grey); font:500 15px/1.2 'Roboto',sans-serif; cursor:pointer}
+.ways button::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.ways button[aria-selected="true"]{color:var(--ink)}
+.ways button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.ways button:hover{color:var(--ink)}}
+.steps[data-way="share"] li[data-way="paste"],
+.steps[data-way="paste"] li[data-way="share"]{display:none}
+@media (prefers-reduced-motion:reduce){.ways button::after{transition:none}}
+
+/* What it's for: what it's made for and what it isn't, side by side on one panel (the
+   fill of the app's Help pop-up), so they read as one section. A tick or a cross in a
+   small disc, the item, and a few grey words where it needs them. */
+.both{display:grid; grid-template-columns:minmax(0,1fr); row-gap:28px; padding:24px 22px; border-radius:28px; background:var(--panel)}
+.both h3{margin:0 0 12px; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
+/* Each item is a credits line: the item, dots across, a short note at the end. On
+   narrow phones the note goes under the item instead. */
+.yes,.no{margin:0; padding:0; list-style:none; display:grid; gap:12px}
+.yes li,.no li{display:grid; grid-template-columns:30px minmax(0,1fr); column-gap:14px; align-items:center}
+.yes li::before,.no li::before{content:""; width:30px; height:30px; border-radius:50%; background:var(--highest) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA4B1' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 7'/></svg>") center/16px no-repeat}
+.no li::before{background:var(--highest) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA4B1' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 7l10 10M17 7L7 17'/></svg>") center/16px no-repeat}
+.dots{display:none}
+.yes .s,.no .s{margin-top:1px; font-size:14px}
+.yes li::before,.no li::before{grid-row:span 2}
+.yes .t,.no .t,.yes .s,.no .s{grid-column:2}
+@media (min-width:560px){
+  .yes li,.no li{display:flex; align-items:center; gap:14px; min-height:34px}
+  .yes li::before,.no li::before{flex:none}
+  .yes .t,.no .t{flex:none}
+  .dots{display:block; flex:1 1 20px; min-width:20px; align-self:flex-end; margin-bottom:10px; border-bottom:2px dotted var(--outline)}
+  .yes .s,.no .s{flex:none; margin:0; font-size:15px; white-space:nowrap}
+}
+/* Side by side only where both lists have room for their notes. Below that, "Made
+   for" sits above "Not", like on phones. */
+@media (min-width:1100px){
+  .both{grid-template-columns:repeat(2,minmax(0,1fr)); padding:30px 0}
+  .both > div{padding:0 34px}
+  .both > div + div{border-left:1px solid var(--highest)}
+}
+
+.qs{border-top:1px solid var(--highest)}
+.qs details{border-bottom:1px solid var(--highest)}
+.qs summary{display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; padding:14px 0; font-size:17px; font-weight:500; line-height:1.35; cursor:pointer; list-style:none}
+.qs summary::-webkit-details-marker{display:none}
+.qs summary::after{
+  content:""; flex:none; width:16px; height:16px; margin-right:4px;
+  background:linear-gradient(var(--gold),var(--gold)) center/16px 2px no-repeat, linear-gradient(var(--gold),var(--gold)) center/2px 16px no-repeat;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+}
+.qs details[open] summary::after{transform:rotate(45deg)}
+@media (hover:hover){.qs summary:hover span{text-decoration:underline 1px; text-underline-offset:5px}}
+.qs p{margin:-4px 0 20px; max-width:62ch; font-size:16px; color:var(--grey)}
+.qs ul{margin:-4px 0 10px; padding-left:20px; max-width:62ch; font-size:16px; color:var(--grey)}
+
+/* The page ends on a way back up, a gold text button like the app's. */
+.end{display:grid; justify-items:start; padding-top:4px}
+.top{display:inline-flex; align-items:center; gap:8px; min-height:44px; color:var(--gold); font-size:16px; font-weight:500; text-decoration:none}
+.top svg{width:20px; height:20px}
+@media (hover:hover){.top:hover{text-decoration:underline; text-underline-offset:5px}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* Tablet: the picture moves up beside the text. */
+@media (min-width:760px){
+  .site{flex-wrap:nowrap; height:72px; padding:0 32px}
+  .site nav{order:0; flex:0 1 auto; margin-left:auto}
+  .chip{min-height:40px}
+  .chip .ic{width:28px; height:28px; border-radius:8px}
+  :root{--gut:32px}
+  .intro{grid-template-columns:minmax(0,1fr) auto; grid-template-rows:repeat(5,auto) 1fr; column-gap:40px; padding-top:40px; padding-bottom:52px}
+  .name{grid-column:1 / -1}
+  .hook,.facts,.get,.specs{grid-column:1}
+  .shots{grid-column:2; grid-row:2 / span 5; --w:240px; --step:48px; margin:6px 0 0}
+  .get,.end{justify-items:start}
+  .get{display:flex; align-items:center; gap:22px}
+  .ver{flex-direction:column; font-size:16px}
+  .pill{min-width:320px}
+  .more{padding-bottom:88px; row-gap:56px}
+  .more h2{font-size:44px}
+}
+/* Wide tablet: the parts go two by two, the FAQ across both. */
+@media (min-width:900px){
+  .more{grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:48px}
+  .fit,.faq,.end{grid-column:1 / -1}
+}
+/* Desktop: the header lines up with the page's column. */
+@media (min-width:1100px){
+  :root{--gut:56px}
+  .site{padding:0 max(var(--gut), calc((100% - var(--wrap)) / 2))}
+  .site .home{font-size:24px}
+  .intro{padding-top:48px; padding-bottom:60px}
+  .hook{font-size:22px}
+  .more{padding-bottom:104px; row-gap:64px; column-gap:56px}
+}
+@media (min-width:1280px){
+  .intro{grid-template-rows:repeat(5,auto) 1fr; column-gap:64px}
+  .name{grid-column:1}
+  .shots{grid-row:1 / span 6; --w:320px; --step:76px; margin:0}
+}
+@media (prefers-reduced-motion:reduce){.pill,.phone,.tabs button::after,.qs summary::after{transition:none}}
+
+/* Android or Windows: one switch, and the whole page follows it. A Windows PC opens on
+   Windows, everyone else on Android (the script in the head). */
+html[data-os="android"] [data-for="windows"],
+html[data-os="windows"] [data-for="android"]{display:none !important}
+
+/* The switch: the app's text tabs, bigger, with a drawn phone and a drawn PC. */
+.os{display:flex; gap:30px; max-width:420px; margin:26px 0 0; border-bottom:1px solid var(--highest)}
+.os button{position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:10px 0 14px; border:0; background:none; color:var(--grey); font:500 17px/1.2 'Roboto',sans-serif; white-space:nowrap; cursor:pointer}
+.os button svg{width:20px; height:20px; flex:none}
+.os button::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.os button[aria-selected="true"]{color:var(--ink)}
+.os button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.os button:hover{color:var(--ink)}}
+/* The facts sit right under the switch, with no line of their own on top. "~", not "+",
+   cause on Windows the hidden Android facts come between them. */
+.os ~ .facts{margin-top:0; border-top:0}
+/* The same switch again where the details start, for someone who scrolled down. */
+.again{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; column-gap:22px; row-gap:6px; margin-top:-12px}
+.again p{margin:0; font-size:15px; color:var(--grey)}
+.again .os{margin:0; max-width:none; border-bottom:0}
+
+/* Windows' screens: the same stack as the phones, with the app's windows. */
+.shots.win{--w:min(80vw,330px); --step:calc(var(--w) * .1)}
+.shots.win .stack{height:calc(var(--w) * 779 / 896)}
+.shots.win .phone{aspect-ratio:896/779; border-radius:8px}
+
+/* Share from YT Music works on Android only, so its tab says so, in plain grey. On
+   narrow phones it drops under the tab's name. More room before the next tab. */
+.ways{column-gap:40px}
+.ways button{display:inline-flex; flex-wrap:wrap; align-items:flex-end; align-content:flex-end; column-gap:6px; text-align:left; white-space:nowrap}
+.ways .tag{font-weight:400; color:var(--grey)}
+
+/* "See the FAQ" under Play it: a plain link in the step's grey, gold on hover. */
+.see{color:inherit; text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--outline)}
+@media (hover:hover){.see:hover{color:var(--gold); text-decoration-color:var(--gold)}}
+
+/* Play it's own switch: small text tabs above its pictures, in the app's tab style, so
+   either player can be seen from either version. It shows only while Play it does. */
+.mini{display:none; gap:18px; margin:-6px 0 6px}
+.mini.on{display:flex}
+.mini button{position:relative; min-height:36px; padding:6px 0 10px; border:0; background:none; color:var(--grey); font:500 14px/1.2 'Roboto',sans-serif; cursor:pointer}
+.mini button::after{content:""; position:absolute; left:0; right:0; bottom:4px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.mini button[aria-selected="true"]{color:var(--ink)}
+.mini button[aria-selected="true"]::after{transform:scaleX(1)}
+@media (hover:hover){.mini button:hover{color:var(--ink)}}
+
+/* A step with two pictures shows them one under the other. */
+.cut img.on + img.on{margin-top:10px}
+
+@media (min-width:760px){
+  .intro{grid-template-rows:repeat(6,auto) 1fr}
+  .os{grid-column:1}
+  .shots{grid-row:2 / span 6}
+  .shots.win{--w:280px}
+}
+/* Narrow tablets: the version and date go on one line under the button, so the
+   pictures beside them don't cover them. */
+@media (min-width:760px) and (max-width:919px){
+  .get{flex-wrap:wrap; row-gap:10px}
+  .ver{flex-direction:row}
+}
+@media (min-width:1280px){
+  .intro{grid-template-rows:repeat(6,auto) 1fr}
+  .shots{grid-row:1 / span 7}
+  .shots.win{--w:420px}
+}
+@media (prefers-reduced-motion:reduce){.os button::after,.mini button::after{transition:none}}
+
+/* Mockup: picking a version. A small grey label in the credits style. */
+.lab{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
+.vdl{display:inline-flex; align-items:center; gap:8px; min-height:44px; color:var(--gold); font-size:15px; font-weight:500; text-decoration:none; white-space:nowrap}
+.vdl svg{width:18px; height:18px; flex:none}
+.vdl .z{color:var(--grey); font-weight:400}
+
+.ver .older{width:100%; margin-top:2px; color:var(--grey); text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--outline)}
+.vers{grid-column:1 / -1}
+.vlist{margin:0; padding:0; list-style:none; border-top:1px solid var(--highest)}
+.vlist li{display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:32px; row-gap:4px; padding:16px 0; border-bottom:1px solid var(--highest)}
+.vlist .row{display:flex; flex-wrap:wrap; align-items:baseline; column-gap:14px}
+.vlist .t{font-size:17px; font-weight:500}
+.vlist .d{font-size:15px; color:var(--grey)}
+.vlist p{grid-column:1; margin:0; max-width:62ch; font-size:15px; color:var(--grey)}
+.vlist .vdl{grid-column:2; grid-row:1 / span 2; align-self:center}
+@media (max-width:559px){.vlist li{grid-template-columns:minmax(0,1fr)} .vlist .vdl{grid-column:1; grid-row:auto; justify-self:start}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a class="home" href="../index.html">YH Downloads</a>
+  <nav aria-label="Apps">
+    <a class="chip all" href="../index.html">All apps</a>
+    <a class="chip" href="#top" aria-current="page" style="--card:#16202C; --btn:#EDBB4E; --btn-text:#16202C"><span class="ic"><img src="../assets/ytmd-icon.svg" alt=""></span>YT Music Downloader</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="intro" aria-labelledby="app-name">
+    <h1 class="name" id="app-name"><span><span class="yt">YT</span> Music</span><span>Downloader</span></h1>
+    <p class="hook">Songs from YouTube, saved to your phone or PC with the right title, artist, album and cover art.</p>
+
+    <div class="os" role="tablist" aria-label="Which version">
+      <button role="tab" aria-selected="true" data-os="android">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+        Android phone
+      </button>
+      <button role="tab" aria-selected="false" data-os="windows" tabindex="-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M9 20.5h6M12 16.5v4"/></svg>
+        Windows PC
+      </button>
+    </div>
+
+    <!-- Android -->
+    <ul class="facts" data-for="android">
+      <li>Single songs and whole playlists</li>
+      <li>Share a link straight from YT Music</li>
+      <li>Failed downloads retry on their own</li>
+    </ul>
+    <div class="get" data-for="android">
+      <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Download for Android
+      </a>
+      <p class="ver"><span class="v">Version 1.2</span><span class="d">30 Nov 2026</span><a class="older" href="#versions">Older versions and what changed</a></p>
+    </div>
+    <dl class="specs" data-for="android">
+      <div><dt>File</dt><dd>yt-music-downloader.apk</dd></div>
+      <div><dt>Size</dt><dd>About 67 MB</dd></div>
+      <div><dt>Runs on</dt><dd>Android 10 and up, 64&#8209;bit phones</dd></div>
+      <div><dt>Installs from</dt><dd>This page, not the Play Store</dd></div>
+    </dl>
+
+    <!-- Windows -->
+    <ul class="facts" data-for="windows">
+      <li>Single songs and whole playlists</li>
+      <li>Pick the folder for every download</li>
+      <li>Failed downloads retry on their own</li>
+    </ul>
+    <div class="get" data-for="windows">
+      <a class="pill" href="https://github.com/hwatprogramming/YH-Downloads/releases/download/yt-music-downloader/yt-music-downloader-setup.exe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+        Download for Windows
+      </a>
+      <p class="ver"><span class="v">Version 1.0.0</span><span class="d">26 Oct 2026</span></p>
+    </div>
+    <dl class="specs" data-for="windows">
+      <div><dt>File</dt><dd>yt-music-downloader-setup.exe</dd></div>
+      <div><dt>Size</dt><dd>About 75 MB</dd></div>
+      <div><dt>Runs on</dt><dd>Windows 10 and 11, 64&#8209;bit</dd></div>
+      <div><dt>Installs from</dt><dd>This page, not the Microsoft Store</dd></div>
+    </dl>
+
+    <figure class="shots" data-for="android">
+      <div class="tabs" role="tablist" aria-label="Screens">
+        <button role="tab" aria-selected="false" aria-controls="phone" data-shot="help" data-cap="The two ways in, and which links work." tabindex="-1">Help</button>
+        <button role="tab" aria-selected="true" aria-controls="phone" data-shot="download" data-cap="A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.">Download</button>
+        <button role="tab" aria-selected="false" aria-controls="phone" data-shot="history" data-cap="Every song that's done, with its artist and album." tabindex="-1">History</button>
+      </div>
+      <div class="stack" id="phone">
+        <div class="phone" data-shot="download" data-pos="centre"><img src="assets/download-tab.png" width="1200" height="2360" alt="The Download tab: the paste box, the gold Download button, a playlist waiting to be OK'd, a song downloading at 46%, and two failed songs with Retry"></div>
+        <div class="phone" data-shot="history" data-pos="right" aria-hidden="true"><img src="assets/history-tab.png" width="1200" height="2360" alt="The History tab: finished songs, each with its artist, album and size"></div>
+        <div class="phone" data-shot="help" data-pos="left" aria-hidden="true"><img src="assets/help.png" width="1200" height="2360" alt="The Help pop-up: how to paste a link, how to share from YT Music, and which links work"></div>
+      </div>
+      <figcaption>A song downloading, a big playlist waiting for your OK, and failed songs with Retry. The songs are made up for the picture.</figcaption>
+    </figure>
+
+    <figure class="shots win" data-for="windows">
+      <div class="tabs" role="tablist" aria-label="Screens">
+        <button role="tab" aria-selected="false" aria-controls="pc" data-shot="help" data-cap="Help: how to paste a link, and which links work." tabindex="-1">Help</button>
+        <button role="tab" aria-selected="true" aria-controls="pc" data-shot="download" data-cap="Songs downloading, more up next, and failed ones with Retry all. Test songs, for the picture.">Downloading</button>
+        <button role="tab" aria-selected="false" aria-controls="pc" data-shot="history" data-cap="Every song that's done, with its artist, album and the folder it went in." tabindex="-1">History</button>
+      </div>
+      <div class="stack" id="pc">
+        <div class="phone" data-shot="download" data-pos="centre"><img src="assets/win-downloading.png" width="896" height="779" alt="The Downloading tab on Windows: the paste box, the gold Download button, 5 downloading, 13 up next and 2 failed with Clear failed and Retry all, and an album's songs at 100%, starting and 28%"></div>
+        <div class="phone" data-shot="history" data-pos="right" aria-hidden="true"><img src="assets/win-history.png" width="896" height="779" alt="The History tab on Windows: finished songs under their album's heading, each with its artist, album, size, folder and Show in folder"></div>
+        <div class="phone" data-shot="help" data-pos="left" aria-hidden="true"><img src="assets/win-help.png" width="896" height="779" alt="The Help pop-up on Windows: how to paste a link, which links work, where songs go, and closing the app"></div>
+      </div>
+      <figcaption>Songs downloading, more up next, and failed ones with Retry all. Test songs, for the picture.</figcaption>
+    </figure>
+  </section>
+
+  <div class="more">
+    <div class="wave" style="--to:34%" aria-hidden="true"></div>
+
+    <div class="again">
+      <p>Steps and answers for</p>
+      <div class="os" role="tablist" aria-label="Which version">
+        <button role="tab" aria-selected="true" data-os="android">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
+          Android phone
+        </button>
+        <button role="tab" aria-selected="false" data-os="windows" tabindex="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M9 20.5h6M12 16.5v4"/></svg>
+          Windows PC
+        </button>
+      </div>
+    </div>
+
+    <!-- Android -->
+    <section class="setup" id="setup" data-for="android">
+      <h2>Setup</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="pair">
+        <ol class="steps">
+          <li class="on" data-shot="downloaded" data-cap="The file in your phone's downloads." tabindex="0"><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader.apk</b>.</span></span></li>
+          <li data-shot="openwith" data-cap="If your phone asks what to open it with, pick Package installer." tabindex="0"><span><span class="t">Open it with Package installer</span><span class="s">If your phone asks what to use.</span></span></li>
+          <li data-shot="protect" data-cap="Play Protect hasn't seen my apps before, cause they're not on the Play Store, so it warns." tabindex="0"><span><span class="t">Get past Play Protect</span><span class="s"><b>More details</b>, then <b>Install anyway</b>.</span></span></li>
+          <li data-shot="install" data-cap="Tap Install." tabindex="0"><span><span class="t">Install it</span><span class="s">If asked, allow your browser. Then <b>Install</b>.</span></span></li>
+          <li data-shot="installed" data-cap="Tap Open. The first time, it gets the download engine." tabindex="0"><span><span class="t">Open it once, online</span><span class="s">It gets the download engine (yt-dlp).</span></span></li>
+          <li data-shot="allow" data-cap="Tap Allow." tabindex="0"><span><span class="t">Allow notifications</span><span class="s">Progress shows there.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img class="on" data-shot="downloaded" src="assets/setup-downloaded.png" width="890" height="220" alt="The phone's downloads, with yt-music-downloader.apk, 67.29 MB">
+          <img data-shot="openwith" src="assets/setup-open-with.png" width="272" height="206" alt="Package installer, offered when the phone asks what to open the file with">
+          <img data-shot="protect" src="assets/setup-play-protect.png" width="864" height="1259" alt="Google Play Protect: App blocked to protect your device. YT Music Downloader. Play Protect hasn't seen an app from this developer before. Install anyway, and OK">
+          <img data-shot="install" src="assets/setup-install.png" width="850" height="426" alt="YT Music Downloader: Do you want to install this app? Cancel, Install">
+          <img data-shot="installed" src="assets/setup-installed.png" width="850" height="426" alt="YT Music Downloader: App installed. Done, Open">
+          <img data-shot="allow" src="assets/notifications-prompt.png" width="945" height="670" alt="The phone asking: Allow YT Music Downloader to send you notifications? with Allow and Don't allow">
+          <figcaption>The file in your phone's downloads.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="use" id="use" data-for="android">
+      <h2>How to use it</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="ways" role="tablist" aria-label="Two ways in">
+        <button role="tab" aria-selected="true" aria-controls="use-steps" data-way="paste">Paste a link</button>
+        <button role="tab" aria-selected="false" aria-controls="use-steps" data-way="share" tabindex="-1"><span>Share from YT Music</span><span class="tag">(Android only)</span></button>
+      </div>
+      <div class="pair">
+        <ol class="steps" id="use-steps" data-way="paste">
+          <li class="on" data-way="paste" data-shot="copied" data-cap="YT Music copies the link." tabindex="0"><span><span class="t">Copy its link</span><span class="s">In YT Music, <b>Share</b>, then <b>Copy link</b>.</span></span></li>
+          <li data-way="paste" data-shot="pasted" data-cap="The link in the app's paste box, ready for Download." tabindex="0"><span><span class="t">Paste it in the app</span><span class="s">Tap the paste icon, then <b>Download</b>.</span></span></li>
+          <li data-way="share" data-shot="menu" data-cap="YT Music's share menu: tap Share with other apps." tabindex="0"><span><span class="t">Share a song or playlist</span><span class="s"><b>Share</b>, then <b>Share with other apps</b>.</span></span></li>
+          <li data-way="share" data-shot="list" data-cap="YT Music Downloader in your phone's share list." tabindex="0"><span><span class="t">Pick YT Music Downloader</span><span class="s">You stay in YT Music.</span></span></li>
+          <li data-shot="ask" data-cap="Over 20 songs, it asks on the notification first. The app asks too." tabindex="0"><span><span class="t">Big playlist? Say yes</span><span class="s">Over 20 songs, it asks first.</span></span></li>
+          <li data-shot="queue" data-cap="Five songs at a time, the rest up next." tabindex="0"><span><span class="t">Let it run</span><span class="s">It downloads in the background.</span></span></li>
+          <li data-shot="play" data-p="android" data-cap-android="A downloaded song in the phone's own music player, with its title, artist and cover." data-cap-windows="Galaxy Express in Windows' Media Player, and in its music library with the artist and album the app filled in." tabindex="0"><span><span class="t">Play it</span><span class="s">Songs land in your Music folder. No music player? <a class="see" href="#faq-player">See the FAQ</a>.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img data-shot="menu" src="assets/share-menu.png" width="905" height="513" alt="YT Music's share menu: Copy link, Quick Share, and Share with other apps">
+          <img data-shot="list" src="assets/share-list.png" width="320" height="330" alt="The YT Music Downloader icon in the phone's share list">
+          <img class="on" data-shot="copied" src="assets/link-copied.png" width="906" height="458" alt="YT Music showing the copied link and a Copied message">
+          <img data-shot="pasted" src="assets/link-pasted.png" width="945" height="755" alt="The app with a YT Music link pasted in its box, above the Download button">
+          <img data-shot="ask" src="assets/big-playlist.png" width="888" height="312" alt="A notification from YT Music Downloader: Download 49 new songs? Autumn Feel, 1 you already have, with Download and Cancel">
+          <img data-shot="queue" src="assets/up-next-rows.png" width="1200" height="1350" alt="A list of songs in the app: five downloading and two up next">
+          <div class="mini" role="tablist" aria-label="Which player" data-shot="play"><button role="tab" aria-selected="true" data-p="android">Android phone</button><button role="tab" aria-selected="false" data-p="windows" tabindex="-1">Windows PC</button></div>
+          <img data-shot="play" data-p="android" src="assets/play-it.png" width="900" height="1590" alt="HONOR Music playing Tip Toe by HYBS, with its cover art">
+          <img data-shot="play" data-p="windows" src="assets/win-play-now.png" width="1167" height="845" alt="Windows' Media Player playing Galaxy Express by D Gerrard, with its cover">
+          <img data-shot="play" data-p="windows" src="assets/win-play-library.png" width="1167" height="845" alt="Media Player's music library, with Galaxy Express by D Gerrard, album Galaxy Express. The other songs are blurred">
+          <figcaption>YT Music copies the link.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Windows -->
+    <section class="setup" id="setup-windows" data-for="windows">
+      <h2>Setup</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="pair">
+        <ol class="steps">
+          <li><span><span class="t">Download it</span><span class="s">Then open <b class="whole">yt-music-downloader-setup.exe</b>.</span></span></li>
+          <li class="on" data-shot="smartscreen" data-cap="SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway." tabindex="0"><span><span class="t">Get past SmartScreen</span><span class="s"><b>More info</b>, then <b>Run anyway</b>.</span></span></li>
+          <li data-shot="location" data-cap="It picks where to install for you." tabindex="0"><span><span class="t">Install it</span><span class="s"><b>Next</b>, then <b>Next</b> again.</span></span></li>
+          <li data-shot="finish" data-cap="It adds a desktop shortcut and a Start menu entry too." tabindex="0"><span><span class="t">Finish</span><span class="s">Leave <b>Run</b> ticked, then <b>Finish</b>.</span></span></li>
+          <li data-shot="open" data-cap="The app, ready for a link." tabindex="0"><span><span class="t">Open it</span><span class="s">Everything it needs is inside, so it's ready straight away.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-smartscreen.png" width="532" height="295" alt="Windows protected your PC: Microsoft Defender SmartScreen prevented an unrecognized app from starting. More info, and Don't run">
+          <img class="on" data-shot="smartscreen" src="assets/win-setup-run-anyway.png" width="532" height="295" alt="After More info: App yt-music-downloader-setup.exe, Publisher Unknown publisher, with Run anyway and Don't run">
+          <img data-shot="location" src="assets/win-setup-location.png" width="499" height="388" alt="YT Music Downloader Setup: Choose Install Location, with Next">
+          <img data-shot="finish" src="assets/win-setup-finish.png" width="499" height="388" alt="Completing YT Music Downloader Setup, with Run YT Music Downloader and Create desktop shortcut ticked, and Finish">
+          <img data-shot="open" src="assets/win-setup-open.png" width="880" height="740" alt="YT Music Downloader open, with an empty paste box and Ready. Paste a link.">
+          <figcaption>SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="use" id="use-windows" data-for="windows">
+      <h2>How to use it</h2>
+      <p class="hint">Tap a step to see its screen.</p>
+      <div class="pair">
+        <ol class="steps">
+          <li><span><span class="t">Copy a link</span><span class="s">In your browser, from YouTube or YT Music.</span></span></li>
+          <li data-shot="paste" data-cap="The paste box and Download, at the top of the app." tabindex="0"><span><span class="t">Paste it in the app</span><span class="s">The paste icon, then <b>Download</b>.</span></span></li>
+          <li class="on" data-shot="folder" data-cap="It starts on the folder you used last time." tabindex="0"><span><span class="t">Pick the folder</span><span class="s">Then <b>Download</b> again.</span></span></li>
+          <li data-shot="queue" data-cap="Five songs at a time, the rest up next. Big playlists start straight away." tabindex="0"><span><span class="t">Let it run</span><span class="s">Any size of playlist, no asking.</span></span></li>
+          <li data-shot="close" data-cap="Closing while songs download asks first." tabindex="0"><span><span class="t">Close when you like</span><span class="s"><b>Minimise</b> keeps songs going.</span></span></li>
+          <li data-shot="play" data-p="windows" data-cap-android="A downloaded song in the phone's own music player, with its title, artist and cover." data-cap-windows="Galaxy Express in Windows' Media Player, and in its music library with the artist and album the app filled in." tabindex="0"><span><span class="t">Play it</span><span class="s">Songs land in the folder you picked. Not in Media Player? <a class="see" href="#faq-library">See the FAQ</a>.</span></span></li>
+        </ol>
+        <figure class="cut">
+          <img data-shot="paste" src="assets/win-setup-open.png" width="880" height="740" alt="The app's paste box, the paste icon and the gold Download button">
+          <img class="on" data-shot="folder" src="assets/win-folder.png" width="616" height="265" alt="The Download to window: Songs are saved in this folder, the folder box, Change folder, Cancel and Download">
+          <img data-shot="queue" src="assets/win-downloading.png" width="896" height="779" alt="The Downloading tab: an album's songs downloading, more up next, and Retry all for the failed ones">
+          <img data-shot="close" src="assets/win-closing.png" width="896" height="779" alt="Songs are still downloading: 5 are downloading and 10 are up next, with Close and stop, and Minimise">
+          <div class="mini" role="tablist" aria-label="Which player" data-shot="play"><button role="tab" aria-selected="false" data-p="android" tabindex="-1">Android phone</button><button role="tab" aria-selected="true" data-p="windows">Windows PC</button></div>
+          <img data-shot="play" data-p="android" src="assets/play-it.png" width="900" height="1590" alt="HONOR Music playing Tip Toe by HYBS, with its cover art">
+          <img data-shot="play" data-p="windows" src="assets/win-play-now.png" width="1167" height="845" alt="Windows' Media Player playing Galaxy Express by D Gerrard, with its cover">
+          <img data-shot="play" data-p="windows" src="assets/win-play-library.png" width="1167" height="845" alt="Media Player's music library, with Galaxy Express by D Gerrard, album Galaxy Express. The other songs are blurred">
+          <figcaption>It starts on the folder you used last time.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="wave" style="--to:68%" aria-hidden="true"></div>
+
+    <section class="fit">
+      <h2>What it's for</h2>
+      <div class="both">
+        <div>
+          <h3>Made for</h3>
+          <ul class="yes">
+            <li><span class="t">Offline listening</span><span class="dots"></span><span class="s">no subscription</span></li>
+            <li data-for="android"><span class="t">Whole playlists and albums</span><span class="dots"></span><span class="s">big ones too</span></li>
+            <li data-for="windows"><span class="t">Whole playlists and albums</span><span class="dots"></span><span class="s">any size, no asking</span></li>
+            <li><span class="t">Proper tags</span><span class="dots"></span><span class="s">title, artist, album, cover art</span></li>
+            <li><span class="t">Topping up playlists</span><span class="dots"></span><span class="s">only new songs download</span></li>
+            <li data-for="android"><span class="t">Sharing from YT Music</span><span class="dots"></span><span class="s">no need to open the app</span></li>
+            <li data-for="windows"><span class="t">Your own folders</span><span class="dots"></span><span class="s">pick one every time</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Not</h3>
+          <ul class="no">
+            <li><span class="t">A music player</span><span class="dots"></span><span class="s">your music app plays them</span></li>
+            <li><span class="t">A video downloader</span><span class="dots"></span><span class="s">audio only</span></li>
+            <li data-for="android"><span class="t">A sync tool</span><span class="dots"></span><span class="s">songs stay on your phone</span></li>
+            <li data-for="windows"><span class="t">A sync tool</span><span class="dots"></span><span class="s">songs stay on your PC</span></li>
+            <li><span class="t">From YouTube or Google</span><span class="dots"></span><span class="s">I built it</span></li>
+            <li data-for="android"><span class="t">For iPhone</span><span class="dots"></span><span class="s">Android 10 and up</span></li>
+            <li data-for="windows"><span class="t">For Mac</span><span class="dots"></span><span class="s">Windows 10 and 11</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave" style="--to:100%" aria-hidden="true"></div>
+
+    <section class="faq" id="faq">
+      <h2>FAQ</h2>
+      <div class="qs" data-for="android">
+        <details name="faq" open><summary><span>Why does my phone warn me when I install it?</span></summary><p>It's not from the Play Store, so Google Play Protect hasn't seen it before and says it may be unsafe. Tap <b>More details</b>, then <b>Install anyway</b>. If your phone asks to let your browser install apps, allow it. You can switch that off again afterwards.</p></details>
+        <details name="faq"><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
+        <details name="faq"><summary><span>What links work?</span></summary><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube.</p></details>
+        <details name="faq" id="faq-player"><summary><span>My phone has no music player. What do I use?</span></summary><p>Not every phone comes with a music player of its own, and on some the music app is YT Music. First check if your phone's own player was uninstalled or turned off: look for it in your phone's app store, or in <b>Settings</b> under <b>Apps</b>. If there isn't one, install a music player from the Play Store. The app saves songs to your Music folder, so a music player finds them there.</p></details>
+        <details name="faq"><summary><span>What can it get to on my phone?</span></summary><p>The internet and your notifications. It doesn't ask for your files, cause Android puts each song in the Music folder for it.</p></details>
+        <details name="faq"><summary><span>What quality are the songs?</span></summary><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></details>
+        <details name="faq"><summary><span>A download failed. What do I do?</span></summary><p>It tries 3 more times by itself. If it still fails, tap <b>Retry</b>. If lots fail, tap <b>Update download engine (yt-dlp)</b>. YouTube changes things now and then, and the download engine catches up with an update.</p></details>
+        <details name="faq"><summary><span>What if I share a song I already have?</span></summary><p>It asks if you want it again or want to skip it. A playlist just skips the songs you already have.</p></details>
+        <details name="faq"><summary><span>Do plain YouTube links work?</span></summary><p>Yes, but YT Music links come out cleaner. A YouTube video's title often has extras like "(Official Video)", and they end up in the song's name.</p></details>
+        <details name="faq"><summary><span>How do I get the newest version?</span></summary><p>Tap <b>Download for Android</b> again. The button always gets the newest version. Yours is at the bottom of the app's Help.</p></details>
+      </div>
+      <div class="qs" data-for="windows">
+        <details name="faq-windows" open><summary><span>Why does Windows warn me when I open it?</span></summary><p>It isn't from the Microsoft Store, so Windows' SmartScreen hasn't seen it before and says <b>Windows protected your PC</b>. Click <b>More info</b>, then <b>Run anyway</b>.</p></details>
+        <details name="faq-windows"><summary><span>Do I need YouTube Premium or an account?</span></summary><p>No. The app doesn't sign in to anything.</p></details>
+        <details name="faq-windows"><summary><span>What links work?</span></summary><ul><li>A song from YouTube or YT Music</li><li>A playlist, yours or anyone else's, as long as it isn't private</li><li>An album from YT Music, and its songs get their track numbers too</li></ul><p>Private playlists and your Liked songs won't work, cause the app can't sign in to YouTube. If you paste a song from inside a mix, you get just that song.</p></details>
+        <details name="faq-windows"><summary><span>Where do my songs go?</span></summary><p>Into the folder you pick each time you click Download, with the title, artist, album and cover art filled in. It starts on the folder you used last time. The first time, that's your Music folder.</p></details>
+        <details name="faq-windows" id="faq-library"><summary><span>Why don't my songs show in Media Player's library?</span></summary><p>Media Player's library only lists the folders it watches, and that's your Music folder unless you add more. The app starts on your Music folder, so songs saved there show up. If you picked another folder, open <b>Music library</b> in Media Player, click <b>Add folder</b> and pick it. Opening a song from its folder plays it either way.</p></details>
+        <details name="faq-windows"><summary><span>Can I close the app?</span></summary><p>Yes. If songs are still downloading, it asks first. <b>Minimise</b> keeps them going. <b>Close</b> stops them, and they carry on next time you open the app.</p></details>
+        <details name="faq-windows"><summary><span>What quality are the songs?</span></summary><p>128 kbps AAC, saved as .m4a. It's the audio YouTube streams, kept as it is, with no converting.</p></details>
+        <details name="faq-windows"><summary><span>A download failed. What do I do?</span></summary><p>It tries 3 more times by itself. If it still fails, click <b>Retry</b>. If lots fail, it asks to update the download engine. You can also update it yourself with the gold arrow icon at the top.</p></details>
+        <details name="faq-windows"><summary><span>What if I paste a song I already have?</span></summary><p>A playlist skips the songs already in the folder you pick and downloads the rest. A single song downloads again.</p></details>
+        <details name="faq-windows"><summary><span>Do plain YouTube links work?</span></summary><p>Yes, but YT Music links come out cleaner.</p></details>
+        <details name="faq-windows"><summary><span>Is it different from the phone app?</span></summary><p>For now it's the phone app made for Windows, so there's nothing in it that only a computer can do.</p></details>
+        <details name="faq-windows"><summary><span>How do I get the newest version?</span></summary><p>Click <b>Download for Windows</b> again. Yours is at the bottom of the app's Help.</p></details>
+      </div>
+    </section>
+
+    <section class="vers" id="versions"><h2>Versions</h2><ol class="vlist"><li><div class="row"><span class="t">Version 1.2</span><span class="d">30 Nov 2026</span><span class="lab">Latest</span></div><p>Big playlists start faster. Album covers fixed on some songs.</p><a class="vdl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download 1.2 <span class="z">· About 68 MB</span></a></li><li><div class="row"><span class="t">Version 1.1</span><span class="d">12 Nov 2026</span></div><p>Retry all, for every failed song at once.</p><a class="vdl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download 1.1 <span class="z">· About 67 MB</span></a></li><li><div class="row"><span class="t">Version 1.0</span><span class="d">15 Oct 2026</span></div><p>First version.</p><a class="vdl" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Download 1.0 <span class="z">· About 67 MB</span></a></li></ol></section>
+
+    <div class="end">
+      <a class="top" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V9"/><path d="M7 13l5-5 5 5"/><path d="M5 4h14"/></svg>
+        Back to top
+      </a>
+    </div>
+  </div>
+</main>
+
+<script>
+// Arrow keys move between tabs in a row, like any tab row.
+function arrows(tabs, pick){
+  tabs.forEach(function(t, i){
+    t.addEventListener('keydown', function(e){
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var next = tabs[(i + d + tabs.length) % tabs.length]; pick(next); next.focus();
+    });
+  });
+}
+
+// The Android / Windows switch, under the app's line and again where the details start.
+// Both move together. Which one shows first is set in the head.
+(function(){
+  var all = Array.prototype.slice.call(document.querySelectorAll('.os [role=tab]'));
+  function pick(tab){
+    var os = tab.dataset.os;
+    document.documentElement.dataset.os = os;
+    all.forEach(function(t){ var on = t.dataset.os === os; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.os'), function(bar){
+    var tabs = Array.prototype.slice.call(bar.querySelectorAll('[role=tab]'));
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+    arrows(tabs, pick);
+  });
+  pick(all.filter(function(t){ return t.dataset.os === document.documentElement.dataset.os; })[0]);
+})();
+
+// Each stack: the tabs over it pick which screen is in front, like the app's own tabs.
+// The picked screen swaps places with the one in the centre, so the old front one goes
+// to the side the picked one came from. Clicking a screen that peeks out does the same.
+Array.prototype.forEach.call(document.querySelectorAll('.shots'), function(fig){
+  var tabs = Array.prototype.slice.call(fig.querySelectorAll('.tabs [role=tab]'));
+  var phones = Array.prototype.slice.call(fig.querySelectorAll('.stack .phone'));
+  var cap = fig.querySelector('figcaption');
+  function pick(tab){
+    var picked = phones.filter(function(ph){ return ph.dataset.shot === tab.dataset.shot; })[0];
+    var centre = phones.filter(function(ph){ return ph.dataset.pos === 'centre'; })[0];
+    if (picked !== centre){ centre.dataset.pos = picked.dataset.pos; picked.dataset.pos = 'centre'; }
+    phones.forEach(function(ph){
+      if (ph === picked) ph.removeAttribute('aria-hidden'); else ph.setAttribute('aria-hidden', 'true');
+    });
+    tabs.forEach(function(t){ var on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    cap.textContent = tab.dataset.cap;
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+  arrows(tabs, pick);
+  phones.forEach(function(ph){
+    ph.addEventListener('click', function(){
+      if (ph.dataset.pos !== 'centre') pick(tabs.filter(function(t){ return t.dataset.shot === ph.dataset.shot; })[0]);
+    });
+  });
+});
+
+// Steps with a picture: pointing at one, tapping it or tabbing to it shows its screen
+// beside the steps, with a gold ring on that step. On phones (under 560px) the picture
+// moves into the step itself, so it opens right under what you tapped. Play it shows
+// the player its small switch is on (data-p), with that player's caption.
+(function(){
+  var phone = window.matchMedia('(max-width:559px)');
+  Array.prototype.forEach.call(document.querySelectorAll('.pair'), function(pair){
+    var steps = pair.querySelectorAll('.steps li[data-shot]');
+    var fig = pair.querySelector('.cut');
+    var imgs = fig.querySelectorAll('img');
+    var cap = fig.querySelector('figcaption');
+    var mini = fig.querySelector('.mini');
+    if (steps.length < 2) return;
+    function place(){
+      var on = pair.querySelector('.steps li.on');
+      if (phone.matches && on) on.appendChild(fig); else pair.appendChild(fig);
+    }
+    function show(step){
+      var p = step.dataset.p;
+      Array.prototype.forEach.call(steps, function(s){ s.classList.toggle('on', s === step); });
+      Array.prototype.forEach.call(imgs, function(im){ im.classList.toggle('on', im.dataset.shot === step.dataset.shot && (!im.dataset.p || im.dataset.p === p)); });
+      cap.textContent = (p && step.getAttribute('data-cap-' + p)) || step.dataset.cap;
+      if (mini) mini.classList.toggle('on', mini.dataset.shot === step.dataset.shot);
+      place();
+    }
+    place();
+    phone.addEventListener('change', place);
+    Array.prototype.forEach.call(steps, function(step){
+      step.addEventListener('mouseenter', function(){ show(step); });
+      step.addEventListener('focus', function(){ show(step); });
+      step.addEventListener('click', function(){ show(step); });
+    });
+    // Play it's small switch picks which player its pictures show.
+    if (mini){
+      var players = Array.prototype.slice.call(mini.querySelectorAll('[role=tab]'));
+      var pickPlayer = function(b){
+        var step = pair.querySelector('.steps li[data-shot="' + mini.dataset.shot + '"]');
+        step.dataset.p = b.dataset.p;
+        players.forEach(function(x){ var on = x === b; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
+        show(step);
+      };
+      players.forEach(function(b){
+        b.addEventListener('click', function(e){ e.stopPropagation(); pickPlayer(b); });
+      });
+      arrows(players, pickPlayer);
+    }
+  });
+})();
+
+// A "See the FAQ" link opens that answer, not just scrolls to it.
+Array.prototype.forEach.call(document.querySelectorAll('a.see'), function(a){
+  a.addEventListener('click', function(e){
+    e.stopPropagation();
+    var answer = document.querySelector(a.getAttribute('href'));
+    if (answer) answer.open = true;
+  });
+});
+
+// How to use it's two ways in, on Android: a tab swaps the first two steps and shows
+// the first step's screen.
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.ways [role=tab]'));
+  var list = document.getElementById('use-steps');
+  function pick(tab){
+    tabs.forEach(function(t){ var on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    list.dataset.way = tab.dataset.way;
+    list.querySelector('li[data-way="' + tab.dataset.way + '"]').click();
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t); }); });
+  arrows(tabs, pick);
+})();
+</script>
+</body>
+</html>

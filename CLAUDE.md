@@ -52,23 +52,14 @@ first app on it) the site is done. Nothing below blocks that.]
   `.impeccable/mocks/both-platforms/src/`, with fresh 1.0.0 window shots (old and new
   side by side in `win-shots-1.0.0.png` beside `src/`, OK'd). README row has both
   files. How the build differs from the mockups is in `downloads-page.md`.
-  - **Next: Impeccable's finish for the new parts.** Not started. Stopped here 26 Oct.
-    - What to review: `yt-music-downloader/index.html` on both versions (`?os=windows`,
-      `?os=android`; Android's How to use it changed too: Paste first, "(Android only)",
-      Play it pictures, the no-music-player FAQ), and the two-button card in
-      `index.html`. Phone, 760px and desktop widths.
-    - Same way as 16 Oct, see [`doc/finish-review.md`](doc/finish-review.md): the
-      `impeccable-finish-reviewer` agent gives a list of fixes, I pick from one sheet
-      of before and after pictures, then `DESIGN.md` gets the new parts (the version
-      switch, Play it's small switch, the two-button card) with the
-      `impeccable-documenter` agent.
-    - The surface briefs in `.impeccable/surfaces/` still describe the Android-only
-      page and the one-button card (`yt-music-downloader-index-html.md`,
-      `index-html.md`). Bring them up to date first, cause the review checks against
-      them.
-    - Already known, for the review's list: the 760px sideways scroll below (both
-      versions), and at 390px the Windows file name breaks "yt-music-downloader-" /
-      "setup.exe" in the details.
+  - **Impeccable's finish for the new parts: done 26 Oct, both pages "ship".** All 7
+    review fixes, my pick, plus the Windows gap under the switch I spotted after. The
+    surface briefs and `DESIGN.md` cover the new parts. Details in
+    [`doc/finish-review.md`](doc/finish-review.md), "Second review, 26 Oct". Pushed 26
+    Oct.
+  - **Open, my call:** the catalogue card jumps from 204px to 250px tall at 900 wide
+    (only seen while resizing). Optional fix: versions under the buttons up to 999
+    instead of 899.
   - **Left, mine:** delete the empty `D:\Songs` folder. Claude's safety check blocked it.
   - The installer on the release is the 18:41 rebuild, still 1.0.0, re-uploaded 26 Oct:
     "Download to" says "It's set to your Music folder." the very first time.
@@ -82,13 +73,17 @@ first app on it) the site is done. Nothing below blocks that.]
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
-- **Two small layout things Claude found 16 Oct, not picked yet:**
-  - At exactly 760px wide, two notes in What it's for's "Not" list ("your music app
-    plays them", "songs stay on your phone") poke past the screen edge, so the page
-    scrolls sideways. It was there before the fixes. The Windows version has the
-    first one too ("your music app plays them"), checked 26 Oct.
-  - With the new phone card, the download button runs the card's full width up to
-    759px, so on a small tablet it's about 690px wide. Cap it there? Not answered.
-    [Since 26 Oct the card has two buttons sharing that width, so each is about half.]
+- **Version picker on every app page with more than one version.** From my journal 26
+  Oct. **Picked A, a menu beside the download button**, with each version's date and
+  what changed. Mockups and the rejected B and C in
+  [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "Picking an older
+  version, not built yet".
+  - **Old files: kept as numbered copies in the app's one release**, my pick 26 Oct.
+    The fixed name stays the newest for the button. Each update uploads the new file
+    twice. `doc/uploading-a-build.md` doesn't say so yet, so an update before the
+    picker is built still loses the old file. Today's 1.0 and 1.0.0 need their copies.
+  - **Next, before building:** how the rule sticks, any mix of: a step in
+    `doc/uploading-a-build.md`, the menu built from a list of versions per app, a
+    check script. Not answered.
 - Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
   in "To evaluate", and the Support me page, parked till I can get into Ko-fi.
