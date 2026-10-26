@@ -162,13 +162,17 @@ Each app card sets three custom properties inline, from its app's own look: `--c
 
 ## Layout
 
-The catalogue is one centred column, 1080px wide, with 16px side padding on phones and 40px from 760px. The title block sits top left; the card list follows 40px below (56px from 760px), cards stacked with a 14px gap (16px from 760px). One breakpoint, 760px, carries the whole catalogue.
+The catalogue is one centred column, 1080px wide, with 16px side padding on phones and 40px from 760px. The title block sits top left; the card list follows 40px below (56px from 760px), cards stacked with a 14px gap (16px from 760px). 760px carries the whole catalogue for a one-button card. A two-button card adds two more: 360px and 900px.
 
 From 760px a card is a three-column grid: the 80px icon, the text, and an actions column on the right with the download pill over the "Setup, how to use it, FAQ" link, both right-aligned. Under 760px a card has one left edge: the 60px icon sits beside the name, and the line, version line, a full-width download pill and the link all start at the card's left edge beneath them. The dashed slot's text lines up with the icon's left edge at every width.
+
+A two-button card (an app with an Android and a Windows version) lays out its own way. From 760px the two buttons sit up and down in the right column, the same width, and the pair is centred on the card's height. "Setup, how to use it, FAQ" moves under the card's text on the left, so the buttons sit alone in the card's middle. From 900px each version sits to its button's right. At 760 to 899px it goes under its button instead, centred, so the text keeps more room. Under 760px the two buttons stay side by side and share the width, each with its version centred under it, and the link is centred under both. The whole button area stops at 440px, so on a small tablet the buttons aren't mostly empty colour. Under 360px the buttons get a little less padding and a smaller arrow.
 
 On app pages the Warm header is sticky at the top, 72px tall from 760px, with the wordmark left and the chips right. Under 760px the chips take a second row of their own and scroll sideways. From 1100px the header's content lines up with the app page's own column.
 
 **The One Left Edge Rule.** On phones a card's content starts at one left edge, and the button runs the full width.
+
+A two-button card keeps the one left edge for its icon, name and text. Its two buttons share the width side by side instead, and its link is centred.
 
 ## Elevation & Depth
 
@@ -194,6 +198,7 @@ Warm, solid and friendly; the button always belongs to its app.
 - **Hover:** Brightens slightly (`filter: brightness(1.07)`, 0.2s) and the arrow drops 2px (0.25s, `cubic-bezier(.16,1,.3,1)`). Hover only applies on devices that hover.
 - **Focus:** 2px Champagne outline, 3px offset, 6px radius.
 - **Text link:** "Setup, how to use it, FAQ" in the app's `--btn` colour, 600 15px, underlined on hover with a 4px offset.
+- **Two downloads:** an app with two versions gets two buttons in the same `--btn` fill, never one solid and one quiet. They're smaller, so two fit beside the text: 44px tall, 18px side padding, 15px words, a 16px arrow, 20px apart up and down from 900px (14px at 760 to 899px). Each says "Download for Android" or "Download for Windows". Under 760px they grow to 52px and the words go in two lines left of centre, next to the arrow: "Download for" in 600 12px, the platform in 16px under it. Each button's version sits beside or under it in the Meta size, the number in 600 Card Ink.
 
 ### Cards / Containers
 - **Corner Style:** 28px, 32px from 760px.
@@ -202,6 +207,7 @@ Warm, solid and friendly; the button always belongs to its app.
 - **Border:** None.
 - **Internal Padding:** 20px 20px 22px; 24px 30px 24px 24px from 760px.
 - **Contents:** The app's own icon (or its first letter on `--btn` when it has no icon), the name, one line, a version line ("Version 1.0 · Android 10 and up, 64-bit phones · file name", the file name never breaking), then the actions.
+- **Two versions:** a card with class `two` swaps the version line for what each version needs ("Android 10 and up, 64-bit phones · Windows 10 and 11, 64-bit", each half never breaking), with no file names. The versions move under the buttons, and the actions follow the two-button layout in Layout. A card without `two` keeps the one-button layout.
 
 ### Coming-Soon Slot
 A dashed, card-shaped placeholder under the last app, reading "And more apps to come…" in 600 Muted Taupe at 17px (18px from 760px). 76px tall (84px from 760px). No fill, no shadow.
@@ -258,7 +264,7 @@ Source: the app repo's DESIGN.md. Navy ground, warm ink, one gold, set like an a
 - Roboto 400 for text (17px, 1.5), 500 for emphasis, step titles, tabs and the pill. Hook 19px, 22px from 1100px.
 - Credit labels: 700, 11.5 to 12px, 0.14em tracking, uppercase, Grey; they label a fact or a list ("File", "Size", "Made for", "Not").
 
-**Layout:** one 1200px column with a 20px gutter (32px from 760px, 56px from 1100px). The first screen puts name, hook, facts, the pill with its version and date, and the credits on the left, and the phone stack on the right from 760px; on phones the pill comes before the picture. Below, Setup and How to use it sit side by side from 900px, then What it's for and the FAQ across both columns. Breakpoints: 560px, 760px, 900px, 1100px, 1280px.
+**Layout:** one 1200px column with a 20px gutter (32px from 760px, 56px from 1100px). The first screen puts name, hook, the version switch, facts, the pill with its version and date, and the credits on the left, and the phone stack (or the window stack) on the right from 760px; on phones the pill comes before the picture. The version and date sit beside the pill from 920px, and on one line under it at 760 to 919px, so the pictures beside them don't cover them. Under 560px the File credit takes a whole row. Below, the switch shows again, then Setup and How to use it sit side by side from 900px, then What it's for and the FAQ across both columns. What it's for puts "Made for" and "Not" side by side only from 1100px, where both lists have room for their notes; below that "Made for" sits above "Not". Breakpoints: 560px, 760px, 900px, 920px, 1100px, 1280px.
 
 **Components:**
 - **Gold pill:** 56px tall, full pill, Gold fill, Navy text, 500 16px, at least 320px wide from 760px, pressing down 1px.
@@ -268,4 +274,11 @@ Source: the app repo's DESIGN.md. Navy ground, warm ink, one gold, set like an a
 - **Credits lines:** a tick or cross in a 30px Highest disc, the item, a 2px dotted Outline leader, a short Grey note.
 - **Sound-wave divider:** a 32px bar-wave mask between section groups, its Gold part filling a third, two thirds, then all of it, animated on scroll where the browser supports it.
 - **FAQ:** hairline-ruled disclosures, a Gold plus that turns to a cross when open.
+- **Version switch:** "Android phone / Windows PC", the text tabs made bigger (500 17px, 48px tall, 30px apart), each led by a 20px drawn phone or PC, on a 1px Highest rule up to 420px wide. The whole page follows it. It sits under the hook, with the facts straight under it and no rule of their own on top, and again where the details start, after a Grey "Steps and answers for" and with no rule. Both move together. Which one shows is set in the page's head before anything draws, a Windows PC on Windows and everyone else on Android, and `?os=` in the link picks one.
+- **Window stack:** the phone stack with the Windows app's windows in it. Same swap and dimming, an 8px corner, the side ones peeking out by a tenth of its width. min(80vw, 330px) wide on phones, 280px from 760px, 420px from 1280px.
+- **Android-only tag:** "(Android only)" after a tab's name in plain Grey 400, not small capitals. The tab is 40px from the next one, and on narrow phones the tag drops under the name.
+- **Mini switch:** small text tabs (500 14px, 36px tall, 18px apart) above a step's pictures, the same Gold underline, for when a picture has an Android and a Windows version. It starts on the version you're on, swaps only the pictures and caption, and shows only while its step's picture does.
+- **See the FAQ link:** at the end of a step's Grey words, in the same Grey, underlined in Outline with a 3px offset; Gold text and underline on hover. It opens its FAQ answer, not just scrolls to it.
+- **Two pictures in a step:** one under the other, 10px apart, in the same rounded Highest frame as one.
+- **Whole file names:** a file name inside a step never breaks, at its hyphens or anywhere.
 - **Hairlines:** 1px Highest everywhere a rule is needed; no shadows inside the app's own look.

@@ -95,6 +95,8 @@ b{font-weight:500; color:var(--ink)}
 .specs div{min-width:0}
 .specs dt{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
 .specs dd{margin:4px 0 0; font-size:15px; overflow-wrap:anywhere}
+/* On phones the file name gets a whole row, so it doesn't break in the middle. */
+@media (max-width:559px){.specs div:first-child{grid-column:1 / -1}}
 
 /* The app, as three real phone screenshots in a stack: the one showing in front in the
    middle, the other two peeking out behind it, one each side. Text tabs over it, in the
@@ -137,6 +139,8 @@ b{font-weight:500; color:var(--ink)}
 .steps .t{padding-top:6px}
 .s{display:block; margin-top:2px; font-size:15px; line-height:1.45; color:var(--grey)}
 .or{margin:0 0 0 50px; font-size:15px; color:var(--grey)}
+/* A file name in a step never breaks at its hyphens. */
+.whole{white-space:nowrap}
 
 /* Between the groups of sections, a sound wave instead of a plain line. Its gold part
    is how much has "played": a third, two thirds, then all of it by the FAQ. Where the
@@ -217,7 +221,9 @@ b{font-weight:500; color:var(--ink)}
   .dots{display:block; flex:1 1 20px; min-width:20px; align-self:flex-end; margin-bottom:10px; border-bottom:2px dotted var(--outline)}
   .yes .s,.no .s{flex:none; margin:0; font-size:15px; white-space:nowrap}
 }
-@media (min-width:760px){
+/* Side by side only where both lists have room for their notes. Below that, "Made
+   for" sits above "Not", like on phones. */
+@media (min-width:1100px){
   .both{grid-template-columns:repeat(2,minmax(0,1fr)); padding:30px 0}
   .both > div{padding:0 34px}
   .both > div + div{border-left:1px solid var(--highest)}
@@ -290,13 +296,15 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
 
 /* The switch: the app's text tabs, bigger, with a drawn phone and a drawn PC. */
 .os{display:flex; gap:30px; max-width:420px; margin:26px 0 0; border-bottom:1px solid var(--highest)}
-.os button{position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:10px 0 14px; border:0; background:none; color:var(--grey); font:500 17px/1.2 'Roboto',sans-serif; cursor:pointer}
+.os button{position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:10px 0 14px; border:0; background:none; color:var(--grey); font:500 17px/1.2 'Roboto',sans-serif; white-space:nowrap; cursor:pointer}
 .os button svg{width:20px; height:20px; flex:none}
 .os button::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .os button[aria-selected="true"]{color:var(--ink)}
 .os button[aria-selected="true"]::after{transform:scaleX(1)}
 @media (hover:hover){.os button:hover{color:var(--ink)}}
-.os + .facts{margin-top:0; border-top:0}
+/* The facts sit right under the switch, with no line of their own on top. "~", not "+",
+   cause on Windows the hidden Android facts come between them. */
+.os ~ .facts{margin-top:0; border-top:0}
 /* The same switch again where the details start, for someone who scrolled down. */
 .again{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; column-gap:22px; row-gap:6px; margin-top:-12px}
 .again p{margin:0; font-size:15px; color:var(--grey)}
@@ -334,7 +342,13 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
   .intro{grid-template-rows:repeat(6,auto) 1fr}
   .os{grid-column:1}
   .shots{grid-row:2 / span 6}
-  .shots.win{--w:300px}
+  .shots.win{--w:280px}
+}
+/* Narrow tablets: the version and date go on one line under the button, so the
+   pictures beside them don't cover them. */
+@media (min-width:760px) and (max-width:919px){
+  .get{flex-wrap:wrap; row-gap:10px}
+  .ver{flex-direction:row}
 }
 @media (min-width:1280px){
   .intro{grid-template-rows:repeat(6,auto) 1fr}
@@ -520,7 +534,7 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
       <p class="hint">Tap a step to see its screen.</p>
       <div class="pair">
         <ol class="steps">
-          <li><span><span class="t">Download it</span><span class="s">Then open <b>yt-music-downloader-setup.exe</b>.</span></span></li>
+          <li><span><span class="t">Download it</span><span class="s">Then open <b class="whole">yt-music-downloader-setup.exe</b>.</span></span></li>
           <li class="on" data-shot="smartscreen" data-cap="SmartScreen hasn't seen my apps before, cause they're not from the Microsoft Store, so it warns. More info shows Run anyway." tabindex="0"><span><span class="t">Get past SmartScreen</span><span class="s"><b>More info</b>, then <b>Run anyway</b>.</span></span></li>
           <li data-shot="location" data-cap="It picks where to install for you." tabindex="0"><span><span class="t">Install it</span><span class="s"><b>Next</b>, then <b>Next</b> again.</span></span></li>
           <li data-shot="finish" data-cap="It adds a desktop shortcut and a Start menu entry too." tabindex="0"><span><span class="t">Finish</span><span class="s">Leave <b>Run</b> ticked, then <b>Finish</b>.</span></span></li>

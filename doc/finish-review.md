@@ -114,3 +114,59 @@ committed). How each was done:
    so the docs got fixed, not the page.
 5. ~~Update `live-design-choices/downloads-page.md` with what changed~~ Done 16 Oct, then
    commit and push.
+
+# Second review, 26 Oct: the Windows version and the two-button card
+
+Same way as 16 Oct, for the parts added 26 Oct: the Android phone / Windows PC switch
+and everything it swaps on YT Music Downloader's page, How to use it's changes (Paste
+first, "(Android only)", Play it's pictures and small switch, See the FAQ), and the
+catalogue's two-button card. A fresh reviewer per page. Both said **fix**. **All 7
+applied 26 Oct, my call**, after one sheet of before and after pictures
+(`.playwright-cli/fix-mocks-2610/fixes-1-to-7.png`, not committed). Second round, same
+reviewers: every fix resolved, **both pages "ship"**, for the fixes scored, not a fresh
+full review.
+
+[Before the review, the two surface briefs in `.impeccable/surfaces/` were brought up
+to date for these parts, cause the reviewers check against them. Screenshots in
+`.impeccable/review/`: both versions at 1440, 760 and 390 (`windows-*` for Windows),
+the tall ones cut into `parts/`, the states the full pages don't show (`state-*`), and
+each fix as built in `fixes-2610/`.]
+[The reviewers had no screenshot between 900 and 1099 wide, so Claude measured every
+20px from 760 to 1100 before and after. The ranges below are from that.]
+[The detector found nothing to fix: only notes that some colours and font sizes aren't
+in `DESIGN.md` yet.]
+
+## Small fixes you'd barely notice
+
+| # | Page | What was wrong | Fix |
+|---|---|---|---|
+| 1 | App page, both | 760 to 919 wide: the phone pictures covered the version and date at 760, and up to 919 they wrapped to 3 or 4 lines | Version and date on one line under the button at those widths |
+| 2 | App page, Windows | 760 to about 780: the switch's labels broke into "Android / phone", "Windows / PC" | Window pictures 280px from 760 to 1279 (were 300), and the labels never wrap |
+| 3 | App page, Windows | Setup step 1 broke "yt-music-downloader-" / "setup.exe" on desktop | The file name never breaks (`.whole`) |
+
+## Changes you'd see, my call
+
+| # | Page | What was wrong | Fix | Tradeoff |
+|---|---|---|---|---|
+| 4 | App page, both | 760 to about 990: What it's for's notes ran under the other list's crosses, and up to about 830 the page scrolled sideways. Bigger than the known "760 sideways scroll" | The two lists side by side only from 1100. Below that, "Made for" over "Not" | Taller panel on tablets |
+| 5 | App page, both | On phones the file name broke in the File credit | File gets a whole row on phones | One more row, "Installs from" alone at the end |
+| 6 | Catalogue | 760 to 899: the card's text in a 181px column, name on 2 lines, the line on 5, card 332px tall | Each version under its button at those widths. Card 250px at 760 | Not "version on the right" at those widths |
+| 7 | Catalogue | 560 to 759: each button up to 340px wide, mostly empty gold | The two buttons stop at 440px together, about 215px each | Empty navy beside them |
+
+**Found by me after the review, fixed 26 Oct:** on the Windows version there was a gap
+and an extra line between the switch and the facts. The rule that pulls the facts up
+under the switch only matched the list right after it, which is the hidden Android one.
+Both reviewers missed it. Now `.os ~ .facts`, so it matches either list.
+
+Also done, nothing on screen: the catalogue brief had Impeccable's short seed key in it,
+which shouldn't be there. It now says that round's full seed reference wasn't kept.
+
+## Left open
+
+- **Catalogue card height jumps at 900 wide**, from the second round. 204px at 880 to
+  899, 250px at 900 to 999, then 204px again. You only see it while resizing. Optional
+  fix: run fix 6 up to 999 instead of 899. Not answered yet.
+- At 760 the Windows File credit still breaks into two lines, cause fix 5 is phones
+  only. The reviewer let it be: two lines, down from three.
+- One idea from the app page's reviewer, not a fix: the Windows "Play it" library
+  picture is too small to read on desktop. A click to enlarge would help.

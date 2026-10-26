@@ -105,6 +105,8 @@ a{color:inherit}
   .os{font-size:16px}
   .ver{text-align:center}
   .dls ~ .more{flex:1 1 100%; text-align:center}
+  /* Small tablets: the buttons stop growing, so they aren't mostly empty gold. */
+  .two .acts{max-width:440px}
 }
 /* The smallest phones: a little less room inside each button. */
 @media (max-width:359px){
@@ -123,6 +125,13 @@ a{color:inherit}
   .get{display:contents}
   .dls .dl{justify-content:center}
   .two .more{grid-column:2; grid-row:2; align-self:start; justify-self:start}
+}
+/* Narrow desktop widths: each version goes under its button, which leaves the card's
+   text more room. */
+@media (min-width:760px) and (max-width:899px){
+  .dls{grid-template-columns:auto; gap:14px}
+  .get{display:grid; justify-items:stretch; row-gap:6px}
+  .ver{text-align:center}
 }
 </style>
 </head>

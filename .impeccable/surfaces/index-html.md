@@ -13,8 +13,11 @@ visitor succeeds when they find an app and get its file, or open its page.
 - Audience: me, people I send the link to, strangers who land on it.
 - Job: see what apps there are, tell what each does from one line, then download from
   the card or open the app's page.
-- Content: real apps only. Name, one line, version, Android version (and 64-bit when the
-  app needs it), file name. No user counts, reviews or ratings exist, so none appear.
+- Content: real apps only. Name, one line, version, what it runs on (and 64-bit when the
+  app needs it). A one-download card also has the file name. No user counts, reviews or
+  ratings exist, so none appear.
+- An app with an Android and a Windows version gets two buttons on its card (class
+  `two`), one per file, each with its version. YT Music Downloader is the first.
 - Constraints: the site's own look, apart from every app's. Each app's card wears that
   app's colours. Dark. Download links never change. Fonts come from the site itself
   (`assets/fonts/`), never another server. Tab icon: "YH" in champagne on charcoal.
@@ -25,6 +28,8 @@ visitor succeeds when they find an app and get its file, or open its page.
 Written 2026-10-16 from what shipped, before the finish review. The build went straight
 from the picked mockup to the site with no contract on record. Updated the same day after
 the review fixes and the user's new phone card layout (one left edge, full-width button).
+Updated 2026-10-26 for the two-button card, built from the OK'd mockup
+`.impeccable/mocks/both-platforms/src/catalogue.html`, before its finish review.
 
 ## Direction contract
 
@@ -50,8 +55,19 @@ start at the card's left edge under them. The dashed slot's text lines up with t
 at every width. The first app's download button is inside the first viewport at 390px
 and at 1440px.
 
-FORM: the Contents page (round 1's pick) restyled as Warm (round 3, `soft-warm`), seed
-key `0d64e648`. Changed from the mockup: champagne title, cards in each app's colours,
+TWO-BUTTON CARD: two gold pills in the app's colours, smaller than the one-button card's
+(44px tall, 15px words), each "Download for Android" / "Download for Windows" with its
+version. The line under the card's text says what each runs on: "Android 10 and up,
+64-bit phones · Windows 10 and 11, 64-bit". No file names on this card. From 760px the
+two buttons are up and down at the right, the same width, 20px apart, each with its
+version to its right, and their middle lines up with the card's middle. "Setup, how to
+use it, FAQ" moves under the card's text on the left. The card is 204px tall. On phones
+the two buttons sit side by side, sharing the width, each with "Download for" small over
+the platform, left, next to the arrow, and its version centred under it. "Setup, how to
+use it, FAQ" is centred under them. The rest of the phone card keeps one left edge.
+
+FORM: the Contents page (round 1's pick) restyled as Warm (round 3, `soft-warm`). That
+round's full seed reference wasn't kept. Changed from the mockup: champagne title, cards in each app's colours,
 placeholder apps out, dashed slot in.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

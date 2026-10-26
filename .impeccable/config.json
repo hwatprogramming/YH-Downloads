@@ -28,6 +28,24 @@
         ],
         "createdAt": "2026-10-25T18:57:11.494Z",
         "reason": "False positive on the FAQ list: .qs has a top hairline and each summary already has 14px top padding, so no text touches the line; the live page passed the 16 Oct finish review"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          ".playwright-cli/fix-mocks-2610/sheet.html"
+        ],
+        "createdAt": "2026-10-26T11:26:51.091Z",
+        "reason": "Claude: throwaway before/after review sheet in gitignored .playwright-cli/, not a site page; every text rule is already 1.4 to 1.45"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          ".playwright-cli/old-files/sheet.html"
+        ],
+        "createdAt": "2026-10-26T11:41:33.178Z",
+        "reason": "Claude: drawing of GitHub's releases page in gitignored .playwright-cli/; the 3px bar is GitHub's own selected-release marker, drawn as GitHub shows it"
       }
     ]
   }
