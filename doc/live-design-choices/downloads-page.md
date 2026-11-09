@@ -432,6 +432,15 @@ OK'd mockups.
 - **Window shots are from 1.0.0**, taken 26 Oct from the installed app, songs saved to
   `D:\Songs` so no username shows. The folder window and the closing prompt were
   retaken too: the old ones showed a temp folder path and the old text size icon.
+  - **Downloading retaken from 1.1.0, 2026-11-10**, cause it's the only screen 1.1.0
+    changed (Pause and Cancel beside each playlist and single song). History, Help,
+    the folder window, the closing prompt and the installer look the same, so they stay
+    1.0.0. Old and new side by side in
+    `.impeccable/mocks/both-platforms/win-shots-1.1.0.png`, OK'd. Its picture note says
+    1.1.0, Nov 2026.
+  - "Let it run" on Windows said "Any size of playlist, no asking." That stopped being
+    true with 1.1.0, which asks before a playlist with over 30 new songs. Now "Over 30
+    new songs, it asks first." OK'd the same day.
 - **Picture notes** on the 13 new pictures, like the 16 Oct ones: "Real screenshot of
   YT Music Downloader 1.0.0 or Windows on the owner's PC, cropped for this page, Oct
   2026. Not generated." The two with blurred parts add "with private parts blurred".

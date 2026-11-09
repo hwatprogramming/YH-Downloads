@@ -65,6 +65,8 @@ first app on it) the site is done. Nothing below blocks that.]
     title is "YT Music Downloader · Android 1.0 · Windows 1.1.0". 1.1.0 asks before a
     playlist over 30 new songs, and has Pause / Cancel. 1.0.0 (the 26 Oct 18:41
     rebuild) stays downloadable as `yt-music-downloader-setup-1.0.0.exe`, in the menu.
+    The Downloading picture is retaken from 1.1.0 and "Let it run" fixed, both OK'd and
+    pushed 10 Nov.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
@@ -75,17 +77,19 @@ first app on it) the site is done. Nothing below blocks that.]
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
-- **Version picker: built and live 2026-11-10**, A, the menu beside the download
-  button. OK'd from a test copy ("looks good"). The Windows tab has it now (1.1.0,
-  1.0.0). Android gets it at its second version. How the build differs from the
-  mockup is in [`downloads-page.md`](doc/live-design-choices/downloads-page.md),
-  "Picking an older version".
-  - Each app's versions are in `<tag>/versions.js`. Every update uploads a numbered
-    copy too and adds the version there, then runs `check-versions.bat`. All in
-    [`doc/uploading-a-build.md`](doc/uploading-a-build.md).
-  - Numbered copies of Android 1.0 and Windows 1.0.0 are on the release.
-  - **Not answered yet:** adding the numbered copy and the `versions.js` entry to the
-    update steps in the "Apps on YH-Downloads" section of my global `CLAUDE.md`, cause
-    it's the first thing an uploading Claude reads. Claude asked 10 Nov.
-- Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
-  in "To evaluate", and the Support me page, parked till I can get into Ko-fi.
+- **Old canvas directions.** The three at
+  <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate". Riso
+  and Warm replaced them, so ask before moving them to "Past". Back up from the backlog
+  2026-11-10.
+  - [`.impeccable/questions/` (old picking-page state) and `.playwright-cli/` (Claude's
+    check screenshots and logs) are in `.gitignore` since 2026-10-16, cause this repo is
+    public.]
+- Further off, in [`doc/backlog.md`](doc/backlog.md): the Support me page, parked till
+  I can get into Ko-fi.
+
+[Version picker: done 2026-11-10, A, the menu beside the button. Each app's versions
+are in `<tag>/versions.js`, the update steps (here and in my global `CLAUDE.md`) add
+a numbered copy and run `check-versions.bat`. Android gets the menu at its second
+version, nothing to do for that. Details in
+[`downloads-page.md`](doc/live-design-choices/downloads-page.md), "Picking an older
+version".]

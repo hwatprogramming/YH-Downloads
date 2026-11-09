@@ -18,8 +18,9 @@ or the Microsoft Store, download the right file and get it set up.
 - Job: show the app off like a small landing page, with the download right there. Then
   Setup, How to use it, What it's for, and the FAQ. An "Android phone / Windows PC"
   switch under the app's line picks the version, and the whole page follows it.
-- Proof: real screenshots of Android 1.0 (Download, History, Help) and Windows 1.0.0
-  (Downloading, History, Help), real install screenshots for both, the phone's music
+- Proof: real screenshots of Android 1.0 (Download, History, Help) and Windows
+  (Downloading from 1.1.0, History and Help from 1.0.0, which look the same in 1.1.0),
+  real install screenshots for both, the phone's music
   player and Windows' Media Player playing a downloaded song, and facts from the app's
   repos. Nothing invented. The Download tabs' songs are labelled as made up or test
   songs. Private parts (other songs, the username) are blurred or cropped out.
