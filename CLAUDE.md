@@ -65,8 +65,8 @@ first app on it) the site is done. Nothing below blocks that.]
     title is "YT Music Downloader · Android 1.0 · Windows 1.1.0". 1.1.0 asks before a
     playlist over 30 new songs, and has Pause / Cancel. 1.0.0 (the 26 Oct 18:41
     rebuild) stays downloadable as `yt-music-downloader-setup-1.0.0.exe`, in the menu.
-    The Downloading picture is retaken from 1.1.0 and "Let it run" fixed, both OK'd and
-    pushed 10 Nov.
+    The Downloading picture is retaken from 1.1.0, and "Let it run" and What it's for
+    no longer say big playlists don't ask. All OK'd and pushed 10 Nov.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not

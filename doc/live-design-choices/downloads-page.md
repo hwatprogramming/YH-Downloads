@@ -441,6 +441,9 @@ OK'd mockups.
   - "Let it run" on Windows said "Any size of playlist, no asking." That stopped being
     true with 1.1.0, which asks before a playlist with over 30 new songs. Now "Over 30
     new songs, it asks first." OK'd the same day.
+  - Same mistake in What it's for: "Whole playlists and albums … any size, no asking".
+    Now "big ones too", Android's wording. Before and after in
+    `.impeccable/mocks/both-platforms/made-for-fix.png`, OK'd the same day.
 - **Picture notes** on the 13 new pictures, like the 16 Oct ones: "Real screenshot of
   YT Music Downloader 1.0.0 or Windows on the owner's PC, cropped for this page, Oct
   2026. Not generated." The two with blurred parts add "with private parts blurred".
