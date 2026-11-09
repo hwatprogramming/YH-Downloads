@@ -26,13 +26,22 @@ its name. You replace the file when there's a new version.
 | Thing | Rule | Example |
 |---|---|---|
 | Tag | App name, lowercase, dashes | `yt-music` |
-| File name | Same as the tag, no version number in it | `yt-music.apk` |
+| File name | Same as the tag, no version number in it. Always the newest | `yt-music.apk` |
+| Numbered copy | The same file again, with its version in the name. One per version, never replaced | `yt-music-1.2.apk` |
 | Title | App name plus version | `YT Music v1.2` |
 | Notes | Version, date, what changed in a line or two | |
 
 The version goes in the title and notes, not in the tag or the file name. If it went
 in either of those, the download link would change with every update and every link
 pointing at it would break.
+
+**Every version also gets a numbered copy**, so older versions stay downloadable. The
+app's page has a menu of them beside the download button, drawn from the app's list of
+versions, `<tag>/versions.js`. So each upload sends the new file twice: once as the
+numbered copy, once over the fixed name. The newest is stored twice, and that's fine.
+[Decided 2026-10-26, built 2026-11-10, see
+[`downloads-page.md`](live-design-choices/downloads-page.md), "Picking an older
+version".]
 
 **An app with two versions**, like YT Music Downloader's Android and Windows ones, keeps
 both files in its one release. The second file gets a word after the tag that says what
@@ -51,14 +60,15 @@ https://github.com/hwatprogramming/YH-Downloads/releases/download/<tag>/<file na
 ## First upload of an app
 
 1. Build the app in its own repo.
-2. Copy or rename the built file to the fixed name, e.g. `yt-music.apk`.
+2. Make two copies of the built file: the fixed name, e.g. `yt-music.apk`, and the
+   numbered copy, e.g. `yt-music-1.0.apk`.
 3. Check the tag isn't taken:
    ```
    gh release list --repo hwatprogramming/YH-Downloads
    ```
-4. Create the release with the file attached:
+4. Create the release with both files attached:
    ```
-   gh release create yt-music "path/to/yt-music.apk" --repo hwatprogramming/YH-Downloads --title "YT Music v1.0" --notes "v1.0, 2026-10-01. First upload."
+   gh release create yt-music "path/to/yt-music.apk" "path/to/yt-music-1.0.apk" --repo hwatprogramming/YH-Downloads --title "YT Music v1.0" --notes "v1.0, 2026-10-01. First upload."
    ```
 5. Add the app to the site and the README, then commit and push. See the next section.
 
@@ -82,11 +92,15 @@ at `../YH-Downloads`. If the folder isn't there, clone it there first.
    ```
 2. Design the app's page with the user, with Impeccable. Mockups go in
    `.impeccable/mocks/`, and the picked one becomes `<tag>/index.html`.
-3. Add its card to `index.html`, with its version, and its chip to the header of
+3. Give the app its list of versions, `<tag>/versions.js`, with its first version in
+   it. Copy `yt-music-downloader/versions.js` and follow the notes at its top. The
+   page loads it and draws the version beside the button from it, like YT Music
+   Downloader's page does.
+4. Add its card to `index.html`, with its version, and its chip to the header of
    each app page.
-4. Add one row to the table in `README.md`, the repo's front page on GitHub. Name, one
+5. Add one row to the table in `README.md`, the repo's front page on GitHub. Name, one
    plain line on what it does, and the download link. No version in the row.
-5. Commit and push. The site updates by itself a minute or so after the push.
+6. Commit and push. The site updates by itself a minute or so after the push.
 
 ## The version on the site
 
@@ -94,35 +108,54 @@ Each app's page shows its version and date beside the download button, and its c
 on the catalogue shows the version. The user asked for it 2026-10-16, so people can
 tell they have the latest. So an update does need a commit, see below.
 
+The app's page takes them from `<tag>/versions.js`. When a platform has more than one
+version there, the version beside the button becomes a menu of all of them, each with
+its date and what changed. The card on the catalogue only shows the newest, typed into
+`index.html` by hand.
+
 ## Updating an app that's already here
 
-1. Build, then rename the file to the same fixed name as before.
-2. Replace the file. `--clobber` means overwrite the one with the same name:
+1. Build, then make two copies of the file: the same fixed name as before, and the
+   numbered copy with the new version in its name, e.g. `yt-music-1.1.apk`.
+2. Upload the numbered copy, then replace the fixed one. `--clobber` means overwrite
+   the one with the same name:
    ```
+   gh release upload yt-music "path/to/yt-music-1.1.apk" --repo hwatprogramming/YH-Downloads
    gh release upload yt-music "path/to/yt-music.apk" --repo hwatprogramming/YH-Downloads --clobber
    ```
+   Never `--clobber` a numbered copy. It's the only copy of that version.
 3. Update the title and notes so the version shown is right:
    ```
    gh release edit yt-music --repo hwatprogramming/YH-Downloads --title "YT Music v1.1" --notes "v1.1, 2026-10-08. Playlists."
    ```
-
-4. Update the version on the site: the "Version X · date" line beside the button on
-   the app's page, and "Version X" on its card in `index.html`. Commit and push.
-   - An app with two versions has one of each per version. On YT Music Downloader's
-     page the Windows line sits in the `data-for="windows"` block, and on the card
-     it's the one under "Download for Windows". Change only the version you uploaded.
+4. Update the version on the site, then commit and push:
+   - Add the new version at the top of its list in `<tag>/versions.js`: version, date,
+     what changed, the numbered copy's name and the size. The version beside the
+     button and the menu follow it. If you skip this, the whole page keeps showing the
+     old version.
+   - "Version X" on its card in `index.html`.
+   - An app with two versions has a list per version in `versions.js`, and on the card
+     the Windows one is under "Download for Windows". Change only the version you
+     uploaded.
+5. Run `check-versions.bat`, see below.
 
 The link stays the same, so nothing else changes. The README row has no version, so
 it stays as it is.
 
 ## Check it worked
 
+Run `check-versions.bat` from this repo's top folder. From an app repo:
+
 ```
-gh release view yt-music --repo hwatprogramming/YH-Downloads
+../YH-Downloads/check-versions.bat
 ```
 
-Look for the file under assets, with the size you expect. Then give the user the
-download link.
+It checks every app's `versions.js` against the files on GitHub: each version's
+numbered copy is there, the fixed name is the same file as the newest, and no numbered
+copy is missing from a list. It ends on "All good." or on what to fix. The user can
+double-click it too.
+
+Then give the user the download link.
 
 ## If something goes wrong
 
@@ -132,3 +165,6 @@ download link.
 - **`gh` isn't logged in**: run `gh auth status`. It needs to be the `hwatprogramming` account.
 - **Wrong file went up**: `gh release delete-asset <tag> <file name> --repo hwatprogramming/YH-Downloads`,
   then upload the right one.
+- **`check-versions.bat` says MISSING**: it names the file or the list entry. Upload
+  the file, or add the version to `versions.js`, then run it again. "Isn't the newest"
+  means the fixed name wasn't replaced: upload it again with `--clobber`.

@@ -61,12 +61,18 @@ Done means the site is live and the first app is on it.
 - First app: YT Music Downloader. Android APK, Android 10 and up, arm64 phones only.
 - YT Music Downloader 1.0 is uploaded, release-signed, as release `yt-music-downloader`.
   The download links work. Since 2026-10-16.
-- YT Music Downloader also has a Windows version, 1.0.0, an installer for Windows 10
-  and 11, 64-bit, in the same release. On the site since 2026-10-26: the app's page
+- YT Music Downloader also has a Windows version, an installer for Windows 10 and 11,
+  64-bit, in the same release. On the site since 2026-10-26 (1.0.0): the app's page
   has an Android phone / Windows PC switch, and its card has a button for each.
+  Windows 1.1.0 since 2026-11-10.
 - An app's page shows the version its button downloads, and the version's date,
-  beside the button, so people can tell they have the latest. My ask, 2026-10-16. Each
-  update edits that line on the page.
+  beside the button, so people can tell they have the latest. My ask, 2026-10-16. The
+  page draws it from the app's list of versions, `<tag>/versions.js`, so each update
+  adds the new version there.
+- With more than one version, that version is a menu: each version with its date and
+  what changed, and picking one makes the button download it. Older versions stay in
+  the release as numbered copies. Built 2026-11-10. The catalogue only shows the
+  newest.
 - YT Music Downloader's page shows three real screenshots of the app: the Download
   tab, History and Help. Decided 2026-10-16.
 
@@ -120,6 +126,6 @@ Done means the site is live and the first app is on it.
 2. A stranger can tell what an app does from one plain line.
 3. Each section belongs to its app: its name, its picture, its theme.
 4. Links don't break. An update replaces the file behind the same link, and the page
-   only changes its version line. [Was "an update never needs an edit to the page"
-   till 2026-10-16, when the version went on the page.]
+   only gets the new version in its list. [Was "an update never needs an edit to the
+   page" till 2026-10-16, when the version went on the page.]
 5. Only what's true and public goes on the page.

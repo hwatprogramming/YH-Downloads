@@ -24,7 +24,9 @@ or the Microsoft Store, download the right file and get it set up.
   repos. Nothing invented. The Download tabs' songs are labelled as made up or test
   songs. Private parts (other songs, the username) are blurred or cropped out.
 - Constraints: wears the app's own look, Liner Notes. The site header is in the
-  catalogue's Warm look. Version and date sit beside each version's button. "Is this
+  catalogue's Warm look. Version and date sit beside each version's button, drawn from
+  `versions.js`. With more than one version on a platform, that's a menu of them all,
+  with what changed, and the button downloads the one picked (since 2026-11-10). "Is this
   legal?" stays out of the FAQ for good. Only what's true and public. Fonts come from the
   site itself (`assets/fonts/`), never another server. The site's "YH" tab icon, not the
   app's. A Windows PC opens on Windows, everything else on Android, set before the page

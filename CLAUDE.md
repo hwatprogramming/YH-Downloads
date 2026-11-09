@@ -61,19 +61,10 @@ first app on it) the site is done. Nothing below blocks that.]
     (only seen while resizing). Optional fix: versions under the buttons up to 999
     instead of 899.
   - **Left, mine:** delete the empty `D:\Songs` folder. Claude's safety check blocked it.
-  - The installer on the release is the 18:41 rebuild, still 1.0.0, re-uploaded 26 Oct:
-    "Download to" says "It's set to your Music folder." the very first time.
-  - **Windows 1.1.0 is built and ready to go up**, 2026-11-09:
-    `../Desktop-Youtube-Music-Downloader/src-tauri/target/release/bundle/nsis/YT Music Downloader_1.1.0_x64-setup.exe`.
-    New: a playlist over 30 new songs asks first, and Pause / Cancel. Tried installed.
-    Steps: `doc/uploading-a-build.md`, "Updating an app that's already here". Title
-    would be "YT Music Downloader · Android 1.0 · Windows 1.1.0", notes line "Windows
-    1.1.0, 2026-11-09. Asks before a playlist over 30 new songs. Pause and Cancel on
-    each playlist and song." Then the Windows version on the page and card.
-    **Not answered yet:** upload now with a numbered copy of 1.0.0 first, as
-    `downloads-page.md` asks before an update overwrites it (the 1.0.0 file is in the
-    same `nsis` folder, 78,813,276 bytes, same as online), or wait for the version
-    picker below. The upload itself doesn't need the picker.
+  - **Windows 1.1.0 is up, 2026-11-10**, after the version picker below. The release
+    title is "YT Music Downloader · Android 1.0 · Windows 1.1.0". 1.1.0 asks before a
+    playlist over 30 new songs, and has Pause / Cancel. 1.0.0 (the 26 Oct 18:41
+    rebuild) stays downloadable as `yt-music-downloader-setup-1.0.0.exe`, in the menu.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
@@ -84,26 +75,17 @@ first app on it) the site is done. Nothing below blocks that.]
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
-- **Version picker on every app page with more than one version.** From my journal 26
-  Oct. **Picked A, a menu beside the download button**, with each version's date and
-  what changed. Mockups and the rejected B and C in
-  [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "Picking an older
-  version, not built yet".
-  - **Old files: kept as numbered copies in the app's one release**, my pick 26 Oct.
-    The fixed name stays the newest for the button. Each update uploads the new file
-    twice. `doc/uploading-a-build.md` doesn't say so yet, so an update before the
-    picker is built still loses the old file. My call 26 Oct: change the guide when
-    the picker is built, not before. Today's 1.0 and 1.0.0 need their copies then.
-  - **How the rule sticks: all three**, my pick 26 Oct. A versions list per app that
-    the menu is drawn from, a step in the upload guide, and `check-versions.bat` run
-    after every upload. Details in `downloads-page.md`.
-  - **Next: build it, in a new session**, my call 26 Oct. Build now, not at the next
-    update, and show it working with made-up versions in a test copy. Nothing changes
-    on the live site till an app has a second version: YT Music Downloader has one per
-    platform (Android 1.0, Windows 1.0.0). Upload the numbered copies of 1.0 and
-    1.0.0 as part of it.
-    - When it's built, the "Apps on YH-Downloads" section in my global `CLAUDE.md`
-      lists the update steps too. Ask me to add the numbered copy and the list entry
-      there, cause it's the first thing an uploading Claude reads.
+- **Version picker: built and live 2026-11-10**, A, the menu beside the download
+  button. OK'd from a test copy ("looks good"). The Windows tab has it now (1.1.0,
+  1.0.0). Android gets it at its second version. How the build differs from the
+  mockup is in [`downloads-page.md`](doc/live-design-choices/downloads-page.md),
+  "Picking an older version".
+  - Each app's versions are in `<tag>/versions.js`. Every update uploads a numbered
+    copy too and adds the version there, then runs `check-versions.bat`. All in
+    [`doc/uploading-a-build.md`](doc/uploading-a-build.md).
+  - Numbered copies of Android 1.0 and Windows 1.0.0 are on the release.
+  - **Not answered yet:** adding the numbered copy and the `versions.js` entry to the
+    update steps in the "Apps on YH-Downloads" section of my global `CLAUDE.md`, cause
+    it's the first thing an uploading Claude reads. Claude asked 10 Nov.
 - Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions still
   in "To evaluate", and the Support me page, parked till I can get into Ko-fi.

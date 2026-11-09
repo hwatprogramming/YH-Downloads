@@ -553,11 +553,34 @@ screen:
 - **Catalogue, under 760 wide: the two buttons stop at 440px together**, about 215px
   each. This answers my 16 Oct question about capping the button.
 
-### Picking an older version, not built yet
+### Picking an older version
 
 From my journal 26 Oct: people can choose which version to install on an app's page,
 the catalogue keeps showing only the latest, and a changelog would be nice. Every app
 with more than one version gets it.
+
+**Built 2026-11-10** on YT Music Downloader's page, from mockup A, OK'd from a test
+copy with made-up versions ("looks good"). Picture:
+`.impeccable/mocks/version-picker/built-test-copy.png`. Live the same day with Windows
+1.1.0, so the Windows tab has the menu (1.1.0 and 1.0.0) and Android keeps its plain
+line till it has a second version.
+
+- **How the build differs from the mockup** [Claude's calls while building]:
+  - **The list is `versions.js`, not `versions.json`.** A page opened straight from
+    disk can't read a `.json` file, but it can load a `.js` one. Inside it's still a
+    plain list after `window.versions =`.
+  - **File and Size follow the picked version.** The mockup kept them fixed, so picking
+    1.0.0 would have shown the newest's file name.
+  - **One version shows the plain line, as before**, drawn from the list too. The menu
+    only comes in at two.
+  - **The box is 56px tall, the pill's height.** The mockup's came out 64px.
+  - **The credits are 560px wide from 1100px wide, from 520px.** An older Windows
+    file's name, `yt-music-downloader-setup-1.0.0.exe`, broke onto two lines by 1px.
+    The Size column moved 20px right.
+  - **Where the box doesn't fit beside the pill, it goes under it**: phones, and 760 to
+    1099px wide.
+  - Keyboard: arrows, Home and End move in the open menu, Enter or Space picks, Escape
+    closes. A click anywhere else closes it.
 
 - **Picked: A, a menu beside the button**, 26 Oct. The version line next to the
   download button becomes a menu. Pick a version and the button gets that one. Each
@@ -597,10 +620,10 @@ with more than one version gets it.
     - **Numbers only, no fixed name.** Fewest files, but every update has to change the
       button's link on the app page, the catalogue and the README, and a saved link
       gets an old version.
-  - Today's 1.0 and 1.0.0 files have no numbered copy yet. They need one when the
-    picker gets built, before the next update overwrites them.
+  - Android 1.0 and Windows 1.0.0 got their numbered copies 2026-11-10, downloaded
+    from the release itself, before Windows 1.1.0 went over the fixed name.
 - **How the rule sticks: all three together**, my pick 26 Oct.
-  - **A list of versions per app**, like `yt-music-downloader/versions.json`: number,
+  - **A list of versions per app**, `yt-music-downloader/versions.js`: number,
     date and what changed for each version, per platform. The menu and the version
     beside the button are drawn from it, so an update adds one entry and both follow.
     If the entry gets skipped, the whole page shows the old version, so it's plainly
@@ -611,6 +634,10 @@ with more than one version gets it.
     lists and says what's missing. Claude runs it at the end of every upload, in
     "Check it worked", and I can double-click it. Not run by GitHub on every push,
     which would be one more thing to set up.
+    - Built 2026-11-10, with its logic in `check-versions.ps1` beside it. It reads
+      GitHub's public API, so it needs no login. It also says when the fixed name
+      isn't the same file as the newest numbered copy, and when a numbered copy on
+      GitHub is missing from the list.
   - Drawn before picking: `.playwright-cli/enforce/making-the-rule-stick.png` (not
     committed). Each way on its own was the option: the step alone is easy to skip
     without anyone noticing, and the script alone only helps when it's run.

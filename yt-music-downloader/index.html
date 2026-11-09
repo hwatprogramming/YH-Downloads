@@ -15,6 +15,9 @@
   document.documentElement.dataset.os = forced || (/Windows/i.test(navigator.userAgent) ? 'windows' : 'android');
 })();
 </script>
+<!-- Every version of the app, per platform. The version beside each button is drawn
+     from it, and so is the menu when there's more than one. -->
+<script src="versions.js"></script>
 <style>
 /* The fonts sit next to the pages in assets/fonts/, with their licences, so the page
    never waits on another server for them. */
@@ -356,6 +359,41 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
   .shots.win{--w:420px}
 }
 @media (prefers-reduced-motion:reduce){.os button::after,.mini button::after{transition:none}}
+
+/* Picking a version: with more than one version, the version beside the button is a
+   menu of them all, each with its date and what changed. Pick one and the button, the
+   file and its size get that version. The box is as tall as the gold pill beside it. */
+.vpick{position:relative; justify-self:start}
+.vbtn{display:inline-flex; align-items:center; gap:24px; min-height:56px; padding:6px 16px 6px 20px; border:1px solid var(--outline); border-radius:16px; background:none; color:var(--ink); font:500 15px/1.4 'Roboto',sans-serif; text-align:left; white-space:nowrap; cursor:pointer; transition:border-color .2s}
+.vbtn > span{display:grid}
+.vbtn .d{color:var(--grey); font-weight:400}
+.vbtn svg{width:18px; height:18px; flex:none; color:var(--gold); transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.vbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.vbtn:active{border-color:var(--ink)}
+@media (hover:hover){.vbtn:hover{border-color:var(--grey)}}
+/* The open menu floats over the details under it, on the Help pop-up's fill. */
+.vmenu{position:absolute; z-index:5; left:0; top:calc(100% + 8px); width:min(340px, calc(100vw - 40px)); margin:0; padding:4px 0; list-style:none; overflow:hidden; background:var(--panel); border:1px solid var(--outline); border-radius:16px; animation:show .35s cubic-bezier(.16,1,.3,1)}
+.vmenu li{display:grid; grid-template-columns:18px minmax(0,1fr) auto; column-gap:12px; row-gap:2px; padding:12px 16px; cursor:pointer}
+.vmenu li + li{border-top:1px solid var(--highest)}
+.vmenu .ck{grid-row:span 2; width:18px; height:18px; margin-top:2px; color:var(--gold); visibility:hidden}
+.vmenu .ck svg{display:block; width:18px; height:18px}
+.vmenu li[aria-selected="true"] .ck{visibility:visible}
+.vmenu .v{font-size:15px; font-weight:500}
+.vmenu .d{font-size:14px; color:var(--grey)}
+.vmenu .new{align-self:center; font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--grey)}
+.vmenu .ch{grid-column:2 / -1; font-size:14px; line-height:1.4; color:var(--grey)}
+.vmenu li:active{background:var(--highest)}
+@media (hover:hover){.vmenu li:hover{background:var(--highest)}}
+/* Keyboard: the row lights up and its version gets the steps' gold underline. */
+.vmenu li:focus-visible{outline:none; background:var(--highest)}
+.vmenu li:focus-visible .v{text-decoration:underline 2px var(--gold); text-underline-offset:4px}
+/* Where the box doesn't fit beside the pill, it goes under it. */
+@media (min-width:920px){.get{flex-wrap:wrap; row-gap:12px}}
+/* An older version's file has its number in the name, like
+   yt-music-downloader-setup-1.0.0.exe. On desktop the credits are wide enough that it
+   stays on one line. */
+@media (min-width:1100px){.specs{max-width:560px}}
+@media (prefers-reduced-motion:reduce){.vbtn,.vbtn svg{transition:none} .vmenu{animation:none}}
 </style>
 </head>
 <body>
@@ -395,11 +433,11 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
         Download for Android
       </a>
-      <p class="ver"><span class="v">Version 1.0</span><span class="d">15 Oct 2026</span></p>
+      <p class="ver"></p>
     </div>
     <dl class="specs" data-for="android">
-      <div><dt>File</dt><dd>yt-music-downloader.apk</dd></div>
-      <div><dt>Size</dt><dd>About 67 MB</dd></div>
+      <div><dt>File</dt><dd data-file>yt-music-downloader.apk</dd></div>
+      <div><dt>Size</dt><dd data-size></dd></div>
       <div><dt>Runs on</dt><dd>Android 10 and up, 64&#8209;bit phones</dd></div>
       <div><dt>Installs from</dt><dd>This page, not the Play Store</dd></div>
     </dl>
@@ -415,11 +453,11 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
         Download for Windows
       </a>
-      <p class="ver"><span class="v">Version 1.0.0</span><span class="d">26 Oct 2026</span></p>
+      <p class="ver"></p>
     </div>
     <dl class="specs" data-for="windows">
-      <div><dt>File</dt><dd>yt-music-downloader-setup.exe</dd></div>
-      <div><dt>Size</dt><dd>About 75 MB</dd></div>
+      <div><dt>File</dt><dd data-file>yt-music-downloader-setup.exe</dd></div>
+      <div><dt>Size</dt><dd data-size></dd></div>
       <div><dt>Runs on</dt><dd>Windows 10 and 11, 64&#8209;bit</dd></div>
       <div><dt>Installs from</dt><dd>This page, not the Microsoft Store</dd></div>
     </dl>
@@ -452,6 +490,103 @@ html[data-os="windows"] [data-for="android"]{display:none !important}
       <figcaption>Songs downloading, more up next, and failed ones with Retry all. Test songs, for the picture.</figcaption>
     </figure>
   </section>
+
+  <script>
+  // The version beside each download button, drawn from versions.js, with the file's
+  // size. With more than one version it's a menu of them all: pick one and the button,
+  // the file and its size get that version. The newest keeps the fixed file name, so
+  // its link never changes. Older ones download their numbered copy.
+  // Runs here, straight after the first screen, so the version is there when it shows.
+  (function(){
+    var lists = window.versions || {};
+    var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+    function day(iso){ var p = iso.split('-'); return Number(p[2]) + ' ' + MONTHS[Number(p[1]) - 1] + ' ' + p[0]; }
+    function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[c]; }); }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.get[data-for]'), function(get){
+      var os = get.dataset.for, list = lists[os], slot = get.querySelector('.ver');
+      if (!list || !list.length || !slot) return;
+      var pill = get.querySelector('.pill');
+      var specs = document.querySelector('.specs[data-for="' + os + '"]');
+      var file = specs.querySelector('[data-file]'), size = specs.querySelector('[data-size]');
+      var fixedHref = pill.getAttribute('href'), fixedName = file.textContent;
+      function use(i){
+        pill.setAttribute('href', i === 0 ? fixedHref : fixedHref.replace(/[^\/]+$/, list[i].file));
+        file.textContent = i === 0 ? fixedName : list[i].file;
+        size.textContent = list[i].size;
+      }
+      use(0);
+
+      // One version: a plain line, the version over its date.
+      if (list.length === 1){
+        slot.innerHTML = '<span class="v">Version ' + esc(list[0].version) + '</span><span class="d">' + day(list[0].date) + '</span>';
+        return;
+      }
+
+      // More than one: a box that opens the menu, newest first.
+      var box = document.createElement('div');
+      box.className = 'vpick';
+      box.innerHTML =
+        '<button class="vbtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="versions-' + os + '">' +
+          '<span><span class="v"></span><span class="d"></span></span>' + CHEVRON + '</button>' +
+        '<ul class="vmenu" id="versions-' + os + '" role="listbox" aria-label="Versions" hidden>' +
+          list.map(function(v, i){
+            return '<li role="option" tabindex="-1" aria-selected="' + (i === 0) + '">' +
+              '<span class="ck">' + TICK + '</span>' +
+              '<span><span class="v">Version ' + esc(v.version) + '</span> <span class="d">· ' + day(v.date) + '</span></span>' +
+              (i === 0 ? '<span class="new">Latest</span>' : '<span></span>') +
+              '<span class="ch">' + esc(v.changed) + '</span></li>';
+          }).join('') +
+        '</ul>';
+      slot.parentNode.replaceChild(box, slot);
+
+      var btn = box.querySelector('.vbtn'), menu = box.querySelector('.vmenu');
+      var items = Array.prototype.slice.call(menu.querySelectorAll('[role=option]'));
+      var chosen = 0;
+      function label(){
+        btn.querySelector('.v').textContent = 'Version ' + list[chosen].version;
+        btn.querySelector('.d').textContent = day(list[chosen].date) + (chosen === 0 ? ' · Latest' : '');
+      }
+      function open(){ menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); items[chosen].focus(); }
+      function close(back){
+        if (menu.hidden) return;
+        menu.hidden = true; btn.setAttribute('aria-expanded', 'false');
+        if (back) btn.focus();
+      }
+      function choose(i){
+        chosen = i;
+        items.forEach(function(it, j){ it.setAttribute('aria-selected', j === i); });
+        use(i); label(); close(true);
+      }
+      label();
+
+      btn.addEventListener('click', function(){ if (menu.hidden) open(); else close(); });
+      btn.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); open(); }
+        else if (e.key === 'Escape') close();
+      });
+      items.forEach(function(it, i){ it.addEventListener('click', function(){ choose(i); }); });
+      // In the menu: up and down arrows, Home and End move; Enter or Space picks;
+      // Escape closes it; Tab closes it and moves on.
+      menu.addEventListener('keydown', function(e){
+        var i = items.indexOf(document.activeElement), last = items.length - 1;
+        if (e.key === 'ArrowDown') i = Math.min(i + 1, last);
+        else if (e.key === 'ArrowUp') i = Math.max(i - 1, 0);
+        else if (e.key === 'Home') i = 0;
+        else if (e.key === 'End') i = last;
+        else if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); choose(i); return; }
+        else if (e.key === 'Escape'){ close(true); return; }
+        else if (e.key === 'Tab'){ close(); return; }
+        else return;
+        e.preventDefault(); items[i].focus();
+      });
+      // A click anywhere else closes it, the Android / Windows switch too.
+      document.addEventListener('click', function(e){ if (!box.contains(e.target)) close(); });
+    });
+  })();
+  </script>
 
   <div class="more">
     <div class="wave" style="--to:34%" aria-hidden="true"></div>
