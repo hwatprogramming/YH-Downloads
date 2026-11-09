@@ -63,6 +63,17 @@ first app on it) the site is done. Nothing below blocks that.]
   - **Left, mine:** delete the empty `D:\Songs` folder. Claude's safety check blocked it.
   - The installer on the release is the 18:41 rebuild, still 1.0.0, re-uploaded 26 Oct:
     "Download to" says "It's set to your Music folder." the very first time.
+  - **Windows 1.1.0 is built and ready to go up**, 2026-11-09:
+    `../Desktop-Youtube-Music-Downloader/src-tauri/target/release/bundle/nsis/YT Music Downloader_1.1.0_x64-setup.exe`.
+    New: a playlist over 30 new songs asks first, and Pause / Cancel. Tried installed.
+    Steps: `doc/uploading-a-build.md`, "Updating an app that's already here". Title
+    would be "YT Music Downloader · Android 1.0 · Windows 1.1.0", notes line "Windows
+    1.1.0, 2026-11-09. Asks before a playlist over 30 new songs. Pause and Cancel on
+    each playlist and song." Then the Windows version on the page and card.
+    **Not answered yet:** upload now with a numbered copy of 1.0.0 first, as
+    `downloads-page.md` asks before an update overwrites it (the 1.0.0 file is in the
+    same `nsis` folder, 78,813,276 bytes, same as online), or wait for the version
+    picker below. The upload itself doesn't need the picker.
 - **Tick the repo journal's goals, mine to do.** Both are met. Goal 1 still says "one
   long page, a section per app", but it became a catalogue page plus a page per app on
   14 Oct. Claude offered to log that change with `log` and reword the goal. Not
