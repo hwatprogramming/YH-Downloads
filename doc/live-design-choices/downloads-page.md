@@ -654,6 +654,21 @@ line till it has a second version.
     committed). Each way on its own was the option: the step alone is easy to skip
     without anyone noticing, and the script alone only helps when it's run.
 
+### The VPN tip in the FAQ, 22 Nov
+
+Sometimes YouTube flags a whole internet connection, and every download fails with
+"Sign in to confirm you're not a bot". Updating the download engine doesn't help. A VPN
+fixed it on 2026-11-22, and on a phone so does mobile data.
+
+- **Where:** a second paragraph in each FAQ's "A download failed. What do I do?", word
+  for word the same as that app's Help. The other option was a question of its own.
+  Both apps had already put it under "A download failed" in their Help, so the page
+  matches them.
+- **Nowhere else on the page.** The feature lists and What it's for don't cover errors.
+- **Each platform's tip went up with its app's upload**, my call: Android with 1.1,
+  Windows with 1.1.1. Before that, the page would tell people about a message their app
+  doesn't show yet.
+
 ## No version number on the page
 
 The row for an app has its name, one line on what it does, and the link. The version

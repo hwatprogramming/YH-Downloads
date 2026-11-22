@@ -38,6 +38,13 @@ window.versions = {
   ],
   "windows": [
     {
+      "version": "1.1.1",
+      "date": "2026-11-22",
+      "changed": "Says to turn on a VPN when YouTube thinks it's a bot.",
+      "file": "yt-music-downloader-setup-1.1.1.exe",
+      "size": "About 81 MB"
+    },
+    {
       "version": "1.1.0",
       "date": "2026-11-09",
       "changed": "Asks before a playlist over 30 new songs. Pause and Cancel on each playlist and song.",
