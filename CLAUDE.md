@@ -48,10 +48,9 @@ first app on it) the site is done. Nothing below blocks that.]
 where it does: [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "The
 VPN tip in the FAQ".]
 
-- **Old canvas directions.** The three at
-  <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate". Riso
-  and Warm replaced them, so ask before moving them to "Past". [Up from the backlog
-  again 2026-11-22, once the VPN tip shipped. It had come up 2026-11-10.]
+[Done 2026-11-22: the old canvas's three directions (A, B, C) moved to "Past", my
+yes. <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY>]
+
 - **The Windows version on YT Music Downloader's page.** Tabs picked 26 Oct, see
   [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "The Windows
   version, on the same page". The installer goes in the APK's release,
@@ -86,8 +85,15 @@ VPN tip in the FAQ".]
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
-- Further off, in [`doc/backlog.md`](doc/backlog.md): the Support me page, parked till
-  I can get into Ko-fi.
+- **Support me page, with Ko-fi.** Parked 2026-10-16, cause I can't get into my Ko-fi
+  account right now. Waiting on me, not on order. [Up from the backlog 2026-11-22.]
+  - The mockup is done: `.impeccable/mocks/catalogue/src/support.html`, in the site's
+    look, with a "Support me on Ko-fi" button that points at plain ko-fi.com.
+  - To pick it back up: put my Ko-fi address on the button, and put the Support me
+    button back in the header. It was last in the header, outlined champagne with a
+    heart. On phones it sat beside "YH Downloads". The details are in
+    [`downloads-page.md`](doc/live-design-choices/downloads-page.md).
+- Further off, in [`doc/backlog.md`](doc/backlog.md): nothing right now.
 
 [`.impeccable/questions/` (old picking-page state) and `.playwright-cli/` (Claude's
 check screenshots and logs) are in `.gitignore` since 2026-10-16, cause this repo is

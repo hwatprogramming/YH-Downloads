@@ -338,7 +338,7 @@ there are the first round, before any changes.
 
 What came before:
 
-- **Three directions on a design canvas**, drawn first, still in "To evaluate":
+- **Three directions on a design canvas**, drawn first, moved to "Past" 2026-11-22:
   <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY>. A · Bands, gold from the icon.
   B · Bands, dark from the app's screen. C · Cards, gold from the icon. After seeing
   them I asked to use Impeccable.
