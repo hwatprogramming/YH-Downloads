@@ -15,6 +15,13 @@
 window.versions = {
   "android": [
     {
+      "version": "1.2",
+      "date": "2026-11-22",
+      "changed": "Pause and Cancel on each playlist and song, and Pause all / Cancel all on the download notification.",
+      "file": "yt-music-downloader-1.2.apk",
+      "size": "About 67 MB"
+    },
+    {
       "version": "1.1",
       "date": "2026-11-22",
       "changed": "Says to switch to mobile data or turn on a VPN when YouTube thinks it's a bot.",

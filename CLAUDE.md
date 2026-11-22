@@ -43,6 +43,20 @@ the section headings, my call the same day.]
 [Stopped here 16 Oct, my call. By the done line from 13 Oct (page live in that layout,
 first app on it) the site is done. Nothing below blocks that.]
 
+- **A VPN tip in YT Music Downloader's FAQ.** Agreed 2026-11-22. Sometimes YouTube
+  flags a whole internet connection, and then every download fails with "Sign in to
+  confirm you're not a bot". Updating the download engine doesn't help. A VPN does: it
+  fixed it on 2026-11-22, and on a phone so does switching to mobile data. Add that to
+  both FAQs, Android and Windows (`yt-music-downloader/index.html`), in "A download
+  failed. What do I do?" or as its own question. Both apps get the same tip in their
+  Help and error message, each in its own repo (`Next` there).
+  - **In both FAQs 22 Nov.** A second paragraph in "A download failed", word for
+    word the same as each app's Help. Nothing else on the page fits it. Held on
+    purpose, my call: each goes up with its app's upload, not before.
+  - **Android: live 22 Nov**, with Android 1.1 (the tip) and 1.2 (Pause and Cancel),
+    uploaded from the phone app's repo the same day.
+  - **Left: Windows.** Its FAQ tip is still only in the working copy, not committed.
+    It goes up with Windows 1.1.1, built and OK'd in its repo, not uploaded yet.
 - **The Windows version on YT Music Downloader's page.** Tabs picked 26 Oct, see
   [`downloads-page.md`](doc/live-design-choices/downloads-page.md), "The Windows
   version, on the same page". The installer goes in the APK's release,
@@ -77,15 +91,13 @@ first app on it) the site is done. Nothing below blocks that.]
   [The phone cut-off I saw: it was "DOWNLOADER" in the stand-in font on a slow first
   load. Fixed by review fix #11, checked on my phone 16 Oct.]
   [The FAQ's "Is this legal?" is left out for good, my call 2026-10-16.]
-- **Old canvas directions.** The three at
-  <https://claude.ai/artifact/GyEG127fHrS5bLCeDf1BgY> are still in "To evaluate". Riso
-  and Warm replaced them, so ask before moving them to "Past". Back up from the backlog
-  2026-11-10.
-  - [`.impeccable/questions/` (old picking-page state) and `.playwright-cli/` (Claude's
-    check screenshots and logs) are in `.gitignore` since 2026-10-16, cause this repo is
-    public.]
-- Further off, in [`doc/backlog.md`](doc/backlog.md): the Support me page, parked till
+- Further off, in [`doc/backlog.md`](doc/backlog.md): the old canvas directions (back
+  there 2026-11-22, to make room for the VPN tip), and the Support me page, parked till
   I can get into Ko-fi.
+
+[`.impeccable/questions/` (old picking-page state) and `.playwright-cli/` (Claude's
+check screenshots and logs) are in `.gitignore` since 2026-10-16, cause this repo is
+public.]
 
 [Version picker: done 2026-11-10, A, the menu beside the button. Each app's versions
 are in `<tag>/versions.js`, the update steps (here and in my global `CLAUDE.md`) add
