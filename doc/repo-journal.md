@@ -95,6 +95,13 @@ page anyway.
 
 Can we just do all 3?
 
+## 22 Nov 2026, A VPN tip for the blocked IP address
+
+I encountered an issue with a blocked IP address and found a VPN to be a fix. Suggest
+using a VPN in the FAQ and any other relevant sections.
+
+Hold it first, before the 2 uploads.
+
 # Repo summary
 
 [Kept by Claude, built from the entries above. Every line carries the date of the
@@ -134,6 +141,9 @@ entry it came from, e.g. `[6 Oct]`, so the reasoning is one jump away.]
 - Old versions' files stay in the app's one release as numbered copies, next to the
   newest one with its fixed name. [26 Oct] [Way 1 of 3. The other two, and why, in
   `doc/live-design-choices/downloads-page.md`.]
+- The FAQ suggests a VPN when YouTube blocks your IP address. [22 Nov] [Done 22 Nov,
+  in "A download failed" on both platforms. Nothing else on the page fit it.]
+- A tip about an app's new message goes up with that app's upload, not before. [22 Nov]
 
 ## Goals
 
